@@ -1,34 +1,25 @@
-import { component, html } from '@pionjs/pion';
-import { renderQueue } from './render';
-import { useQueue, UseQueue } from './hooks/use-queue';
-import { styles } from './styles.css';
-import type { Pagination, RenderQueueProps } from './types';
 import type { TemplateResult } from 'lit-html';
+import { updateWith } from '../util/polymer-property-changed-event.js';
+import { renderQueue, RenderQueue } from './render';
+import { Pagination } from './types';
+import useAsyncAction, { Ot } from './use-async-action';
+import useQueue, { UseQueue } from './use-queue';
 
-const updateWith =
-	<T>(setter: (value: T) => void) =>
-	(e: CustomEvent<T>) =>
-		setter(e.detail);
-
-type QueueReturnProps<I> = ReturnType<typeof useQueue<I>>;
-
-interface ViewProps<I> extends Omit<QueueReturnProps<I>, 'nav'> {
+type QueueProps<I> = ReturnType<typeof useQueue<I>>;
+type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
 	nav: TemplateResult;
 	item: I;
-}
+};
 
-export interface QueueComponentProps<I, D = I>
+interface Props<I, D>
 	extends Pick<UseQueue<I>, 'id' | 'api' | 'fallback' | 'split'>,
-		Pick<RenderQueueProps<I, D>, 'details' | 'afterHeading'> {
+		Pick<RenderQueue<I, D>, 'details' | 'afterHeading'> {
 	list: (
-		thru: Record<string, unknown>,
-		props: QueueReturnProps<I> & { onRef: (el?: Element) => void },
+		thru: Record<string, any>,
+		props: QueueProps<I> & { onRef: (el?: Element) => void },
 	) => TemplateResult;
-	view: (thru: Record<string, unknown>, props: ViewProps<I>) => TemplateResult;
-	loader: (
-		thru: Record<string, unknown>,
-		props: ViewProps<I>,
-	) => TemplateResult;
+	view: (thru: Record<string, any>, props: ViewProps<I>) => TemplateResult;
+	loader: (thru: Record<string, any>, props: ViewProps<I>) => TemplateResult;
 	heading: string;
 	settingsId?: string;
 	idHashParam?: string;
@@ -36,7 +27,11 @@ export interface QueueComponentProps<I, D = I>
 	pagination?: Pagination;
 }
 
-export const queue = <I, D = I>(props: QueueComponentProps<I, D>) => {
+interface Image extends HTMLElement {
+	syncImageState: () => void;
+}
+
+export const queue = <I, D = I>(props: Props<I, D>) => {
 	const {
 		heading,
 		afterHeading,
@@ -77,7 +72,11 @@ export const queue = <I, D = I>(props: QueueComponentProps<I, D>) => {
 		tabnav,
 	} = queueProps;
 
-	let listRef: { current: Element | null } = { current: null };
+	const { listRef, onAsyncSimpleAction } = useAsyncAction(nav);
+	const renderProps = {
+		...queueProps,
+		onAsyncSimpleAction,
+	};
 
 	return renderQueue({
 		details,
@@ -93,25 +92,31 @@ export const queue = <I, D = I>(props: QueueComponentProps<I, D>) => {
 		list: list(
 			{
 				id: 'list',
+				'.exposedParts': `itemRow, itemRow-${index}`,
 				'.settingsId': settingsId,
 				'@visible-items-changed': updateWith(setItems),
 				'@selected-items-changed': updateWith(setSelected),
 				'@total-available-changed': updateWith(setTotalAvailable),
+				'@async-simple-action': onAsyncSimpleAction,
 				'@omnitable-item-click': onItemClick,
 			},
 			{
-				...queueProps,
-				onRef: (el) => (listRef.current = el ?? null),
+				...renderProps,
+				onRef: (el) => (listRef.current = el as Ot),
 			},
 		),
 		renderItem: ({ item, nav }) =>
 			view(
 				{
 					class: 'view-core',
+					exportparts: 'header, header-bg',
 					'.hideActions': hideActions,
 					'.item': item,
+					'@async-simple-action': onAsyncSimpleAction,
+					'@rendered': (event: Event) =>
+						(event.target as Image).syncImageState(),
 				},
-				{ ...queueProps, nav, item: item as I },
+				{ ...renderProps, nav, item: item as I },
 			),
 		renderLoader: ({ item, nav }) =>
 			loader(
@@ -119,22 +124,7 @@ export const queue = <I, D = I>(props: QueueComponentProps<I, D>) => {
 					class: 'view-core',
 					'.item': item,
 				},
-				{ ...queueProps, nav, item },
+				{ ...renderProps, nav, item },
 			),
 	});
 };
-
-const QueueComponent = (host: Element) => {
-	return html`<slot></slot>`;
-};
-
-export const CosmozQueue = component(QueueComponent, {
-	observedAttributes: [],
-	useShadowDOM: true,
-	styleSheets: [styles],
-});
-
-customElements.define('cosmoz-queue', CosmozQueue);
-
-export { CosmozQueue as Queue };
-export default queue;
