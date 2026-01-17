@@ -1,13 +1,13 @@
 import { debounce$ } from '@neovici/cosmoz-utils/promise';
 import { useEffect, useMemo, useState } from '@pionjs/pion';
-import { jsonPost } from '../api/fetch';
-import { apiUrl } from '../api/url';
+import { jsonPost } from '../util/fetch/fetch';
+import { apiUrl } from '../util/fetch/url';
 
 import { nothing } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { until } from 'lit-html/directives/until.js';
 import { when } from 'lit-html/directives/when.js';
-import { Performable } from '../context/boot-info';
+import { Performable } from '../types/performable';
 
 interface Data<TAvailableAction> {
 	[key: string]: Performable<TAvailableAction>[];

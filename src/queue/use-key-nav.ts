@@ -1,7 +1,7 @@
-import { useEffect } from '@pionjs/pion';
-import { useMeta } from '@neovici/cosmoz-utils/hooks/use-meta';
 import { useHost } from '@neovici/cosmoz-utils/hooks/use-host';
-import activeElement from '../dom/active-element';
+import { useMeta } from '@neovici/cosmoz-utils/hooks/use-meta';
+import { useEffect } from '@pionjs/pion';
+import activeElement from '../util/dom/active-element';
 
 type Tab = 'overview' | 'queue' | 'split';
 

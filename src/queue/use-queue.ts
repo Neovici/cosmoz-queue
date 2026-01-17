@@ -1,15 +1,15 @@
-import { useMemo, useCallback } from '@pionjs/pion';
-import { useViewInfo } from '@neovici/cosmoz-viewinfo';
-import { json } from '../api/fetch';
-import { memoize } from '@neovici/cosmoz-utils/memoize';
 import { array } from '@neovici/cosmoz-utils/array';
+import { memoize } from '@neovici/cosmoz-utils/memoize';
+import { useViewInfo } from '@neovici/cosmoz-viewinfo';
+import { useCallback, useMemo } from '@pionjs/pion';
+import { json } from '../util/fetch/fetch';
 
-import useTabs, { Options as UseTabsOptions } from './use-tabs';
-import useSplit, { SplitOpts } from './use-split';
 import useDataNav, { Opts as UseDataNav } from './use-data-nav';
 import useKeyNav from './use-key-nav';
-import useUpdates from './use-updates';
 import { useListState } from './use-list';
+import useSplit, { SplitOpts } from './use-split';
+import useTabs, { Options as UseTabsOptions } from './use-tabs';
+import useUpdates from './use-updates';
 
 import { getItems, normalizeHeaders } from './util';
 
@@ -39,7 +39,8 @@ const useQNav = <I>({
 };
 
 interface Opts<I>
-	extends ReturnType<typeof useListState<I>>,
+	extends
+		ReturnType<typeof useListState<I>>,
 		Pick<UseTabsOptions<I>, 'fallback'> {
 	tabHashParam?: string;
 	idHashParam?: string;

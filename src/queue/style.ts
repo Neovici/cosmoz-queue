@@ -1,5 +1,4 @@
-import { tagged as css } from '@neovici/cosmoz-utils';
-import { useSharedStyles } from '../hooks/use-shared-styles';
+import { css } from '@pionjs/pion';
 
 export const base = css`
 	:host {
@@ -165,7 +164,6 @@ export default ({
 	index?: number | string;
 	mobile?: boolean;
 }) => css`
-	${useSharedStyles()}
 	${base}
 
 	#list::part(itemRow-${index || '0'}) {
