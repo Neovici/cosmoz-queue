@@ -1,3 +1,3 @@
-import cfg from '@neovici/cfg/prettier/config.mjs';
+import cfg from '@neovici/cfg/prettier/index.mjs';
 
 export default cfg;

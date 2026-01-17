@@ -1,4 +1,4 @@
-import cfg from '@neovici/cfg/eslint/config.mjs';
+import cfg from '@neovici/cfg/eslint/index.mjs';
 
 export default [
 	...cfg,
