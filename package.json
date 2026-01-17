@@ -108,6 +108,7 @@
     "typescript": "^5.4.3"
   },
   "overrides": {
-    "conventional-changelog-conventionalcommits": ">= 8.0.0"
+    "conventional-changelog-conventionalcommits": ">= 8.0.0",
+    "@polymer/polymer": "^3.5.2"
   }
 }

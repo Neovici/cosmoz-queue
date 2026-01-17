@@ -1,7 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { nothing, TemplateResult } from 'lit-html';
 import { spy } from 'sinon';
-import '../index';
 import { renderNav, renderPagination } from '../render';
 
 suite('queue > render', () => {
