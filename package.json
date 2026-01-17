@@ -58,12 +58,11 @@
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./hooks/use-queue": "./dist/hooks/use-queue.js",
-    "./hooks/use-tabs": "./dist/hooks/use-tabs.js",
-    "./hooks/use-split": "./dist/hooks/use-split.js",
-    "./hooks/use-data-nav": "./dist/hooks/use-data-nav.js",
-    "./hooks/use-list-state": "./dist/hooks/use-list-state.js",
-    "./render": "./dist/render.js"
+    "./use-queue": "./dist/queue/use-queue.js",
+    "./use-tabs": "./dist/queue/use-tabs.js",
+    "./use-split": "./dist/queue/use-split.js",
+    "./use-data-nav": "./dist/queue/use-data-nav.js",
+    "./use-list": "./dist/queue/use-list.js"
   },
   "dependencies": {
     "@neovici/cosmoz-i18next": "^3.5.1",
