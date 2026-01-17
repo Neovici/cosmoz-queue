@@ -1,0 +1,13 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - beta
+      - master
+jobs:
+  build:
+    uses: Neovici/cfg/.github/workflows/forge.yml@master
+    secrets: inherit
