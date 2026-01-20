@@ -1,4 +1,4 @@
-import { LitRenderable } from '../../types/lit';
+import { LitRenderable } from '../types/lit';
 
 export interface Render<T> {
 	(spec: T & { name: string }): LitRenderable;

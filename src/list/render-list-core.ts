@@ -1,6 +1,5 @@
-import { renderLoadMore } from '#cz/render/load-more.ts';
-import '@neovici/cosmoz-omnitable';
 import { formDialog } from '@neovici/cosmoz-form';
+import '@neovici/cosmoz-omnitable';
 import { lift } from '@pionjs/pion';
 import { html } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
@@ -8,6 +7,7 @@ import { until } from 'lit-html/directives/until.js';
 import { when } from 'lit-html/directives/when.js';
 import { Action, renderActions } from '../actions';
 import type { Column, Columns } from './column';
+import { renderLoadMore } from './more/render-more';
 import { renderGenericActions } from './render-generic-actions';
 import { UseListCoreResult } from './use-list-core';
 

@@ -3,7 +3,7 @@ import { useCallback, useMemo } from '@pionjs/pion';
 import { useFormDialogable } from '@neovici/cosmoz-form';
 import type { ColumnFilters, ColumnNames, Columns } from './column';
 import { ListCoreState, useListCoreState } from './use-list-state';
-import { TList$, useMore } from './use-more';
+import { TList$, useMore } from './more/use-more';
 
 export interface ParamsOptions<C> {
 	descending?: boolean;

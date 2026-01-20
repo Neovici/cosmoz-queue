@@ -1,10 +1,10 @@
-import { loadMoreStyle } from '#cz/render/load-more.ts';
 import { style as statusStyle } from '#cz/render/status/index.ts';
 import {
 	bottomBarInfoStyles,
 	buttonStyles,
 } from '#cz/styles/app/shared-styles';
 import { css } from '@pionjs/pion';
+import { style as loadMoreStyle } from './more/render-more';
 export const style = css`
 	:host {
 		display: flex;
