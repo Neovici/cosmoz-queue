@@ -1,6 +1,6 @@
 import { RowAction } from '#cz/cz-components/cz-actions/actions.ts';
-import { useFormDialogable } from '#cz/cz-components/cz-form/cz-form-dialog.ts';
 import { useCallback, useMemo } from '@pionjs/pion';
+import { useFormDialogable } from '@neovici/cosmoz-form';
 import type { ColumnFilters, ColumnNames, Columns } from './column';
 import { ListCoreState, useListCoreState } from './use-list-state';
 import { TList$, useMore } from './use-more';

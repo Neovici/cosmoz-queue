@@ -1,6 +1,6 @@
-import { formDialog } from '#cz/cz-components/cz-form/cz-form-dialog.ts';
 import { renderLoadMore } from '#cz/render/load-more.ts';
 import '@neovici/cosmoz-omnitable';
+import { formDialog } from '@neovici/cosmoz-form';
 import { lift } from '@pionjs/pion';
 import { html } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';

@@ -1,7 +1,7 @@
-import { Dialogable } from '#cz/cz-components/cz-form/cz-form-dialog.ts';
 import { html, nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
+import type { Dialogable } from '@neovici/cosmoz-form';
 
 export const actionCount = <T>(items: T[], applicableItems: T[] = items) =>
 	when(applicableItems.length > 1, () =>
