@@ -10,13 +10,13 @@
     "pion",
     "lit-html"
   ],
-  "homepage": "https://github.com/neovici/cosmoz-queue#readme",
+  "homepage": "https://github.com/Neovici/cosmoz-queue#readme",
   "bugs": {
-    "url": "https://github.com/neovici/cosmoz-queue/issues"
+    "url": "https://github.com/Neovici/cosmoz-queue/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/neovici/cosmoz-queue.git"
+    "url": "git+https://github.com/Neovici/cosmoz-queue.git"
   },
   "license": "Apache-2.0",
   "author": "",
@@ -66,6 +66,8 @@
     "./use-list": "./dist/queue/use-list.js"
   },
   "dependencies": {
+    "@neovici/cosmoz-dialog-next": "^1.1.1",
+    "@neovici/cosmoz-form": "^1.0.1",
     "@neovici/cosmoz-i18next": "^3.5.1",
     "@neovici/cosmoz-omnitable": "^16.0.3",
     "@neovici/cosmoz-router": "^11.2.8",
@@ -73,7 +75,7 @@
     "@neovici/cosmoz-tabs": "^9.3.2",
     "@neovici/cosmoz-utils": "^6.14.2",
     "@neovici/cosmoz-viewinfo": "^4.1.1",
-    "@pionjs/pion": "^2.5.2",
+    "@pionjs/pion": "^2.10.0",
     "i18next": "^25.7.4",
     "lit-html": "^3.3.1",
     "split.js": "^1.6.5"
