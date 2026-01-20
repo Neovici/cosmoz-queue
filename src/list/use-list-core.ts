@@ -1,9 +1,8 @@
-import { RowAction } from '#cz/cz-components/cz-actions/actions.ts';
-import { useCallback, useMemo } from '@pionjs/pion';
 import { useFormDialogable } from '@neovici/cosmoz-form';
+import { useCallback, useMemo } from '@pionjs/pion';
 import type { ColumnFilters, ColumnNames, Columns } from './column';
-import { ListCoreState, useListCoreState } from './use-list-state';
 import { TList$, useMore } from './more/use-more';
+import { ListCoreState, useListCoreState } from './use-list-state';
 
 export interface ParamsOptions<C> {
 	descending?: boolean;
@@ -11,11 +10,6 @@ export interface ParamsOptions<C> {
 	columns: C;
 	filters?: ColumnFilters<C>;
 }
-
-export type GenericActionsCallback<TItem> = readonly [
-	(opts: { selectedItems: TItem[] }) => Promise<RowAction[]>,
-	readonly unknown[],
-];
 
 export interface UseListCore<
 	TColumns extends Columns,
@@ -26,7 +20,6 @@ export interface UseListCore<
 	params: readonly [(opts: ParamsOptions<TColumns>) => TParams, unknown[]];
 	columns: readonly [() => TColumns, unknown[]];
 	list$: readonly [TList$<TParams, TItem>, unknown[]];
-	genericActions$?: GenericActionsCallback<TItem>;
 }
 
 type UseFormDialogable = ReturnType<typeof useFormDialogable>;
@@ -41,18 +34,7 @@ export interface UseListCoreResult<
 	data$: PromiseLike<TItem[]>;
 	columns: TColumns;
 	loadMore: (() => void) | undefined;
-	genericActions$: Promise<RowAction[]>;
 }
-
-const noGenericActions = [async () => [], []] as const;
-const useGenericActions$ = <TItem>(
-	[fn, values]: GenericActionsCallback<TItem> = noGenericActions,
-	selectedItems: TItem[],
-): Promise<RowAction[]> =>
-	useMemo(
-		async () => fn?.({ selectedItems }) ?? [],
-		[...values, selectedItems],
-	);
 
 export const useListCore = <
 	TColumns extends Columns,
@@ -62,7 +44,6 @@ export const useListCore = <
 	columns: _columns,
 	params: __params,
 	list$: _list$,
-	genericActions$: _genericActions$,
 	pageSize,
 }: UseListCore<TColumns, TParams, TItem>): UseListCoreResult<
 	TColumns,
@@ -93,11 +74,6 @@ export const useListCore = <
 		pageSize,
 	});
 
-	const genericActions$ = useGenericActions$(
-		_genericActions$,
-		state.selectedItems,
-	);
-
 	return {
 		...state,
 		data$,
@@ -105,6 +81,5 @@ export const useListCore = <
 		dialog,
 		open,
 		loadMore,
-		genericActions$,
 	};
 };

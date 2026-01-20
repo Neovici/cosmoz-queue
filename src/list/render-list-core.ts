@@ -8,7 +8,6 @@ import { when } from 'lit-html/directives/when.js';
 import { Action, renderActions } from '../actions';
 import type { Column, Columns } from './column';
 import { renderLoadMore } from './more/render-more';
-import { renderGenericActions } from './render-generic-actions';
 import { UseListCoreResult } from './use-list-core';
 
 export interface RenderListCoreProps<TItem extends object> {
@@ -56,8 +55,6 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	dialog,
 	open,
 
-	genericActions$,
-
 	loadMore,
 }: RenderListCore<TColumns, TItem>) => [
 	html`<cosmoz-omnitable
@@ -96,7 +93,6 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 				actions,
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
-			renderGenericActions(genericActions$, 'actions'),
 			renderLoadMore({ data$, onMore: loadMore }),
 		]}</cosmoz-omnitable
 	>`,
