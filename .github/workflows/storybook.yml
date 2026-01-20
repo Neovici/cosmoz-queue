@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
 jobs:
   storybook:
     uses: Neovici/cfg/.github/workflows/story.yml@master
