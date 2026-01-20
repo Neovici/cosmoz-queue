@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Neovici/cosmoz-queue/compare/v1.0.0...v1.1.0) (2026-01-20)
+
+### Features
+
+* bump ([5d7f41e](https://github.com/Neovici/cosmoz-queue/commit/5d7f41e5b392a39e260fb1e4a17eafe02ff5e26b))
+
 ## 1.0.0 (2026-01-20)
 
 ### Features
