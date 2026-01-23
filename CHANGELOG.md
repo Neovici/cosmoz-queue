@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/Neovici/cosmoz-queue/compare/v1.1.0...v1.2.0) (2026-01-23)
+
+### Features
+
+* export all modules from main index ([d2cede6](https://github.com/Neovici/cosmoz-queue/commit/d2cede698420c8e2adc48f92ed232b7d1452ccf7))
+
 ## [1.1.0](https://github.com/Neovici/cosmoz-queue/compare/v1.0.0...v1.1.0) (2026-01-20)
 
 ### Features
