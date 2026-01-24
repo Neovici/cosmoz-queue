@@ -33,11 +33,19 @@ export const notice = (data: unknown) => {
 
 const baseInit: Partial<RequestInit> = {};
 
-export const setBaseInit = <T extends RequestInit>(init: T) => {
+type BaseInitOptions = Partial<RequestInit> & {
+	getHeaders?: () => Record<string, string>;
+};
+
+let getHeadersFn: (() => Record<string, string>) | undefined;
+
+export const setBaseInit = <T extends BaseInitOptions>(init: T) => {
+	const { getHeaders, ...rest } = init;
+	if (getHeaders) getHeadersFn = getHeaders;
 	const mergedObject = {
 		...baseInit,
-		...init,
-		headers: { ...baseInit.headers, ...init.headers },
+		...rest,
+		headers: { ...baseInit.headers, ...(rest as RequestInit).headers },
 	};
 	return Object.assign(baseInit, mergedObject);
 };
@@ -50,6 +58,7 @@ export const fetch = (url: string, opts?: RequestInit) =>
 		...opts,
 		headers: {
 			...baseInit?.headers,
+			...getHeadersFn?.(),
 			...opts?.headers,
 		},
 	});
