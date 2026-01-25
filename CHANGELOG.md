@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/Neovici/cosmoz-queue/compare/v1.2.0...v1.3.0) (2026-01-25)
+
+### Features
+
+* add getHeaders callback to setBaseInit for dynamic headers ([#7](https://github.com/Neovici/cosmoz-queue/issues/7)) ([ef25cc4](https://github.com/Neovici/cosmoz-queue/commit/ef25cc4f3c17ff3957cb6128530f52554d8a9a13)), closes [#5](https://github.com/Neovici/cosmoz-queue/issues/5)
+
 ## [1.2.0](https://github.com/Neovici/cosmoz-queue/compare/v1.1.0...v1.2.0) (2026-01-23)
 
 ### Features
