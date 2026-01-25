@@ -63,7 +63,8 @@
     "./use-tabs": "./dist/queue/use-tabs.js",
     "./use-split": "./dist/queue/use-split.js",
     "./use-data-nav": "./dist/queue/use-data-nav.js",
-    "./use-list": "./dist/queue/use-list.js"
+    "./use-list": "./dist/queue/use-list.js",
+    "./util/fetch": "./dist/util/fetch/fetch.js"
   },
   "dependencies": {
     "@neovici/cosmoz-dialog-next": "^1.1.1",
