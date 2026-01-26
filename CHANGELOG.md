@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/Neovici/cosmoz-queue/compare/v1.3.1...v1.3.2) (2026-01-26)
+
+### Bug Fixes
+
+* add CSS custom properties for button-nav theming ([#11](https://github.com/Neovici/cosmoz-queue/issues/11)) ([f98feb7](https://github.com/Neovici/cosmoz-queue/commit/f98feb74dd48415be4955b643079801b2b0bd02b)), closes [#fff](https://github.com/Neovici/cosmoz-queue/issues/fff) [#a4abae](https://github.com/Neovici/cosmoz-queue/issues/a4abae) [#343434](https://github.com/Neovici/cosmoz-queue/issues/343434) [#8](https://github.com/Neovici/cosmoz-queue/issues/8)
+
 ## [1.3.1](https://github.com/Neovici/cosmoz-queue/compare/v1.3.0...v1.3.1) (2026-01-26)
 
 ### Bug Fixes
