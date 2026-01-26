@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/Neovici/cosmoz-queue/compare/v1.3.0...v1.3.1) (2026-01-26)
+
+### Bug Fixes
+
+* export util/fetch in package.json exports field ([#10](https://github.com/Neovici/cosmoz-queue/issues/10)) ([4caad67](https://github.com/Neovici/cosmoz-queue/commit/4caad679afc65293501556265cf3c97cb3b7be1e)), closes [#9](https://github.com/Neovici/cosmoz-queue/issues/9)
+
 ## [1.3.0](https://github.com/Neovici/cosmoz-queue/compare/v1.2.0...v1.3.0) (2026-01-25)
 
 ### Features
