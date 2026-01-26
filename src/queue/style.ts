@@ -105,10 +105,28 @@ export const base = css`
 		height: 40px;
 		cursor: pointer;
 		outline: none;
+		background-color: var(--cz-button-nav-bg, #fff);
+		border-radius: 500px;
+		border: solid 1px var(--cz-button-nav-border, #a4abae);
+		font-size: 1.08em;
+		letter-spacing: -0.01em;
+		padding: 0 10px;
+		text-transform: none;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		color: var(--cz-button-nav-color, #343434);
+		font-weight: normal;
+		margin: 0 0.29em;
+	}
+
+	.button-nav[disabled] {
+		opacity: 0.5;
 	}
 
 	.button-nav:active {
-		background: rgba(52, 52, 52, 0.4);
+		background: var(--cz-button-nav-active-bg, rgba(52, 52, 52, 0.4));
 	}
 	.button-nav.prev,
 	.button-page.prev,
