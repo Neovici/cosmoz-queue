@@ -1,6 +1,6 @@
 import { formDialog } from '@neovici/cosmoz-form';
 import '@neovici/cosmoz-omnitable';
-import { lift } from '@pionjs/pion';
+import { lift, type Renderable } from '@pionjs/pion';
 import { html } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { until } from 'lit-html/directives/until.js';
@@ -10,7 +10,10 @@ import type { Column, Columns } from './column';
 import { renderLoadMore } from './more/render-more';
 import { UseListCoreResult } from './use-list-core';
 
-export interface RenderListCoreProps<TItem extends object> {
+export interface RenderListCoreProps<
+	TItem extends object,
+	TAction extends object = object,
+> {
 	settingsId: string;
 	exposedParts?: string;
 	hashParam?: string;
@@ -19,17 +22,31 @@ export interface RenderListCoreProps<TItem extends object> {
 	noLocal?: boolean;
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
+	renderGenericActions?: (
+		genericActions$: Promise<TAction[]>,
+		slot: string,
+	) => Renderable;
 }
 
-export interface RenderListCore<TColumns extends Columns, TItem extends object>
-	extends UseListCoreResult<TColumns, TItem>, RenderListCoreProps<TItem> {}
+export interface RenderListCore<
+	TColumns extends Columns,
+	TItem extends object,
+	TAction extends object = object,
+>
+	extends
+		UseListCoreResult<TColumns, TItem, TAction>,
+		RenderListCoreProps<TItem, TAction> {}
 
 export const renderColumns = <T extends Columns>(columns: T) =>
 	Object.entries(columns).map(([name, column]) =>
 		(column as Column<unknown>).render({ ...column, name }),
 	);
 
-export const renderListCore = <TColumns extends Columns, TItem extends object>({
+export const renderListCore = <
+	TColumns extends Columns,
+	TItem extends object,
+	TAction extends object = object,
+>({
 	settingsId,
 	hashParam,
 	enabledColumns,
@@ -55,8 +72,11 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	dialog,
 	open,
 
+	genericActions$,
+	renderGenericActions,
+
 	loadMore,
-}: RenderListCore<TColumns, TItem>) => [
+}: RenderListCore<TColumns, TItem, TAction>) => [
 	html`<cosmoz-omnitable
 		id="omnitable"
 		?no-local=${noLocal}
@@ -93,6 +113,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 				actions,
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
+			renderGenericActions?.(genericActions$, 'actions'),
 			renderLoadMore({ data$, onMore: loadMore }),
 		]}</cosmoz-omnitable
 	>`,
