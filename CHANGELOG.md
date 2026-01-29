@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/Neovici/cosmoz-queue/compare/v1.3.3...v1.4.0) (2026-01-29)
+
+### Features
+
+* add list subpath exports ([a8b521f](https://github.com/Neovici/cosmoz-queue/commit/a8b521faaad0f2e61d3b007f9b956534afa3312f))
+
 ## [1.3.3](https://github.com/Neovici/cosmoz-queue/compare/v1.3.2...v1.3.3) (2026-01-29)
 
 ### Bug Fixes
