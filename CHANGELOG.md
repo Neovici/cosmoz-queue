@@ -1,3 +1,11 @@
+## [1.5.0](https://github.com/Neovici/cosmoz-queue/compare/v1.4.0...v1.5.0) (2026-01-30)
+
+### Features
+
+* export list/render/more ([84cde6f](https://github.com/Neovici/cosmoz-queue/commit/84cde6fbac31ab7de0b2f875715f2fec720d8ed0))
+* **list:** add genericActions$ pattern for dynamic list actions ([fe2100f](https://github.com/Neovici/cosmoz-queue/commit/fe2100f95a480e64a677adb9b1649d52b80156ef))
+* **list:** replace genericActions$ with content function ([b517d0d](https://github.com/Neovici/cosmoz-queue/commit/b517d0d8da1be75e0f8b7cb01829870feb8e9b57))
+
 ## [1.4.0](https://github.com/Neovici/cosmoz-queue/compare/v1.3.3...v1.4.0) (2026-01-29)
 
 ### Features
