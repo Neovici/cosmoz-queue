@@ -66,6 +66,7 @@
     "./use-data-nav": "./dist/queue/use-data-nav.js",
     "./use-list": "./dist/queue/use-list.js",
     "./util/fetch": "./dist/util/fetch/fetch.js",
+    "./actions": "./dist/actions/index.js",
     "./list": "./dist/list/index.js",
     "./list/more": "./dist/list/more/use-more.js",
     "./list/more/render": "./dist/list/more/render-more.js"
