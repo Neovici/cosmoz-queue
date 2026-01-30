@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/Neovici/cosmoz-queue/compare/v1.5.0...v1.5.1) (2026-01-30)
+
+### Bug Fixes
+
+* **queue:** prevent button-nav from shrinking ([cfe1d66](https://github.com/Neovici/cosmoz-queue/commit/cfe1d666040cf7413bc48933822113d9c7aad8d9))
+
 ## [1.5.0](https://github.com/Neovici/cosmoz-queue/compare/v1.4.0...v1.5.0) (2026-01-30)
 
 ### Features
