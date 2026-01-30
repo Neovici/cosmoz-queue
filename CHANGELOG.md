@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/Neovici/cosmoz-queue/compare/v1.5.1...v1.6.0) (2026-01-30)
+
+### Features
+
+* add actions subpath export ([2347798](https://github.com/Neovici/cosmoz-queue/commit/234779864ea01cd849bfa4c58c34ef0cd6c173a5))
+
 ## [1.5.1](https://github.com/Neovici/cosmoz-queue/compare/v1.5.0...v1.5.1) (2026-01-30)
 
 ### Bug Fixes
