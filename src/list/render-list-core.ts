@@ -1,6 +1,6 @@
 import { formDialog } from '@neovici/cosmoz-form';
 import '@neovici/cosmoz-omnitable';
-import { lift } from '@pionjs/pion';
+import { lift, type Renderable } from '@pionjs/pion';
 import { html } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { until } from 'lit-html/directives/until.js';
@@ -19,6 +19,7 @@ export interface RenderListCoreProps<TItem extends object> {
 	noLocal?: boolean;
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
+	content?: (opts: { selectedItems: TItem[] }) => Renderable;
 }
 
 export interface RenderListCore<TColumns extends Columns, TItem extends object>
@@ -54,6 +55,8 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	actions,
 	dialog,
 	open,
+
+	content,
 
 	loadMore,
 }: RenderListCore<TColumns, TItem>) => [
@@ -93,6 +96,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 				actions,
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
+			content?.({ selectedItems }),
 			renderLoadMore({ data$, onMore: loadMore }),
 		]}</cosmoz-omnitable
 	>`,

@@ -67,7 +67,8 @@
     "./use-list": "./dist/queue/use-list.js",
     "./util/fetch": "./dist/util/fetch/fetch.js",
     "./list": "./dist/list/index.js",
-    "./list/more": "./dist/list/more/use-more.js"
+    "./list/more": "./dist/list/more/use-more.js",
+    "./list/more/render": "./dist/list/more/render-more.js"
   },
   "dependencies": {
     "@neovici/cosmoz-dialog-next": "^1.1.1",
