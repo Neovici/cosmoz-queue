@@ -101,6 +101,7 @@ export const base = css`
 	}
 
 	.button-nav {
+		flex: none;
 		width: 40px;
 		height: 40px;
 		cursor: pointer;
