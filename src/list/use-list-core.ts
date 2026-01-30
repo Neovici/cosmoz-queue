@@ -56,10 +56,7 @@ const useGenericActions$ = <TItem, TAction extends object>(
 	> = noGenericActions as GenericActionsCallback<TItem, TAction>,
 	selectedItems: TItem[],
 ): Promise<TAction[]> =>
-	useMemo(
-		async () => fn?.({ selectedItems }) ?? [],
-		[...values, selectedItems],
-	);
+	useMemo(() => fn?.({ selectedItems }) ?? [], [...values, selectedItems]);
 
 export const useListCore = <
 	TColumns extends Columns,
