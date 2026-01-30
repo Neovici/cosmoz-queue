@@ -10,10 +10,7 @@ import type { Column, Columns } from './column';
 import { renderLoadMore } from './more/render-more';
 import { UseListCoreResult } from './use-list-core';
 
-export interface RenderListCoreProps<
-	TItem extends object,
-	TAction extends object = object,
-> {
+export interface RenderListCoreProps<TItem extends object> {
 	settingsId: string;
 	exposedParts?: string;
 	hashParam?: string;
@@ -22,31 +19,18 @@ export interface RenderListCoreProps<
 	noLocal?: boolean;
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
-	renderGenericActions?: (
-		genericActions$: Promise<TAction[]>,
-		slot: string,
-	) => Renderable;
+	content?: (opts: { selectedItems: TItem[] }) => Renderable;
 }
 
-export interface RenderListCore<
-	TColumns extends Columns,
-	TItem extends object,
-	TAction extends object = object,
->
-	extends
-		UseListCoreResult<TColumns, TItem, TAction>,
-		RenderListCoreProps<TItem, TAction> {}
+export interface RenderListCore<TColumns extends Columns, TItem extends object>
+	extends UseListCoreResult<TColumns, TItem>, RenderListCoreProps<TItem> {}
 
 export const renderColumns = <T extends Columns>(columns: T) =>
 	Object.entries(columns).map(([name, column]) =>
 		(column as Column<unknown>).render({ ...column, name }),
 	);
 
-export const renderListCore = <
-	TColumns extends Columns,
-	TItem extends object,
-	TAction extends object = object,
->({
+export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	settingsId,
 	hashParam,
 	enabledColumns,
@@ -72,11 +56,10 @@ export const renderListCore = <
 	dialog,
 	open,
 
-	genericActions$,
-	renderGenericActions,
+	content,
 
 	loadMore,
-}: RenderListCore<TColumns, TItem, TAction>) => [
+}: RenderListCore<TColumns, TItem>) => [
 	html`<cosmoz-omnitable
 		id="omnitable"
 		?no-local=${noLocal}
@@ -113,7 +96,7 @@ export const renderListCore = <
 				actions,
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
-			renderGenericActions?.(genericActions$, 'actions'),
+			content?.({ selectedItems }),
 			renderLoadMore({ data$, onMore: loadMore }),
 		]}</cosmoz-omnitable
 	>`,

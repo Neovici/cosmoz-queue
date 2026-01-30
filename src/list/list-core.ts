@@ -6,17 +6,14 @@ export type ListCore<
 	TColumns extends Columns,
 	TParams extends object,
 	TItem extends object,
-	TAction extends object = object,
-> = UseListCore<TColumns, TParams, TItem, TAction> &
-	RenderListCoreProps<TItem, TAction>;
+> = UseListCore<TColumns, TParams, TItem> & RenderListCoreProps<TItem>;
 
 export const listCore = <
 	TColumns extends Columns,
 	TParams extends object,
 	TItem extends object,
-	TAction extends object = object,
 >(
-	props: ListCore<TColumns, TParams, TItem, TAction>,
+	props: ListCore<TColumns, TParams, TItem>,
 ) => {
 	const list = useListCore(props);
 	return renderListCore({ ...props, ...list });

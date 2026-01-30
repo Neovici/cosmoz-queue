@@ -11,25 +11,15 @@ export interface ParamsOptions<C> {
 	filters?: ColumnFilters<C>;
 }
 
-export type GenericActionsCallback<
-	TItem,
-	TAction extends object = object,
-> = readonly [
-	(opts: { selectedItems: TItem[] }) => Promise<TAction[]>,
-	readonly unknown[],
-];
-
 export interface UseListCore<
 	TColumns extends Columns,
 	TParams extends object,
 	TItem extends object,
-	TAction extends object = object,
 > {
 	pageSize?: number;
 	params: readonly [(opts: ParamsOptions<TColumns>) => TParams, unknown[]];
 	columns: readonly [() => TColumns, unknown[]];
 	list$: readonly [TList$<TParams, TItem>, unknown[]];
-	genericActions$?: GenericActionsCallback<TItem, TAction>;
 }
 
 type UseFormDialogable = ReturnType<typeof useFormDialogable>;
@@ -37,7 +27,6 @@ type UseFormDialogable = ReturnType<typeof useFormDialogable>;
 export interface UseListCoreResult<
 	TColumns extends Columns,
 	TItem extends object,
-	TAction extends object = object,
 >
 	extends
 		ListCoreState<TItem, TColumns>,
@@ -45,34 +34,20 @@ export interface UseListCoreResult<
 	data$: PromiseLike<TItem[]>;
 	columns: TColumns;
 	loadMore: (() => void) | undefined;
-	genericActions$: Promise<TAction[]>;
 }
-
-const noGenericActions = [async () => [], []] as const;
-const useGenericActions$ = <TItem, TAction extends object>(
-	[fn, values]: GenericActionsCallback<
-		TItem,
-		TAction
-	> = noGenericActions as GenericActionsCallback<TItem, TAction>,
-	selectedItems: TItem[],
-): Promise<TAction[]> =>
-	useMemo(() => fn?.({ selectedItems }) ?? [], [...values, selectedItems]);
 
 export const useListCore = <
 	TColumns extends Columns,
 	TParams extends object,
 	TItem extends object,
-	TAction extends object = object,
 >({
 	columns: _columns,
 	params: __params,
 	list$: _list$,
-	genericActions$: _genericActions$,
 	pageSize,
-}: UseListCore<TColumns, TParams, TItem, TAction>): UseListCoreResult<
+}: UseListCore<TColumns, TParams, TItem>): UseListCoreResult<
 	TColumns,
-	TItem,
-	TAction
+	TItem
 > => {
 	const state = useListCoreState<TItem, TColumns>();
 	const { filters, descending, sortOn, setTotalAvailable } = state;
@@ -99,11 +74,6 @@ export const useListCore = <
 		pageSize,
 	});
 
-	const genericActions$ = useGenericActions$(
-		_genericActions$,
-		state.selectedItems,
-	);
-
 	return {
 		...state,
 		data$,
@@ -111,6 +81,5 @@ export const useListCore = <
 		dialog,
 		open,
 		loadMore,
-		genericActions$,
 	};
 };
