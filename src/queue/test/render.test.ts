@@ -3,17 +3,17 @@ import { nothing, TemplateResult } from 'lit-html';
 import { spy } from 'sinon';
 import { renderNav, renderPagination } from '../render';
 
-suite('queue > render', () => {
-	test('renderNav', async () => {
+describe('queue > render', () => {
+	it('renderNav', async () => {
 		const el = await fixture(renderNav({}));
 		await expect(el).dom.to.equalSnapshot();
 	});
 
-	test('renderPagination nothing', async () => {
+	it('renderPagination nothing', async () => {
 		expect(renderPagination()).to.equal(nothing);
 	});
 
-	test('renderPagination', async () => {
+	it('renderPagination', async () => {
 		const onPage = spy();
 		const el = await fixture(
 			renderPagination({
