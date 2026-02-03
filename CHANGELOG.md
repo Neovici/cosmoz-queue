@@ -1,3 +1,9 @@
+## [1.6.1](https://github.com/Neovici/cosmoz-queue/compare/v1.6.0...v1.6.1) (2026-02-03)
+
+### Bug Fixes
+
+* enable all test files and increase coverage to 66% ([76cc713](https://github.com/Neovici/cosmoz-queue/commit/76cc713b9176a05b24ae2ed703e1fdbfb67286f0))
+
 ## [1.6.0](https://github.com/Neovici/cosmoz-queue/compare/v1.5.1...v1.6.0) (2026-01-30)
 
 ### Features
