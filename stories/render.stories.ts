@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit-html';
 import { expect, fn, userEvent } from 'storybook/test';
+import { expect as vitestExpect } from 'vitest';
 import { renderNav, renderPagination } from '../src/queue/render';
 
 const meta: Meta = {
@@ -13,6 +14,9 @@ export const RenderNavTest: StoryObj = {
 	render: () => html`<div id="test-container">${renderNav({})}</div>`,
 	async play({ canvasElement }) {
 		const container = canvasElement.querySelector('#test-container');
+
+		// HTML snapshot
+		vitestExpect(container?.innerHTML).toMatchSnapshot();
 
 		// Both buttons should be disabled when no callbacks are provided
 		const buttons = container?.querySelectorAll('button.button-nav');
@@ -36,6 +40,9 @@ export const RenderNavWithCallbacks: StoryObj = {
 		</div>`,
 	async play({ args, canvasElement }) {
 		const container = canvasElement.querySelector('#test-container');
+
+		// HTML snapshot (before interactions)
+		vitestExpect(container?.innerHTML).toMatchSnapshot();
 
 		const prevButton = container?.querySelector(
 			'.button-nav.prev',
@@ -82,6 +89,9 @@ export const RenderPaginationTest: StoryObj = {
 		</div>`,
 	async play({ args, canvasElement }) {
 		const container = canvasElement.querySelector('#test-container');
+
+		// HTML snapshot (before interactions)
+		vitestExpect(container?.innerHTML).toMatchSnapshot();
 
 		const prevButton = container?.querySelector(
 			'.page-prev',
