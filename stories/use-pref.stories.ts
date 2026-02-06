@@ -1,8 +1,8 @@
+import { renderHook } from '@neovici/testing';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { expect } from 'storybook/test';
 import { usePref } from '../src/queue/use-pref';
-import { renderHook } from './helpers/render-hook';
 
 const meta: Meta = {
 	title: 'Tests/UsePref',
