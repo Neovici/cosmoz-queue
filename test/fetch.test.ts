@@ -1,27 +1,34 @@
-import { expect } from '@open-wc/testing';
-import { stub, type SinonStub } from 'sinon';
+import {
+	afterEach,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+	type MockInstance,
+} from 'vitest';
 import { fetch, setBaseInit } from '../src/util/fetch/fetch';
 
 describe('fetch', () => {
-	let fetchStub: SinonStub;
+	let fetchSpy: MockInstance;
 
 	beforeEach(() => {
-		fetchStub = stub(window, 'fetch').resolves(new Response());
+		fetchSpy = vi.spyOn(window, 'fetch').mockResolvedValue(new Response());
 	});
 
 	afterEach(() => {
-		fetchStub.restore();
+		fetchSpy.mockRestore();
 	});
 
 	describe('getHeaders callback', () => {
 		it('invokes getHeaders on each request', async () => {
-			const getHeaders = stub().returns({ 'X-Dynamic': 'value1' });
+			const getHeaders = vi.fn().mockReturnValue({ 'X-Dynamic': 'value1' });
 			setBaseInit({ getHeaders });
 
 			await fetch('/api/test1');
 			await fetch('/api/test2');
 
-			expect(getHeaders.callCount).to.equal(2);
+			expect(getHeaders).toHaveBeenCalledTimes(2);
 		});
 
 		it('includes dynamic headers in request', async () => {
@@ -31,8 +38,8 @@ describe('fetch', () => {
 
 			await fetch('/api/test');
 
-			const [, opts] = fetchStub.firstCall.args;
-			expect(opts.headers).to.have.property('X-Dynamic', 'dynamic-value');
+			const [, opts] = fetchSpy.mock.calls[0];
+			expect(opts.headers).toHaveProperty('X-Dynamic', 'dynamic-value');
 		});
 
 		it('dynamic headers override static headers', async () => {
@@ -43,8 +50,8 @@ describe('fetch', () => {
 
 			await fetch('/api/test');
 
-			const [, opts] = fetchStub.firstCall.args;
-			expect(opts.headers).to.have.property('X-Header', 'dynamic');
+			const [, opts] = fetchSpy.mock.calls[0];
+			expect(opts.headers).toHaveProperty('X-Header', 'dynamic');
 		});
 
 		it('per-request headers override dynamic headers', async () => {
@@ -56,8 +63,8 @@ describe('fetch', () => {
 				headers: { 'X-Header': 'per-request' },
 			});
 
-			const [, opts] = fetchStub.firstCall.args;
-			expect(opts.headers).to.have.property('X-Header', 'per-request');
+			const [, opts] = fetchSpy.mock.calls[0];
+			expect(opts.headers).toHaveProperty('X-Header', 'per-request');
 		});
 
 		it('per-request headers override both static and dynamic headers', async () => {
@@ -70,8 +77,8 @@ describe('fetch', () => {
 				headers: { 'X-Header': 'per-request' },
 			});
 
-			const [, opts] = fetchStub.firstCall.args;
-			expect(opts.headers).to.have.property('X-Header', 'per-request');
+			const [, opts] = fetchSpy.mock.calls[0];
+			expect(opts.headers).toHaveProperty('X-Header', 'per-request');
 		});
 
 		it('returns different values on subsequent calls', async () => {
@@ -83,10 +90,10 @@ describe('fetch', () => {
 			await fetch('/api/test1');
 			await fetch('/api/test2');
 
-			const [, opts1] = fetchStub.firstCall.args;
-			const [, opts2] = fetchStub.secondCall.args;
-			expect(opts1.headers).to.have.property('X-Request-Id', '1');
-			expect(opts2.headers).to.have.property('X-Request-Id', '2');
+			const [, opts1] = fetchSpy.mock.calls[0];
+			const [, opts2] = fetchSpy.mock.calls[1];
+			expect(opts1.headers).toHaveProperty('X-Request-Id', '1');
+			expect(opts2.headers).toHaveProperty('X-Request-Id', '2');
 		});
 
 		it('merges static, dynamic, and per-request headers', async () => {
@@ -99,10 +106,10 @@ describe('fetch', () => {
 				headers: { 'X-Request': 'request-value' },
 			});
 
-			const [, opts] = fetchStub.firstCall.args;
-			expect(opts.headers).to.have.property('X-Static', 'static-value');
-			expect(opts.headers).to.have.property('X-Dynamic', 'dynamic-value');
-			expect(opts.headers).to.have.property('X-Request', 'request-value');
+			const [, opts] = fetchSpy.mock.calls[0];
+			expect(opts.headers).toHaveProperty('X-Static', 'static-value');
+			expect(opts.headers).toHaveProperty('X-Dynamic', 'dynamic-value');
+			expect(opts.headers).toHaveProperty('X-Request', 'request-value');
 		});
 	});
 });
