@@ -1,8 +1,8 @@
-import { component } from '@pionjs/pion';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { expect } from 'storybook/test';
 import { usePref } from '../src/queue/use-pref';
+import { renderHook } from './helpers/render-hook';
 
 const meta: Meta = {
 	title: 'Tests/UsePref',
@@ -10,88 +10,35 @@ const meta: Meta = {
 
 export default meta;
 
-// Counter for unique component names
-let counter = 0;
-
-// Store for hook results - keyed by component instance
-const hookResults = new Map<
-	string,
-	[string | undefined, (v: string) => void]
->();
-
-// Create unique component for each test run
-const createPrefComponent = (key: string, defaultValue?: string) => {
-	const id = counter++;
-	const tagName = `test-pref-${id}`;
-	const prefKey = `${key}-${id}`;
-	const localStorageKey = `pref-${prefKey}`;
-
-	// Clear localStorage BEFORE defining component
-	localStorage.removeItem(localStorageKey);
-
-	const TestComponent = component(() => {
-		const result = usePref(prefKey, defaultValue!);
-		hookResults.set(tagName, result);
-		return html`<div data-value="${result[0] ?? 'undefined'}">
-			${result[0] ?? 'undefined'}
-		</div>`;
-	});
-	customElements.define(tagName, TestComponent);
-
-	return tagName;
-};
-
 export const DefaultPref: StoryObj = {
-	render: () => {
-		const tagName = createPrefComponent('default-test', 'asdad');
-		(window as unknown as Record<string, unknown>).__defaultPrefTagName =
-			tagName;
-		const el = document.createElement(tagName);
-		return el;
-	},
-	async play({ canvasElement }) {
-		// Wait for component to render
-		await new Promise((r) => setTimeout(r, 100));
+	render: () => html`<div id="test-container"></div>`,
+	async play() {
+		localStorage.removeItem('pref-some');
+		const { result, unmount } = await renderHook(() =>
+			usePref('some', 'asdad'),
+		);
 
-		const tagName = (window as unknown as Record<string, unknown>)
-			.__defaultPrefTagName as string;
-
-		// Query inside shadow DOM
-		const hostEl = canvasElement.querySelector(tagName);
-		const shadowRoot = hostEl?.shadowRoot;
-		const el = shadowRoot?.querySelector('[data-value]');
-
-		expect(el?.getAttribute('data-value')).toBe('asdad');
+		expect(result.current[0]).toBe('asdad');
+		unmount();
 	},
 };
 
 export const UpdatePref: StoryObj = {
-	render: () => {
-		const tagName = createPrefComponent('update-test');
-		(window as unknown as Record<string, unknown>).__updatePrefTagName =
-			tagName;
-		const el = document.createElement(tagName);
-		return el;
-	},
+	render: () => html`<div id="test-container"></div>`,
 	async play() {
-		// Wait for component to render
-		await new Promise((r) => setTimeout(r, 100));
-
-		const tagName = (window as unknown as Record<string, unknown>)
-			.__updatePrefTagName as string;
-		const result = hookResults.get(tagName);
-		expect(result).toBeDefined();
+		localStorage.removeItem('pref-update');
+		const { result, nextUpdate, unmount } = await renderHook(() =>
+			usePref('update'),
+		);
 
 		// Initial value should be undefined
-		expect(result![0]).toBeUndefined();
+		expect(result.current[0]).toBeUndefined();
 
 		// Update the pref
-		result![1]('dads');
+		result.current[1]('dads');
+		await nextUpdate();
 
-		// Wait for re-render
-		await new Promise((r) => setTimeout(r, 100));
-
-		const newResult = hookResults.get(tagName);
-		expect(newResult![0]).toBe('dads');
+		expect(result.current[0]).toBe('dads');
+		unmount();
 	},
 };

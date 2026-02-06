@@ -26,14 +26,15 @@ export const RenderNavTest: StoryObj = {
 };
 
 export const RenderNavWithCallbacks: StoryObj = {
-	render: () => {
-		const prev = fn();
-		const next = fn();
-		(window as unknown as Record<string, unknown>).__testPrev = prev;
-		(window as unknown as Record<string, unknown>).__testNext = next;
-		return html`<div id="test-container">${renderNav({ prev, next })}</div>`;
+	args: {
+		prev: fn(),
+		next: fn(),
 	},
-	async play({ canvasElement }) {
+	render: (args) =>
+		html`<div id="test-container">
+			${renderNav(args as Parameters<typeof renderNav>[0])}
+		</div>`,
+	async play({ args, canvasElement }) {
 		const container = canvasElement.querySelector('#test-container');
 
 		const prevButton = container?.querySelector(
@@ -49,14 +50,10 @@ export const RenderNavWithCallbacks: StoryObj = {
 
 		// Test clicking
 		await userEvent.click(prevButton);
-		expect(
-			(window as unknown as Record<string, unknown>).__testPrev,
-		).toHaveBeenCalled();
+		expect(args.prev).toHaveBeenCalled();
 
 		await userEvent.click(nextButton);
-		expect(
-			(window as unknown as Record<string, unknown>).__testNext,
-		).toHaveBeenCalled();
+		expect(args.next).toHaveBeenCalled();
 	},
 };
 
@@ -72,18 +69,18 @@ export const RenderPaginationNothing: StoryObj = {
 };
 
 export const RenderPaginationTest: StoryObj = {
-	render: () => {
-		const onPage = fn();
-		(window as unknown as Record<string, unknown>).__testOnPage = onPage;
-		return html`<div id="test-container">
+	args: {
+		onPage: fn(),
+	},
+	render: (args) =>
+		html`<div id="test-container">
 			${renderPagination({
 				totalPages: 10,
 				pageNumber: 3,
-				onPage,
+				onPage: args.onPage as (page: number) => void,
 			})}
-		</div>`;
-	},
-	async play({ canvasElement }) {
+		</div>`,
+	async play({ args, canvasElement }) {
 		const container = canvasElement.querySelector('#test-container');
 
 		const prevButton = container?.querySelector(
@@ -98,19 +95,11 @@ export const RenderPaginationTest: StoryObj = {
 
 		// Click next page
 		await userEvent.click(nextButton);
-		expect(
-			(window as unknown as Record<string, unknown>).__testOnPage,
-		).toHaveBeenCalledWith(4);
+		expect(args.onPage).toHaveBeenCalledWith(4);
 
 		// Reset and click prev page
-		(
-			(window as unknown as Record<string, unknown>).__testOnPage as ReturnType<
-				typeof fn
-			>
-		).mockClear();
+		(args.onPage as ReturnType<typeof fn>).mockClear();
 		await userEvent.click(prevButton);
-		expect(
-			(window as unknown as Record<string, unknown>).__testOnPage,
-		).toHaveBeenCalledWith(2);
+		expect(args.onPage).toHaveBeenCalledWith(2);
 	},
 };
