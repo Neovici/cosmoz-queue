@@ -1,14 +1,13 @@
-import{b as u,A as y}from"./iframe-Bd9fbOqB.js";import{a as p,c as l}from"./render-CEWagV_f.js";import"./preload-helper-PPVm8Dsz.js";import"./lit-haunted-Dp_2alsg.js";const{expect:n,fn:v,userEvent:d,within:m}=__STORYBOOK_MODULE_TEST__,k={title:"Tests/Render"},r={render:()=>u`<div id="test-container">${p({})}</div>`,async play({canvasElement:e}){const o=(m(e).getByTestId,e.querySelector("#test-container")),a=o?.querySelectorAll("button.button-nav");n(a).toHaveLength(2);const w=o?.querySelector(".button-nav.prev"),g=o?.querySelector(".button-nav.next");n(w).toHaveAttribute("disabled"),n(g).toHaveAttribute("disabled")}},s={render:()=>{const e=v(),t=v();return window.__testPrev=e,window.__testNext=t,u`<div id="test-container">${p({prev:e,next:t})}</div>`},async play({canvasElement:e}){const t=e.querySelector("#test-container"),o=t?.querySelector(".button-nav.prev"),a=t?.querySelector(".button-nav.next");n(o).not.toHaveAttribute("disabled"),n(a).not.toHaveAttribute("disabled"),await d.click(o),n(window.__testPrev).toHaveBeenCalled(),await d.click(a),n(window.__testNext).toHaveBeenCalled()}},c={render:()=>u`<div id="test-container">
-            ${l()===y?"nothing":l()}
-        </div>`,async play({canvasElement:e}){const t=e.querySelector("#test-container");n(t?.textContent?.trim()).toBe("nothing")}},i={render:()=>{const e=v();return window.__testOnPage=e,u`<div id="test-container">
-            ${l({totalPages:10,pageNumber:3,onPage:e})}
-        </div>`},async play({canvasElement:e}){const t=e.querySelector("#test-container"),o=t?.querySelector(".page-prev"),a=t?.querySelector(".page-next");n(o).toBeTruthy(),n(a).toBeTruthy(),await d.click(a),n(window.__testOnPage).toHaveBeenCalledWith(4),window.__testOnPage.mockClear(),await d.click(o),n(window.__testOnPage).toHaveBeenCalledWith(2)}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+import{b as u,A as g}from"./iframe-CcVHdtaE.js";import{a as p,c as l}from"./render-DWMVOKSd.js";import"./preload-helper-PPVm8Dsz.js";import"./lit-haunted-7drcRuRW.js";const{expect:t,fn:v,userEvent:d}=__STORYBOOK_MODULE_TEST__,B={title:"Tests/Render"},a={render:()=>u`<div id="test-container">${p({})}</div>`,async play({canvasElement:n}){const e=n.querySelector("#test-container"),o=e?.querySelectorAll("button.button-nav");t(o).toHaveLength(2);const r=e?.querySelector(".button-nav.prev"),w=e?.querySelector(".button-nav.next");t(r).toHaveAttribute("disabled"),t(w).toHaveAttribute("disabled")}},s={render:()=>{const n=v(),e=v();return window.__testPrev=n,window.__testNext=e,u`<div id="test-container">${p({prev:n,next:e})}</div>`},async play({canvasElement:n}){const e=n.querySelector("#test-container"),o=e?.querySelector(".button-nav.prev"),r=e?.querySelector(".button-nav.next");t(o).not.toHaveAttribute("disabled"),t(r).not.toHaveAttribute("disabled"),await d.click(o),t(window.__testPrev).toHaveBeenCalled(),await d.click(r),t(window.__testNext).toHaveBeenCalled()}},c={render:()=>u`<div id="test-container">
+            ${l()===g?"nothing":l()}
+        </div>`,async play({canvasElement:n}){const e=n.querySelector("#test-container");t(e?.textContent?.trim()).toBe("nothing")}},i={render:()=>{const n=v();return window.__testOnPage=n,u`<div id="test-container">
+            ${l({totalPages:10,pageNumber:3,onPage:n})}
+        </div>`},async play({canvasElement:n}){const e=n.querySelector("#test-container"),o=e?.querySelector(".page-prev"),r=e?.querySelector(".page-next");t(o).toBeTruthy(),t(r).toBeTruthy(),await d.click(r),t(window.__testOnPage).toHaveBeenCalledWith(4),window.__testOnPage.mockClear(),await d.click(o),t(window.__testOnPage).toHaveBeenCalledWith(2)}};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="test-container">\${renderNav({})}</div>\`,
   async play({
     canvasElement
   }) {
-    const canvas = within(canvasElement);
-    const container = canvas.getByTestId ? canvasElement.querySelector('#test-container') : canvasElement.querySelector('#test-container');
+    const container = canvasElement.querySelector('#test-container');
 
     // Both buttons should be disabled when no callbacks are provided
     const buttons = container?.querySelectorAll('button.button-nav');
@@ -18,7 +17,7 @@ import{b as u,A as y}from"./iframe-Bd9fbOqB.js";import{a as p,c as l}from"./rend
     expect(prevButton).toHaveAttribute('disabled');
     expect(nextButton).toHaveAttribute('disabled');
   }
-}`,...r.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+}`,...a.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
   render: () => {
     const prev = fn();
     const next = fn();
@@ -86,4 +85,4 @@ import{b as u,A as y}from"./iframe-Bd9fbOqB.js";import{a as p,c as l}from"./rend
     await userEvent.click(prevButton);
     expect((window as unknown as Record<string, unknown>).__testOnPage).toHaveBeenCalledWith(2);
   }
-}`,...i.parameters?.docs?.source}}};const h=["RenderNavTest","RenderNavWithCallbacks","RenderPaginationNothing","RenderPaginationTest"];export{r as RenderNavTest,s as RenderNavWithCallbacks,c as RenderPaginationNothing,i as RenderPaginationTest,h as __namedExportsOrder,k as default};
+}`,...i.parameters?.docs?.source}}};const _=["RenderNavTest","RenderNavWithCallbacks","RenderPaginationNothing","RenderPaginationTest"];export{a as RenderNavTest,s as RenderNavWithCallbacks,c as RenderPaginationNothing,i as RenderPaginationTest,_ as __namedExportsOrder,B as default};
