@@ -1,4 +1,4 @@
-import{b as s}from"./iframe-BMODXThL.js";import"./preload-helper-PPVm8Dsz.js";const u=({index:a,activate:t})=>e=>{if(e.ctrlKey||e.metaKey)return;const n=new CustomEvent("omnitable-item-click",{cancelable:!0,bubbles:!0,composed:!0,detail:{index:a,activate:t}});e.currentTarget?.dispatchEvent(n),n.defaultPrevented&&e.preventDefault()},{expect:l,userEvent:v}=__STORYBOOK_MODULE_TEST__,b={title:"Tests/ItemClick"},i={render:()=>s`
+import{b as s}from"./iframe-32s9o9LL.js";import"./preload-helper-PPVm8Dsz.js";const u=({index:a,activate:t})=>e=>{if(e.ctrlKey||e.metaKey)return;const n=new CustomEvent("omnitable-item-click",{cancelable:!0,bubbles:!0,composed:!0,detail:{index:a,activate:t}});e.currentTarget?.dispatchEvent(n),n.defaultPrevented&&e.preventDefault()},{expect:l,userEvent:v}=__STORYBOOK_MODULE_TEST__,b={title:"Tests/ItemClick"},i={render:()=>s`
         <button
             id="test-button"
             @click=${u({index:2,activate:"queue"})}
