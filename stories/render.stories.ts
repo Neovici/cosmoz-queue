@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit-html';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent } from 'storybook/test';
 import { renderNav, renderPagination } from '../src/queue/render';
 
 const meta: Meta = {
@@ -12,10 +12,7 @@ export default meta;
 export const RenderNavTest: StoryObj = {
 	render: () => html`<div id="test-container">${renderNav({})}</div>`,
 	async play({ canvasElement }) {
-		const canvas = within(canvasElement);
-		const container = canvas.getByTestId
-			? canvasElement.querySelector('#test-container')
-			: canvasElement.querySelector('#test-container');
+		const container = canvasElement.querySelector('#test-container');
 
 		// Both buttons should be disabled when no callbacks are provided
 		const buttons = container?.querySelectorAll('button.button-nav');

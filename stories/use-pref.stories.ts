@@ -44,7 +44,8 @@ const createPrefComponent = (key: string, defaultValue?: string) => {
 export const DefaultPref: StoryObj = {
 	render: () => {
 		const tagName = createPrefComponent('default-test', 'asdad');
-		(window as Record<string, unknown>).__defaultPrefTagName = tagName;
+		(window as unknown as Record<string, unknown>).__defaultPrefTagName =
+			tagName;
 		const el = document.createElement(tagName);
 		return el;
 	},
@@ -52,7 +53,7 @@ export const DefaultPref: StoryObj = {
 		// Wait for component to render
 		await new Promise((r) => setTimeout(r, 100));
 
-		const tagName = (window as Record<string, unknown>)
+		const tagName = (window as unknown as Record<string, unknown>)
 			.__defaultPrefTagName as string;
 
 		// Query inside shadow DOM
@@ -67,7 +68,8 @@ export const DefaultPref: StoryObj = {
 export const UpdatePref: StoryObj = {
 	render: () => {
 		const tagName = createPrefComponent('update-test');
-		(window as Record<string, unknown>).__updatePrefTagName = tagName;
+		(window as unknown as Record<string, unknown>).__updatePrefTagName =
+			tagName;
 		const el = document.createElement(tagName);
 		return el;
 	},
@@ -75,7 +77,7 @@ export const UpdatePref: StoryObj = {
 		// Wait for component to render
 		await new Promise((r) => setTimeout(r, 100));
 
-		const tagName = (window as Record<string, unknown>)
+		const tagName = (window as unknown as Record<string, unknown>)
 			.__updatePrefTagName as string;
 		const result = hookResults.get(tagName);
 		expect(result).toBeDefined();
