@@ -1,4 +1,4 @@
-import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as M}from"./lit-haunted-C6T_gbj_.js";import{m as x}from"./until-Th2UA_nb.js";import"./preload-helper-PPVm8Dsz.js";import"./async-directive-BxySECI5.js";const B=f`
+import{A as b,t as y,b as l,D as w}from"./iframe-CJyEtxgP.js";import{d as g,c as L}from"./lit-haunted-BljuK1Gr.js";import{m as E}from"./until-0HHlxhrd.js";import"./preload-helper-PPVm8Dsz.js";import"./async-directive-BdIA-Mru.js";const M=g`
 	@keyframes rotating {
 		100% {
 			transform: rotate(360deg);
@@ -20,7 +20,7 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
 		margin: 0 4px;
 		flex: none !important;
 	}
-`,T=()=>m,A=M(T,{styleSheets:[B]});customElements.define("cosmoz-spinner",A);function y(n,t,a){return n?t(n):a?.(n)}const z=f`
+`,B=()=>b,T=L(B,{styleSheets:[M]});customElements.define("cosmoz-spinner",T);const A=g`
 	.more {
 		font-family: inherit;
 		font-size: 14px;
@@ -34,29 +34,19 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
 	.more:hover {
 		color: var(--secondary-text-color);
 	}
-`,$=({loading:n,data$:t,onMore:a,onAll:i})=>r`
-	<button
-		class="more"
-		slot="extraContent"
-		?hidden="${!a}"
-		@click="${a}"
-	>
-		${y(n,()=>r`<cosmoz-spinner></cosmoz-spinner>`)}
-		${y(t,o=>x(o.then(()=>m,()=>m),r`<cosmoz-spinner></cosmoz-spinner>`))}
-		<span>${g("Load more")}</span>
-	</button>
-	<button
-		class="more"
-		slot="extraContent"
-		?hidden="${!i}"
-		@click="${i}"
-	>
-		${y(t,o=>x(o.then(()=>m,()=>m),r`<cosmoz-spinner></cosmoz-spinner>`))}
-		<span>${g("Load all")}</span>
-	</button>
-`,{expect:d,userEvent:S}=__STORYBOOK_MODULE_TEST__,P={title:"Components/LoadMore"},C=(n,t=300)=>{const a=Array.from({length:n},(i,o)=>({id:`item-${o+1}`,name:`Item ${o+1}`}));return async({page:i,pageSize:o})=>{await new Promise(c=>setTimeout(c,t));const e=i*o;return{items:a.slice(e,e+o),total:n}}},h=(n,t)=>{const{totalItems:a,pageSize:i}=t,o=C(a);let e={items:[],page:0,data$:void 0,totalAvailable:1/0};const s=()=>{const c=e.totalAvailable<1/0&&e.totalAvailable>e.items.length,w=c?()=>{e.data$=o({page:e.page,pageSize:i}).then(l=>(e={...e,items:[...e.items,...l.items],page:e.page+1,totalAvailable:l.total,data$:void 0},s(),l.items)),s()}:void 0,L=c?()=>{e.data$=o({page:0,pageSize:e.totalAvailable}).then(l=>(e={...e,items:l.items,totalAvailable:l.total,data$:void 0},s(),l.items)),s()}:void 0;E(r`
+`,z=(o,t)=>o?l`<cosmoz-spinner></cosmoz-spinner>`:t?E(t.then(()=>b,()=>b),l`<cosmoz-spinner></cosmoz-spinner>`):b,$=({loading:o,data$:t,onMore:i,onAll:n})=>l`
+	<span slot="extraContent" class="more-container">
+		${z(o,t)}
+		<button class="more" ?hidden="${!i}" @click="${i}">
+			${y("Load more")}
+		</button>
+		<button class="more" ?hidden="${!n}" @click="${n}">
+			${y("Load all")}
+		</button>
+	</span>
+`,{expect:d,userEvent:x}=__STORYBOOK_MODULE_TEST__,P={title:"Components/LoadMore"},C=(o,t=300)=>{const i=Array.from({length:o},(n,a)=>({id:`item-${a+1}`,name:`Item ${a+1}`}));return async({page:n,pageSize:a})=>{await new Promise(c=>setTimeout(c,t));const e=n*a;return{items:i.slice(e,e+a),total:o}}},h=(o,t)=>{const{totalItems:i,pageSize:n}=t,a=C(i);let e={items:[],page:0,data$:void 0,totalAvailable:1/0};const s=()=>{const c=e.totalAvailable<1/0&&e.totalAvailable>e.items.length,f=c?()=>{e.data$=a({page:e.page,pageSize:n}).then(r=>(e={...e,items:[...e.items,...r.items],page:e.page+1,totalAvailable:r.total,data$:void 0},s(),r.items)),s()}:void 0,S=c?()=>{e.data$=a({page:0,pageSize:e.totalAvailable}).then(r=>(e={...e,items:r.items,totalAvailable:r.total,data$:void 0},s(),r.items)),s()}:void 0;w(l`
                 <style>
-                    ${z} .demo-container {
+                    ${A} .demo-container {
                         font-family: sans-serif;
                         padding: 16px;
                         max-width: 400px;
@@ -90,13 +80,13 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
                         Showing ${e.items.length} of ${e.totalAvailable} items
                     </div>
                     <div class="item-list">
-                        ${e.items.map(l=>r`<div class="item">${l.name}</div>`)}
+                        ${e.items.map(r=>l`<div class="item">${r.name}</div>`)}
                     </div>
                     <div class="buttons">
-                        ${$({data$:e.data$,onMore:w,onAll:L})}
+                        ${$({data$:e.data$,onMore:f,onAll:S})}
                     </div>
                 </div>
-            `,n)};e.data$=o({page:0,pageSize:i}).then(c=>(e={...e,items:c.items,page:1,totalAvailable:c.total,data$:void 0},s(),c.items)),s()},p={render:()=>r`<div id="demo-container"></div>`,play:async({canvasElement:n})=>{const t=n.querySelector("#demo-container");h(t,{totalItems:100,pageSize:10})}},u={render:()=>r`<div id="demo-container"></div>`,play:async({canvasElement:n})=>{const t=n.querySelector("#demo-container");h(t,{totalItems:100,pageSize:10}),await new Promise(o=>setTimeout(o,500));const a=t.querySelector("button.more:not([hidden])");d(a).not.toBeNull(),d(a.textContent).toContain("Load more"),await S.click(a),await new Promise(o=>setTimeout(o,500));const i=t.querySelector('[data-testid="stats"]');d(i.textContent).toContain("Showing 20 of 100 items")}},v={render:()=>r`<div id="demo-container"></div>`,play:async({canvasElement:n})=>{const t=n.querySelector("#demo-container");h(t,{totalItems:100,pageSize:10}),await new Promise(s=>setTimeout(s,500));const a=t.querySelectorAll("button.more:not([hidden])"),i=Array.from(a).find(s=>s.textContent?.includes("Load all"));d(i).not.toBeNull(),await S.click(i),await new Promise(s=>setTimeout(s,500));const o=t.querySelector('[data-testid="stats"]');d(o.textContent).toContain("Showing 100 of 100 items");const e=t.querySelectorAll("button.more:not([hidden])");d(e.length).toBe(0)}},b={render:()=>r`<div id="demo-container"></div>`,play:async({canvasElement:n})=>{const t=n.querySelector("#demo-container");h(t,{totalItems:5,pageSize:10}),await new Promise(i=>setTimeout(i,500));const a=t.querySelectorAll("button.more:not([hidden])");d(a.length).toBe(0)}};p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`{
+            `,o)};e.data$=a({page:0,pageSize:n}).then(c=>(e={...e,items:c.items,page:1,totalAvailable:c.total,data$:void 0},s(),c.items)),s()},m={render:()=>l`<div id="demo-container"></div>`,play:async({canvasElement:o})=>{const t=o.querySelector("#demo-container");h(t,{totalItems:100,pageSize:10})}},u={render:()=>l`<div id="demo-container"></div>`,play:async({canvasElement:o})=>{const t=o.querySelector("#demo-container");h(t,{totalItems:100,pageSize:10}),await new Promise(a=>setTimeout(a,500));const i=t.querySelector("button.more:not([hidden])");d(i).not.toBeNull(),d(i.textContent).toContain("Load more"),await x.click(i),await new Promise(a=>setTimeout(a,500));const n=t.querySelector('[data-testid="stats"]');d(n.textContent).toContain("Showing 20 of 100 items")}},p={render:()=>l`<div id="demo-container"></div>`,play:async({canvasElement:o})=>{const t=o.querySelector("#demo-container");h(t,{totalItems:100,pageSize:10}),await new Promise(s=>setTimeout(s,500));const i=t.querySelectorAll("button.more:not([hidden])"),n=Array.from(i).find(s=>s.textContent?.includes("Load all"));d(n).not.toBeNull(),await x.click(n),await new Promise(s=>setTimeout(s,500));const a=t.querySelector('[data-testid="stats"]');d(a.textContent).toContain("Showing 100 of 100 items");const e=t.querySelectorAll("button.more:not([hidden])");d(e.length).toBe(0)}},v={render:()=>l`<div id="demo-container"></div>`,play:async({canvasElement:o})=>{const t=o.querySelector("#demo-container");h(t,{totalItems:5,pageSize:10}),await new Promise(n=>setTimeout(n,500));const i=t.querySelectorAll("button.more:not([hidden])");d(i.length).toBe(0)}};m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="demo-container"></div>\`,
   play: async ({
     canvasElement
@@ -109,7 +99,7 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
       pageSize: 10
     });
   }
-}`,...p.parameters?.docs?.source}}};u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
+}`,...m.parameters?.docs?.source}}};u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="demo-container"></div>\`,
   play: async ({
     canvasElement
@@ -140,7 +130,7 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
     const stats = container.querySelector('[data-testid="stats"]') as HTMLElement;
     expect(stats.textContent).toContain('Showing 20 of 100 items');
   }
-}`,...u.parameters?.docs?.source}}};v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`{
+}`,...u.parameters?.docs?.source}}};p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="demo-container"></div>\`,
   play: async ({
     canvasElement
@@ -175,7 +165,7 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
     const visibleButtons = container.querySelectorAll('button.more:not([hidden])');
     expect(visibleButtons.length).toBe(0);
   }
-}`,...v.parameters?.docs?.source}}};b.parameters={...b.parameters,docs:{...b.parameters?.docs,source:{originalSource:`{
+}`,...p.parameters?.docs?.source}}};v.parameters={...v.parameters,docs:{...v.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="demo-container"></div>\`,
   play: async ({
     canvasElement
@@ -195,4 +185,4 @@ import{A as m,t as g,b as r,D as E}from"./iframe-DT-96Rhe.js";import{d as f,c as
     const visibleButtons = container.querySelectorAll('button.more:not([hidden])');
     expect(visibleButtons.length).toBe(0);
   }
-}`,...b.parameters?.docs?.source}}};const _=["Default","WithCallbacks","LoadAllTest","AllDataLoaded"];export{b as AllDataLoaded,p as Default,v as LoadAllTest,u as WithCallbacks,_ as __namedExportsOrder,P as default};
+}`,...v.parameters?.docs?.source}}};const _=["Default","WithCallbacks","LoadAllTest","AllDataLoaded"];export{v as AllDataLoaded,m as Default,p as LoadAllTest,u as WithCallbacks,_ as __namedExportsOrder,P as default};
