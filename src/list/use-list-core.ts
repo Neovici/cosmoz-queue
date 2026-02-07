@@ -34,6 +34,7 @@ export interface UseListCoreResult<
 	data$: PromiseLike<TItem[]>;
 	columns: TColumns;
 	loadMore: (() => void) | undefined;
+	loadAll: (() => void) | undefined;
 }
 
 export const useListCore = <
@@ -67,7 +68,7 @@ export const useListCore = <
 		[_params, filters, descending, sortOn, columns, rtkn],
 	);
 	const list$ = useCallback(..._list$);
-	const { data$, loadMore } = useMore({
+	const { data$, loadMore, loadAll } = useMore({
 		list$,
 		setTotalAvailable,
 		params,
@@ -81,5 +82,6 @@ export const useListCore = <
 		dialog,
 		open,
 		loadMore,
+		loadAll,
 	};
 };

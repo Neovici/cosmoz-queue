@@ -47,6 +47,28 @@ export const useMore = <TParams extends object, TItem extends object>({
 			hasMore ? () => setData((s) => ({ ...s, page: s.page + 1 })) : undefined,
 		[hasMore],
 	);
+
+	const loadAll = useMemo(
+		() =>
+			hasMore
+				? () =>
+						setData((s) => ({
+							...s,
+							page: 0,
+							data$: list$({
+								params: s.params,
+								page: 0,
+								pageSize: s.totalAvailable,
+							}).then((data) => {
+								setTotalAvailable(data.total);
+								setData((d) => ({ ...d, totalAvailable: data.total }));
+								return data.items;
+							}),
+						}))
+				: undefined,
+		[hasMore, list$, setTotalAvailable],
+	);
+
 	useEffect(
 		() =>
 			setData((d) => ({
@@ -81,5 +103,5 @@ export const useMore = <TParams extends object, TItem extends object>({
 		}));
 	}, [page, params, list$, pageSize]);
 
-	return { data$, loadMore };
+	return { data$, loadMore, loadAll };
 };

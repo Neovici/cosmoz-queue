@@ -25,12 +25,15 @@ export const renderLoadMore = ({
 	loading,
 	data$,
 	onMore,
+	onAll,
 }: {
+	/** @deprecated Use data$ instead */
 	loading?: boolean;
 	data$?: PromiseLike<unknown>;
 	onMore?: () => void;
-}) =>
-	html`<button
+	onAll?: () => void;
+}) => html`
+	<button
 		class="more"
 		slot="extraContent"
 		?hidden="${!onMore}"
@@ -47,4 +50,22 @@ export const renderLoadMore = ({
 			),
 		)}
 		<span>${t('Load more')}</span>
-	</button>`;
+	</button>
+	<button
+		class="more"
+		slot="extraContent"
+		?hidden="${!onAll}"
+		@click="${onAll}"
+	>
+		${when(data$, (data$) =>
+			until(
+				data$.then(
+					() => nothing,
+					() => nothing,
+				),
+				html`<cosmoz-spinner></cosmoz-spinner>`,
+			),
+		)}
+		<span>${t('Load all')}</span>
+	</button>
+`;

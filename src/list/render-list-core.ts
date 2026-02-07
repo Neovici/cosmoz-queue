@@ -59,6 +59,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	content,
 
 	loadMore,
+	loadAll,
 }: RenderListCore<TColumns, TItem>) => [
 	html`<cosmoz-omnitable
 		id="omnitable"
@@ -97,7 +98,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
 			content?.({ selectedItems }),
-			renderLoadMore({ data$, onMore: loadMore }),
+			renderLoadMore({ data$, onMore: loadMore, onAll: loadAll }),
 		]}</cosmoz-omnitable
 	>`,
 	formDialog(dialog),
