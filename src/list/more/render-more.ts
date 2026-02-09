@@ -3,7 +3,6 @@ import { css } from '@pionjs/pion';
 import { t } from 'i18next';
 import { html, nothing } from 'lit-html';
 import { until } from 'lit-html/directives/until.js';
-import { when } from 'lit-html/directives/when.js';
 
 export const style = css`
 	.more {
@@ -21,30 +20,39 @@ export const style = css`
 	}
 `;
 
+const renderSpinner = (loading?: boolean, data$?: PromiseLike<unknown>) => {
+	if (loading) return html`<cosmoz-spinner></cosmoz-spinner>`;
+	if (data$) {
+		return until(
+			data$.then(
+				() => nothing,
+				() => nothing,
+			),
+			html`<cosmoz-spinner></cosmoz-spinner>`,
+		);
+	}
+	return nothing;
+};
+
 export const renderLoadMore = ({
 	loading,
 	data$,
 	onMore,
+	onAll,
 }: {
+	/** @deprecated Use data$ instead */
 	loading?: boolean;
 	data$?: PromiseLike<unknown>;
 	onMore?: () => void;
-}) =>
-	html`<button
-		class="more"
-		slot="extraContent"
-		?hidden="${!onMore}"
-		@click="${onMore}"
-	>
-		${when(loading, () => html`<cosmoz-spinner></cosmoz-spinner>`)}
-		${when(data$, (data$) =>
-			until(
-				data$.then(
-					() => nothing,
-					() => nothing,
-				),
-				html`<cosmoz-spinner></cosmoz-spinner>`,
-			),
-		)}
-		<span>${t('Load more')}</span>
-	</button>`;
+	onAll?: () => void;
+}) => html`
+	<span slot="extraContent" class="more-container">
+		${renderSpinner(loading, data$)}
+		<button class="more" ?hidden="${!onMore}" @click="${onMore}">
+			${t('Load more')}
+		</button>
+		<button class="more" ?hidden="${!onAll}" @click="${onAll}">
+			${t('Load all')}
+		</button>
+	</span>
+`;
