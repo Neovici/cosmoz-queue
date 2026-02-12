@@ -24,9 +24,35 @@ const useQNav = <I>({
 	items,
 	...thru
 }: {
+	/**
+	 * @deprecated Use the `details` property instead. The `api` property will be removed in v2.0.0.
+	 *
+	 * Migration example:
+	 * ```ts
+	 * // Before:
+	 * api: (id, item) => apiUrl(`api/items/${id}`)
+	 *
+	 * // After:
+	 * details: (item) => fetch(apiUrl(`api/items/${item.id}`)).then(res => res.json())
+	 * ```
+	 */
 	api?: (id: string, item: I) => string;
 	items: I[];
 } & UseDataNav<I>) => {
+	// Deprecation warning
+	/* eslint-disable no-console, no-template-curly-in-string */
+	if (api && typeof console !== 'undefined' && console.warn) {
+		console.warn(
+			'[cosmoz-queue] DEPRECATED: The `api` property is deprecated and will be removed in v2.0.0. ' +
+				'Please migrate to the `details` property for better control and performance.\n\n' +
+				'Migration guide:\n' +
+				'  Before: api: (id, item) => apiUrl(\'api/items/${id}\')\n' +
+				'  After:  details: (item) => fetch(apiUrl(\'api/items/${item.id}\')).then(res => res.json())\n\n' +
+				'See: https://github.com/Neovici/cosmoz-queue#migration-from-api-to-details',
+		);
+	}
+	/* eslint-enable no-console, no-template-curly-in-string */
+
 	const details = useMemo(
 			() => api && memoize((item: I) => json(api(id(item), item))),
 			[id, api],
@@ -45,6 +71,25 @@ interface Opts<I>
 	tabHashParam?: string;
 	idHashParam?: string;
 	onActivate?: (name: string) => void;
+	/**
+	 * @deprecated Use the `details` property instead. The `api` property will be removed in v2.0.0.
+	 *
+	 * The `api` property uses deprecated utilities and is less flexible than `details`.
+	 * With `details`, you have full control over the fetch operation and can return any Promise.
+	 *
+	 * Migration example:
+	 * ```ts
+	 * // Before:
+	 * useQueue({
+	 *   api: (id, item) => apiUrl(`api/items/${id}`)
+	 * })
+	 *
+	 * // After:
+	 * useQueue({
+	 *   details: (item) => fetch(apiUrl(`api/items/${item.id}`)).then(res => res.json())
+	 * })
+	 * ```
+	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
 	split?: SplitOpts;

@@ -488,6 +488,23 @@ queue() factory
 | `@neovici/cosmoz-queue/list/more/render` | `renderLoadMore()` -- "Load more" button |
 | `@neovici/cosmoz-queue/util/fetch` | `fetch()`, `setBaseInit()`, `handleJSON()`, `RequestError` |
 
+## Deprecation notices
+
+### `api` property → `details`
+
+The `api` property on `useQueue()` / `queue()` is **deprecated** and will be
+removed in v2.0.0. Use `details` instead:
+
+```ts
+// Before (deprecated)
+queue({ api: (id, item) => apiUrl(`items/${id}`) })
+
+// After
+queue({ details: (item) => fetch(apiUrl(`items/${item.id}`)).then(r => r.json()) })
+```
+
+See [Migration guide](docs/migration-api-to-details.md) for more patterns.
+
 ## License
 
 [Apache-2.0](LICENSE)
