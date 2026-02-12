@@ -1,3 +1,9 @@
+## [1.6.2](https://github.com/Neovici/cosmoz-queue/compare/v1.6.1...v1.6.2) (2026-02-12)
+
+### Bug Fixes
+
+* **use-queue:** deprecate api property in favor of details ([#20](https://github.com/Neovici/cosmoz-queue/issues/20)) ([084651b](https://github.com/Neovici/cosmoz-queue/commit/084651b98697f10027cb35369a40135d542813a8))
+
 ## [1.6.1](https://github.com/Neovici/cosmoz-queue/compare/v1.6.0...v1.6.1) (2026-02-03)
 
 ### Bug Fixes
