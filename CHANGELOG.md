@@ -1,3 +1,9 @@
+## [1.6.3](https://github.com/Neovici/cosmoz-queue/compare/v1.6.2...v1.6.3) (2026-02-17)
+
+### Bug Fixes
+
+* **deps:** support cosmoz-omnitable v18 ([#25](https://github.com/Neovici/cosmoz-queue/issues/25)) ([d5a2e8d](https://github.com/Neovici/cosmoz-queue/commit/d5a2e8dc44f72f8aeb45d1c45011fa3dd4cb62ac))
+
 ## [1.6.2](https://github.com/Neovici/cosmoz-queue/compare/v1.6.1...v1.6.2) (2026-02-12)
 
 ### Bug Fixes
