@@ -1,3 +1,15 @@
+## [2.0.0](https://github.com/Neovici/cosmoz-queue/compare/v1.6.3...v2.0.0) (2026-02-23)
+
+### ⚠ BREAKING CHANGES
+
+* @neovici/cosmoz-dialog-next has been renamed to @neovici/cosmoz-dialog.
+
+Ref: NEO-1130
+
+### Features
+
+* replace @neovici/cosmoz-dialog-next with @neovici/cosmoz-dialog ([6d4386c](https://github.com/Neovici/cosmoz-queue/commit/6d4386c79e32b3ac747fd1832f48164782af5db8))
+
 ## [1.6.3](https://github.com/Neovici/cosmoz-queue/compare/v1.6.2...v1.6.3) (2026-02-17)
 
 ### Bug Fixes
