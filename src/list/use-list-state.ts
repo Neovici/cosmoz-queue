@@ -25,6 +25,7 @@ export const useListCoreState = <TItem extends object, TColumns extends object>(
 	);
 	// TODO: use pagination
 	const [, setTotalAvailable] = useProperty<number>('totalAvailable');
+	const [isMini, setIsMini] = useProperty<boolean>('isMini', false);
 
 	return {
 		filters,
@@ -39,6 +40,8 @@ export const useListCoreState = <TItem extends object, TColumns extends object>(
 		setSelectedItems,
 		setVisibleItems,
 		setTotalAvailable,
+		isMini,
+		setIsMini,
 	};
 };
 
