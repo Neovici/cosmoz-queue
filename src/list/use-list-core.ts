@@ -26,13 +26,15 @@ type UseFormDialogable = ReturnType<typeof useFormDialogable>;
 
 export interface UseListCoreResult<
 	TColumns extends Columns,
-	TItem extends object,
+	TItem extends object = object,
+	TParams extends object = object,
 >
 	extends
 		ListCoreState<TItem, TColumns>,
 		Pick<UseFormDialogable, 'dialog' | 'open'> {
 	data$: PromiseLike<TItem[]>;
 	columns: TColumns;
+	params: TParams;
 	loadMore: (() => void) | undefined;
 }
 
@@ -47,7 +49,8 @@ export const useListCore = <
 	pageSize,
 }: UseListCore<TColumns, TParams, TItem>): UseListCoreResult<
 	TColumns,
-	TItem
+	TItem,
+	TParams
 > => {
 	const state = useListCoreState<TItem, TColumns>();
 	const { filters, descending, sortOn, setTotalAvailable } = state;
@@ -78,6 +81,7 @@ export const useListCore = <
 		...state,
 		data$,
 		columns,
+		params,
 		dialog,
 		open,
 		loadMore,
