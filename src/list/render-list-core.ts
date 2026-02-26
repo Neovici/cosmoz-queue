@@ -17,6 +17,7 @@ export interface RenderListCoreProps<TItem extends object> {
 	csvFilename?: string;
 	enabledColumns?: string[];
 	noLocal?: boolean;
+	miniBreakpoint?: number;
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
 	content?: (opts: { selectedItems: TItem[] }) => Renderable;
@@ -38,6 +39,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	exposedParts,
 	data$,
 	noLocal = true,
+	miniBreakpoint,
 
 	sortOn,
 	setSortOn,
@@ -49,6 +51,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	setSelectedItems,
 	setVisibleItems,
 	setFilters,
+	setIsMini,
 
 	columns,
 
@@ -90,6 +93,8 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		@sort-on-changed=${lift(setSortOn)}
 		descending=${descending}
 		@descending-changed=${lift(setDescending)}
+		.miniBreakpoint=${miniBreakpoint}
+		@is-mini-changed=${lift(setIsMini)}
 		>${[
 			renderColumns(columns),
 			when(
