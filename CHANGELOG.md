@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/Neovici/cosmoz-queue/compare/v2.0.0...v2.1.0) (2026-02-26)
+
+### Features
+
+* expose computed params from useListCore return value ([#27](https://github.com/Neovici/cosmoz-queue/issues/27)) ([b8027a4](https://github.com/Neovici/cosmoz-queue/commit/b8027a40894847ee8df738f1058c8b8c712cff9a))
+* **list-core:** support mini-mode in renderListCore ([#28](https://github.com/Neovici/cosmoz-queue/issues/28)) ([ea8805e](https://github.com/Neovici/cosmoz-queue/commit/ea8805e5b5081ff8d51fe82f54329796e567d605))
+
 ## [2.0.0](https://github.com/Neovici/cosmoz-queue/compare/v1.6.3...v2.0.0) (2026-02-23)
 
 ### ⚠ BREAKING CHANGES
