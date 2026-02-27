@@ -1,5 +1,13 @@
 export const itemClick =
-	({ index, activate }: { index: number; activate: string | string[] }) =>
+	({
+		item,
+		index,
+		activate,
+	}: {
+		item?: unknown;
+		index?: number;
+		activate: string | string[];
+	}) =>
 	<E extends KeyboardEvent | MouseEvent>(e: E) => {
 		if (e.ctrlKey || e.metaKey) {
 			return;
@@ -8,7 +16,7 @@ export const itemClick =
 			cancelable: true,
 			bubbles: true,
 			composed: true,
-			detail: { index, activate },
+			detail: { item, index, activate },
 		});
 
 		e.currentTarget?.dispatchEvent(clickEvent);

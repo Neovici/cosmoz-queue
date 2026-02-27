@@ -148,9 +148,14 @@ const useQueue = <I>({
 		index: useMemo(() => items.indexOf(item), [item, items]),
 		onItemClick: useCallback(
 			(e: Event) => {
-				const { index, activate: mustActivate } = (
+				const {
+					item: clickedItem,
+					index,
+					activate: mustActivate,
+				} = (
 					e as CustomEvent<{
-						index: number;
+						item?: I;
+						index?: number;
 						activate?: ActiveTab | ActiveTab[];
 					}>
 				).detail;
@@ -159,7 +164,7 @@ const useQueue = <I>({
 					.find((el) => el instanceof Element && el.matches?.('[mini]'));
 				const activate =
 					mustActivate ?? (mini ? ['split', 'queue'] : undefined);
-				setItem(items[index]);
+				setItem(clickedItem ?? items[index!]);
 				if (activate) {
 					const next = array(activate).find((name) =>
 						tabnav.tabs.find((tab) => tab.name === name && !tab.disabled),
