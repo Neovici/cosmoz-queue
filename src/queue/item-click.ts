@@ -1,4 +1,4 @@
-type ItemClickOpts =
+export type ItemClickOpts =
 	| { item: unknown; index?: never; activate: string | string[] }
 	| { item?: never; index: number; activate: string | string[] };
 
