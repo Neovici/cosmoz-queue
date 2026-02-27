@@ -1,13 +1,9 @@
+type ItemClickOpts =
+	| { item: unknown; index?: never; activate: string | string[] }
+	| { item?: never; index: number; activate: string | string[] };
+
 export const itemClick =
-	({
-		item,
-		index,
-		activate,
-	}: {
-		item?: unknown;
-		index?: number;
-		activate: string | string[];
-	}) =>
+	({ item, index, activate }: ItemClickOpts) =>
 	<E extends KeyboardEvent | MouseEvent>(e: E) => {
 		if (e.ctrlKey || e.metaKey) {
 			return;
