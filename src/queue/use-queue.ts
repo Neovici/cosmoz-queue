@@ -11,6 +11,7 @@ import useSplit, { SplitOpts } from './use-split';
 import useTabs, { Options as UseTabsOptions } from './use-tabs';
 import useUpdates from './use-updates';
 
+import type { ItemClickOpts } from './item-click';
 import { getItems, normalizeHeaders } from './util';
 
 type ActiveTab = ReturnType<typeof useTabs>['activeTab'];
@@ -148,18 +149,20 @@ const useQueue = <I>({
 		index: useMemo(() => items.indexOf(item), [item, items]),
 		onItemClick: useCallback(
 			(e: Event) => {
-				const { index, activate: mustActivate } = (
-					e as CustomEvent<{
-						index: number;
-						activate?: ActiveTab | ActiveTab[];
-					}>
-				).detail;
+				type Detail = Omit<ItemClickOpts, 'activate'> & {
+					activate?: ActiveTab | ActiveTab[];
+				};
+				const {
+					item: clickedItem,
+					index,
+					activate: mustActivate,
+				} = (e as CustomEvent<Detail>).detail;
 				const mini = e
 					.composedPath()
 					.find((el) => el instanceof Element && el.matches?.('[mini]'));
 				const activate =
 					mustActivate ?? (mini ? ['split', 'queue'] : undefined);
-				setItem(items[index]);
+				setItem((clickedItem as I) ?? items[index!]);
 				if (activate) {
 					const next = array(activate).find((name) =>
 						tabnav.tabs.find((tab) => tab.name === name && !tab.disabled),
