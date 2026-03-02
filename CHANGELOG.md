@@ -1,3 +1,11 @@
+## [2.1.1](https://github.com/Neovici/cosmoz-queue/compare/v2.1.0...v2.1.1) (2026-03-02)
+
+### Bug Fixes
+
+* pass item directly in omnitable-item-click event instead of index ([52af1c0](https://github.com/Neovici/cosmoz-queue/commit/52af1c057451f6a95805a8ad3a14d5690952f674))
+* require either item or index in itemClick via discriminated union ([61d11ab](https://github.com/Neovici/cosmoz-queue/commit/61d11abb9394cb5487f9056da7d3250a0096c4b1))
+* use ItemClickOpts type for omnitable-item-click event detail in onItemClick ([b7ab72f](https://github.com/Neovici/cosmoz-queue/commit/b7ab72f764dab7617a92ceb75800d6648c8c9a2c))
+
 ## [2.1.0](https://github.com/Neovici/cosmoz-queue/compare/v2.0.0...v2.1.0) (2026-02-26)
 
 ### Features
