@@ -1,5 +1,6 @@
 import { useFormDialogable } from '@neovici/cosmoz-form';
-import { useCallback, useMemo } from '@pionjs/pion';
+import { useMeta } from '@neovici/cosmoz-utils/hooks/use-meta';
+import { useCallback, useEffect, useMemo } from '@pionjs/pion';
 import type { ColumnFilters, ColumnNames, Columns } from './column';
 import { TList$, useMore } from './more/use-more';
 import { ListCoreState, useListCoreState } from './use-list-state';
@@ -18,7 +19,7 @@ export interface UseListCore<
 > {
 	pageSize?: number;
 	params: readonly [(opts: ParamsOptions<TColumns>) => TParams, unknown[]];
-	columns: readonly [() => TColumns, unknown[]];
+	columns: readonly [(opts: { paramsMeta: TParams }) => TColumns, unknown[]];
 	list$: readonly [TList$<TParams, TItem>, unknown[]];
 }
 
@@ -35,6 +36,7 @@ export interface UseListCoreResult<
 	data$: PromiseLike<TItem[]>;
 	columns: TColumns;
 	params: TParams;
+	paramsMeta: TParams;
 	loadMore: (() => void) | undefined;
 }
 
@@ -55,7 +57,8 @@ export const useListCore = <
 	const state = useListCoreState<TItem, TColumns>();
 	const { filters, descending, sortOn, setTotalAvailable } = state;
 
-	const columns = useMemo(..._columns);
+	const paramsMeta = useMeta({} as TParams);
+	const columns = useMemo(() => _columns[0]({ paramsMeta }), _columns[1]);
 	const _params = useCallback(...__params);
 	const { rtkn, dialog, open } = useFormDialogable();
 
@@ -69,6 +72,9 @@ export const useListCore = <
 			}),
 		[_params, filters, descending, sortOn, columns, rtkn],
 	);
+	useEffect(() => {
+		Object.assign(paramsMeta, params);
+	}, [paramsMeta, params]);
 	const list$ = useCallback(..._list$);
 	const { data$, loadMore } = useMore({
 		list$,
@@ -82,6 +88,7 @@ export const useListCore = <
 		data$,
 		columns,
 		params,
+		paramsMeta,
 		dialog,
 		open,
 		loadMore,
