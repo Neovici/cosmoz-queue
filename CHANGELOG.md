@@ -1,3 +1,9 @@
+## [2.2.0](https://github.com/Neovici/cosmoz-queue/compare/v2.1.1...v2.2.0) (2026-03-03)
+
+### Features
+
+* pass paramsMeta to columns factory for cross-column narrowing ([#31](https://github.com/Neovici/cosmoz-queue/issues/31)) ([0c2ee13](https://github.com/Neovici/cosmoz-queue/commit/0c2ee135656b6c23d544f45077f6617fa9298c9e))
+
 ## [2.1.1](https://github.com/Neovici/cosmoz-queue/compare/v2.1.0...v2.1.1) (2026-03-02)
 
 ### Bug Fixes
