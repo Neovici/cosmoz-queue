@@ -1,8 +1,8 @@
 import { useProperty } from '@pionjs/pion';
 import { ColumnFilters, ColumnNames } from './column';
 
-interface ListCoreDefaults<TColumns extends object> {
-	filters: ColumnFilters<TColumns>;
+export interface ListCoreDefaults<TColumns extends object> {
+	filters?: ColumnFilters<TColumns>;
 	sortOn?: ColumnNames<TColumns>;
 	groupOn?: ColumnNames<TColumns>;
 	descending?: boolean;

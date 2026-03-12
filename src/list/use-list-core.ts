@@ -3,7 +3,11 @@ import { useMeta } from '@neovici/cosmoz-utils/hooks/use-meta';
 import { useCallback, useEffect, useMemo } from '@pionjs/pion';
 import type { ColumnFilters, ColumnNames, Columns } from './column';
 import { TList$, useMore } from './more/use-more';
-import { ListCoreState, useListCoreState } from './use-list-state';
+import {
+	ListCoreDefaults,
+	ListCoreState,
+	useListCoreState,
+} from './use-list-state';
 
 export interface ParamsOptions<C> {
 	descending?: boolean;
@@ -16,7 +20,7 @@ export interface UseListCore<
 	TColumns extends Columns,
 	TParams extends object,
 	TItem extends object,
-> {
+> extends Omit<ListCoreDefaults<TColumns>, 'filters'> {
 	pageSize?: number;
 	params: readonly [(opts: ParamsOptions<TColumns>) => TParams, unknown[]];
 	columns: readonly [(opts: { paramsMeta: TParams }) => TColumns, unknown[]];
@@ -49,12 +53,19 @@ export const useListCore = <
 	params: __params,
 	list$: _list$,
 	pageSize,
+	sortOn: initialSortOn,
+	descending: initialDescending,
+	groupOn: initialGroupOn,
 }: UseListCore<TColumns, TParams, TItem>): UseListCoreResult<
 	TColumns,
 	TItem,
 	TParams
 > => {
-	const state = useListCoreState<TItem, TColumns>();
+	const state = useListCoreState<TItem, TColumns>({
+		sortOn: initialSortOn,
+		descending: initialDescending,
+		groupOn: initialGroupOn,
+	});
 	const { filters, descending, sortOn, setTotalAvailable } = state;
 
 	const paramsMeta = useMeta({} as TParams);
