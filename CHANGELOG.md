@@ -1,3 +1,9 @@
+## [2.3.0](https://github.com/Neovici/cosmoz-queue/compare/v2.2.0...v2.3.0) (2026-03-12)
+
+### Features
+
+* **list:** add sortOn, descending, groupOn params to listCore() for default sort ([#32](https://github.com/Neovici/cosmoz-queue/issues/32)) ([e1f69a2](https://github.com/Neovici/cosmoz-queue/commit/e1f69a2677376c88c00090e9475e8ecda893e5da))
+
 ## [2.2.0](https://github.com/Neovici/cosmoz-queue/compare/v2.1.1...v2.2.0) (2026-03-03)
 
 ### Features
