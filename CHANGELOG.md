@@ -1,3 +1,9 @@
+## [2.4.0](https://github.com/Neovici/cosmoz-queue/compare/v2.3.0...v2.4.0) (2026-03-13)
+
+### Features
+
+* **list:** add configurable compareItemsFn prop to renderListCore (FE-366) ([aa57f34](https://github.com/Neovici/cosmoz-queue/commit/aa57f341d944840e993e39d79ffc91e01d4292d6))
+
 ## [2.3.0](https://github.com/Neovici/cosmoz-queue/compare/v2.2.0...v2.3.0) (2026-03-12)
 
 ### Features
