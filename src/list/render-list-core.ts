@@ -21,6 +21,7 @@ export interface RenderListCoreProps<TItem extends object> {
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
 	content?: (opts: { selectedItems: TItem[] }) => Renderable;
+	compareItemsFn?: (a: TItem, b: TItem) => boolean;
 }
 
 export interface RenderListCore<TColumns extends Columns, TItem extends object>
@@ -62,6 +63,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	content,
 
 	loadMore,
+	compareItemsFn,
 }: RenderListCore<TColumns, TItem>) => [
 	html`<cosmoz-omnitable
 		id="omnitable"
@@ -77,10 +79,8 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 			),
 			true,
 		)}
-		.compareItemsFn=${guard(
-			[],
-			() => (a: { id: string }, b: { id: string }) => a.id === b.id,
-		)}
+		.compareItemsFn=${compareItemsFn ??
+		guard([], () => (a: { id: string }, b: { id: string }) => a.id === b.id)}
 		.settingsId=${settingsId}
 		exportparts=${exposedParts}
 		@visible-data-changed=${lift(setVisibleItems)}
