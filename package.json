@@ -1,6 +1,6 @@
 {
   "name": "@neovici/cosmoz-queue",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A reusable queue component for master-detail views with list, split, and queue modes",
   "keywords": [
     "web-components",

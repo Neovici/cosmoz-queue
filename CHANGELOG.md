@@ -1,3 +1,9 @@
+## [2.4.1](https://github.com/Neovici/cosmoz-queue/compare/v2.4.0...v2.4.1) (2026-03-14)
+
+### Bug Fixes
+
+* **list:** correct hasMore off-by-one error in useMore (FE-368) ([4849867](https://github.com/Neovici/cosmoz-queue/commit/4849867dd2dcdadcdf2e262460c69db236d882b8))
+
 ## [2.4.0](https://github.com/Neovici/cosmoz-queue/compare/v2.3.0...v2.4.0) (2026-03-13)
 
 ### Features
