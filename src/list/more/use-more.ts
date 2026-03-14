@@ -40,7 +40,7 @@ export const useMore = <TParams extends object, TItem extends object>({
 		pageSize > 0 &&
 		totalAvailable < Infinity &&
 		totalAvailable >= pageSize &&
-		page < Math.ceil(totalAvailable / pageSize);
+		page < Math.ceil(totalAvailable / pageSize) - 1;
 
 	const loadMore = useMemo(
 		() =>
