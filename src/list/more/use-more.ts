@@ -75,7 +75,7 @@ export const useMore = <TParams extends object, TItem extends object>({
 						...s,
 						totalAvailable,
 					}));
-					return [...prev, ...data.items];
+					return [...prev.slice(0, page * pageSize), ...data.items];
 				}),
 			),
 		}));
