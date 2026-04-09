@@ -1,13 +1,13 @@
-import { html, nothing, TemplateResult } from 'lit-html';
-import { guard } from 'lit-html/directives/guard.js';
+import { slideInLeft, slideInRight } from '@neovici/cosmoz-slider';
+import { renderTabs, RenderTabs } from '@neovici/cosmoz-tabs/next/index.js';
 import { lazyUntil } from '@neovici/cosmoz-utils/directives/lazy-until';
 import { t } from 'i18next';
-import { renderTabs, RenderTabs } from '@neovici/cosmoz-tabs/next/index.js';
-import { slideInRight, slideInLeft } from '@neovici/cosmoz-slider';
-import type { Tab } from './use-tabs';
-import renderStyles from './style';
+import { html, nothing, TemplateResult } from 'lit-html';
+import { guard } from 'lit-html/directives/guard.js';
 import { arrow } from './icon';
+import renderStyles from './style';
 import type { Pagination } from './types';
+import type { Tab } from './use-tabs';
 
 const _emptySlide = {
 	id: 'empty',
@@ -76,12 +76,14 @@ export const renderStats = <I>({
 	items,
 	totalAvailable,
 	nav,
+	activeTab,
 }: {
 	pagination?: Pagination;
 	totalAvailable?: number;
 	index?: number;
 	items: I[];
 	nav: { items?: I[]; index: number };
+	activeTab?: string;
 }) => {
 	if (items.length < 1) {
 		return nothing;
@@ -101,7 +103,7 @@ export const renderStats = <I>({
 			const qidx = nav.index;
 			const qlen = nav.items?.length;
 			return [
-				qlen !== items.length
+				qlen !== items.length && ['queue', 'split'].includes(activeTab || '')
 					? [qidx < 0 ? '?' : qidx + 1, qlen].join('/')
 					: [index! + 1, items.length].join('-'),
 			];
@@ -173,8 +175,10 @@ export const renderSlide = <I, D>({
 			}
 		: emptySlide();
 
-export interface RenderQueue<I, D>
-	extends Pick<RenderView<I, D>, 'renderItem' | 'renderLoader' | 'details'> {
+export interface RenderQueue<I, D> extends Pick<
+	RenderView<I, D>,
+	'renderItem' | 'renderLoader' | 'details'
+> {
 	heading?: string;
 	afterHeading?: unknown;
 	index?: number;
@@ -221,6 +225,7 @@ export const renderQueue = <I, D>({
 				index,
 				items,
 				nav,
+				activeTab,
 			})}
 			${renderPagination(pagination)}
 		</cosmoz-tabs-next>
