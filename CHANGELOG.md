@@ -1,3 +1,9 @@
+## [2.4.3](https://github.com/Neovici/cosmoz-queue/compare/v2.4.2...v2.4.3) (2026-04-15)
+
+### Bug Fixes
+
+* **renderStats:** only show selection position in queue/split view ([c10fbae](https://github.com/Neovici/cosmoz-queue/commit/c10fbaed2b2ffadde724272f87ecd43fe8c349fb))
+
 ## [2.4.2](https://github.com/Neovici/cosmoz-queue/compare/v2.4.1...v2.4.2) (2026-03-26)
 
 ### Bug Fixes
