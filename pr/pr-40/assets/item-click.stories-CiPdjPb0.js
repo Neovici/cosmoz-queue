@@ -1,25 +1,25 @@
-import{b as s}from"./iframe-seStyLSv.js";import"./preload-helper-PPVm8Dsz.js";const u=({item:a,index:t,activate:e})=>n=>{if(n.ctrlKey||n.metaKey)return;const c=new CustomEvent("omnitable-item-click",{cancelable:!0,bubbles:!0,composed:!0,detail:{item:a,index:t,activate:e}});n.currentTarget?.dispatchEvent(c),c.defaultPrevented&&n.preventDefault()},{expect:l,userEvent:v}=__STORYBOOK_MODULE_TEST__,b={title:"Tests/ItemClick"},i={render:()=>s`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-B0z-6tlh.js";var r,i=e((()=>{r=({item:e,index:t,activate:n})=>r=>{if(r.ctrlKey||r.metaKey)return;let i=new CustomEvent(`omnitable-item-click`,{cancelable:!0,bubbles:!0,composed:!0,detail:{item:e,index:t,activate:n}});r.currentTarget?.dispatchEvent(i),i.defaultPrevented&&r.preventDefault()}})),a,o,s,c,l,u,d;e((()=>{n(),i(),{expect:a,userEvent:o}=__STORYBOOK_MODULE_TEST__,s={title:`Tests/ItemClick`},c={render:()=>t`
         <button
             id="test-button"
-            @click=${u({index:2,activate:"queue"})}
+            @click=${r({index:2,activate:`queue`})}
         >
             Click me
         </button>
-    `,async play({canvasElement:a}){const t=a.querySelector("#test-button");let e=null;t.addEventListener("omnitable-item-click",(n=>{e=n.detail})),await v.click(t),l(e).not.toBeNull(),l(e.index).toBe(2),l(e.activate).toBe("queue")}},r={render:()=>s`
+    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=null;t.addEventListener(`omnitable-item-click`,(e=>{n=e.detail})),await o.click(t),a(n).not.toBeNull(),a(n.index).toBe(2),a(n.activate).toBe(`queue`)}},l={render:()=>t`
         <button
             id="test-button"
-            @click=${u({index:3,activate:"list"})}
+            @click=${r({index:3,activate:`list`})}
         >
             Click me
         </button>
-    `,async play({canvasElement:a}){const t=a.querySelector("#test-button");let e=null,n=!1;t.addEventListener("omnitable-item-click",(c=>{e=c.detail,c.preventDefault()})),t.addEventListener("click",c=>{n=c.defaultPrevented}),await v.click(t),l(e).not.toBeNull(),l(e.index).toBe(3),l(e.activate).toBe("list"),l(n).toBe(!0)}},o={render:()=>s`
+    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=null,r=!1;t.addEventListener(`omnitable-item-click`,(e=>{n=e.detail,e.preventDefault()})),t.addEventListener(`click`,e=>{r=e.defaultPrevented}),await o.click(t),a(n).not.toBeNull(),a(n.index).toBe(3),a(n.activate).toBe(`list`),a(r).toBe(!0)}},u={render:()=>t`
         <button
             id="test-button"
-            @click=${u({index:3,activate:"list"})}
+            @click=${r({index:3,activate:`list`})}
         >
             Click me
         </button>
-    `,async play({canvasElement:a}){const t=a.querySelector("#test-button");let e=!1;t.addEventListener("omnitable-item-click",()=>{e=!0});const n=new MouseEvent("click",{bubbles:!0,cancelable:!0,ctrlKey:!0});t.dispatchEvent(n),l(e).toBe(!1)}};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
+    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=!1;t.addEventListener(`omnitable-item-click`,()=>{n=!0});let r=new MouseEvent(`click`,{bubbles:!0,cancelable:!0,ctrlKey:!0});t.dispatchEvent(r),a(n).toBe(!1)}},c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <button
             id="test-button"
@@ -47,7 +47,7 @@ import{b as s}from"./iframe-seStyLSv.js";import"./preload-helper-PPVm8Dsz.js";co
     expect(eventDetail!.index).toBe(2);
     expect(eventDetail!.activate).toBe('queue');
   }
-}`,...i.parameters?.docs?.source}}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+}`,...c.parameters?.docs?.source}}},l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <button
             id="test-button"
@@ -81,7 +81,7 @@ import{b as s}from"./iframe-seStyLSv.js";import"./preload-helper-PPVm8Dsz.js";co
     expect(eventDetail!.activate).toBe('list');
     expect(wasDefaultPrevented).toBe(true);
   }
-}`,...r.parameters?.docs?.source}}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+}`,...l.parameters?.docs?.source}}},u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <button
             id="test-button"
@@ -111,4 +111,4 @@ import{b as s}from"./iframe-seStyLSv.js";import"./preload-helper-PPVm8Dsz.js";co
     button.dispatchEvent(ctrlClickEvent);
     expect(eventFired).toBe(false);
   }
-}`,...o.parameters?.docs?.source}}};const E=["FiresEvent","PreventsDefault","DoesNotFireWithCtrlKey"];export{o as DoesNotFireWithCtrlKey,i as FiresEvent,r as PreventsDefault,E as __namedExportsOrder,b as default};
+}`,...u.parameters?.docs?.source}}},d=[`FiresEvent`,`PreventsDefault`,`DoesNotFireWithCtrlKey`]}))();export{u as DoesNotFireWithCtrlKey,c as FiresEvent,l as PreventsDefault,d as __namedExportsOrder,s as default};
