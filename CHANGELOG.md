@@ -1,3 +1,9 @@
+## [2.6.0](https://github.com/Neovici/cosmoz-queue/compare/v2.5.0...v2.6.0) (2026-05-07)
+
+### Features
+
+* replace cosmoz-viewinfo with local useMobile hook ([eea156c](https://github.com/Neovici/cosmoz-queue/commit/eea156c53db296eab3890274f0fe49b5e8ecdc81))
+
 ## [2.5.0](https://github.com/Neovici/cosmoz-queue/compare/v2.4.3...v2.5.0) (2026-05-05)
 
 ### Features
