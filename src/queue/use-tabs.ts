@@ -1,7 +1,7 @@
+import { RenderTab, useTabs } from '@neovici/cosmoz-tabs/next/index.js';
 import { useMemo } from '@pionjs/pion';
-import { useTabs, RenderTab } from '@neovici/cosmoz-tabs/next/index.js';
 
-import { _ } from '@neovici/cosmoz-i18next';
+import { t } from 'i18next';
 import * as icons from './icons';
 
 export interface Options<I> {
@@ -30,20 +30,20 @@ export default <I = unknown>({
 				[
 					{
 						name: 'overview',
-						title: _('List'),
+						title: t('List'),
 						disabled: false,
 						content: icons.list,
 					},
 					{
 						name: 'split',
 						disabled: mobile || !(items.length > 0),
-						title: _('Split'),
+						title: t('Split'),
 						content: icons.split,
 					},
 					{
 						name: 'queue',
 						disabled: !(items.length > 0),
-						title: _('Queue'),
+						title: t('Queue'),
 						content: icons.queue,
 					},
 				] as const
