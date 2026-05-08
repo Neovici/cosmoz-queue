@@ -1,10 +1,10 @@
-import{b as d,A as m}from"./iframe-seStyLSv.js";import{a as g,c as v}from"./render-Do4BYtlw.js";import"./preload-helper-PPVm8Dsz.js";import"./lit-haunted-DDd9bf0J.js";const{expect:t,fn:p,userEvent:u}=__STORYBOOK_MODULE_TEST__,h={title:"Tests/Render"},c={render:()=>d`<div id="test-container">${g({})}</div>`,async play({canvasElement:e}){const n=e.querySelector("#test-container"),a=n?.querySelectorAll("button.button-nav");t(a).toHaveLength(2);const r=n?.querySelector(".button-nav.prev"),o=n?.querySelector(".button-nav.next");t(r).toHaveAttribute("disabled"),t(o).toHaveAttribute("disabled")}},s={args:{prev:p(),next:p()},render:e=>d`<div id="test-container">
-            ${g(e)}
-        </div>`,async play({args:e,canvasElement:n}){const a=n.querySelector("#test-container"),r=a?.querySelector(".button-nav.prev"),o=a?.querySelector(".button-nav.next");t(r).not.toHaveAttribute("disabled"),t(o).not.toHaveAttribute("disabled"),await u.click(r),t(e.prev).toHaveBeenCalled(),await u.click(o),t(e.next).toHaveBeenCalled()}},i={render:()=>d`<div id="test-container">
-            ${v()===m?"nothing":v()}
-        </div>`,async play({canvasElement:e}){const n=e.querySelector("#test-container");t(n?.textContent?.trim()).toBe("nothing")}},l={args:{onPage:p()},render:e=>d`<div id="test-container">
-            ${v({totalPages:10,pageNumber:3,onPage:e.onPage})}
-        </div>`,async play({args:e,canvasElement:n}){const a=n.querySelector("#test-container"),r=a?.querySelector(".page-prev"),o=a?.querySelector(".page-next");t(r).toBeTruthy(),t(o).toBeTruthy(),await u.click(o),t(e.onPage).toHaveBeenCalledWith(4),e.onPage.mockClear(),await u.click(r),t(e.onPage).toHaveBeenCalledWith(2)}};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`{
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-B0z-6tlh.js";import{n as i,r as a,t as o}from"./render-DoKBs5-8.js";var s,c,l,u,d,f,p,m,h;e((()=>{n(),o(),{expect:s,fn:c,userEvent:l}=__STORYBOOK_MODULE_TEST__,u={title:`Tests/Render`},d={render:()=>t`<div id="test-container">${i({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`button.button-nav`);s(n).toHaveLength(2);let r=t?.querySelector(`.button-nav.prev`),i=t?.querySelector(`.button-nav.next`);s(r).toHaveAttribute(`disabled`),s(i).toHaveAttribute(`disabled`)}},f={args:{prev:c(),next:c()},render:e=>t`<div id="test-container">
+            ${i(e)}
+        </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`.button-nav.prev`),i=n?.querySelector(`.button-nav.next`);s(r).not.toHaveAttribute(`disabled`),s(i).not.toHaveAttribute(`disabled`),await l.click(r),s(e.prev).toHaveBeenCalled(),await l.click(i),s(e.next).toHaveBeenCalled()}},p={render:()=>t`<div id="test-container">
+            ${a()===r?`nothing`:a()}
+        </div>`,async play({canvasElement:e}){s(e.querySelector(`#test-container`)?.textContent?.trim()).toBe(`nothing`)}},m={args:{onPage:c()},render:e=>t`<div id="test-container">
+            ${a({totalPages:10,pageNumber:3,onPage:e.onPage})}
+        </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`.page-prev`),i=n?.querySelector(`.page-next`);s(r).toBeTruthy(),s(i).toBeTruthy(),await l.click(i),s(e.onPage).toHaveBeenCalledWith(4),e.onPage.mockClear(),await l.click(r),s(e.onPage).toHaveBeenCalledWith(2)}},d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="test-container">\${renderNav({})}</div>\`,
   async play({
     canvasElement
@@ -19,7 +19,7 @@ import{b as d,A as m}from"./iframe-seStyLSv.js";import{a as g,c as v}from"./rend
     expect(prevButton).toHaveAttribute('disabled');
     expect(nextButton).toHaveAttribute('disabled');
   }
-}`,...c.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+}`,...d.parameters?.docs?.source}}},f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
   args: {
     prev: fn(),
     next: fn()
@@ -45,7 +45,7 @@ import{b as d,A as m}from"./iframe-seStyLSv.js";import{a as g,c as v}from"./rend
     await userEvent.click(nextButton);
     expect(args.next).toHaveBeenCalled();
   }
-}`,...s.parameters?.docs?.source}}};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
+}`,...f.parameters?.docs?.source}}},p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="test-container">
             \${renderPagination() === nothing ? 'nothing' : renderPagination()}
         </div>\`,
@@ -55,7 +55,7 @@ import{b as d,A as m}from"./iframe-seStyLSv.js";import{a as g,c as v}from"./rend
     const container = canvasElement.querySelector('#test-container');
     expect(container?.textContent?.trim()).toBe('nothing');
   }
-}`,...i.parameters?.docs?.source}}};l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`{
+}`,...p.parameters?.docs?.source}}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
   args: {
     onPage: fn()
   },
@@ -85,4 +85,4 @@ import{b as d,A as m}from"./iframe-seStyLSv.js";import{a as g,c as v}from"./rend
     await userEvent.click(prevButton);
     expect(args.onPage).toHaveBeenCalledWith(2);
   }
-}`,...l.parameters?.docs?.source}}};const S=["RenderNavTest","RenderNavWithCallbacks","RenderPaginationNothing","RenderPaginationTest"];export{c as RenderNavTest,s as RenderNavWithCallbacks,i as RenderPaginationNothing,l as RenderPaginationTest,S as __namedExportsOrder,h as default};
+}`,...m.parameters?.docs?.source}}},h=[`RenderNavTest`,`RenderNavWithCallbacks`,`RenderPaginationNothing`,`RenderPaginationTest`]}))();export{d as RenderNavTest,f as RenderNavWithCallbacks,p as RenderPaginationNothing,m as RenderPaginationTest,h as __namedExportsOrder,u as default};
