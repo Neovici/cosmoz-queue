@@ -53,7 +53,6 @@ export const useMore = <TParams extends object, TItem extends object>({
 				...d,
 				params: _params,
 				page: 0,
-				data$: Promise.resolve([]),
 			})),
 		[_params, list$],
 	);
