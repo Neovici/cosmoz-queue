@@ -4,6 +4,7 @@ import { lazyUntil } from '@neovici/cosmoz-utils/directives/lazy-until';
 import { t } from 'i18next';
 import { html, nothing, TemplateResult } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
+import { when } from 'lit-html/directives/when.js';
 import { arrow } from './icon';
 import renderStyles from './style';
 import type { Pagination } from './types';
@@ -232,7 +233,11 @@ export const renderQueue = <I, D>({
 			${list}
 			<cosmoz-slider
 				id="queue"
-				.slide=${renderSlide({ ...nav, renderLoader, renderItem, details })}
+				.slide=${when(
+					activeTab !== 'overview',
+					() => renderSlide({ ...nav, renderLoader, renderItem, details }),
+					emptySlide,
+				)}
 			></cosmoz-slider>
 		</div>
 	`;
