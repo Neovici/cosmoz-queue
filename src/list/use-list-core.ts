@@ -84,6 +84,9 @@ export const useListCore = <
 		[_params, filters, descending, sortOn, columns, rtkn],
 	);
 	useEffect(() => {
+		Object.keys(paramsMeta as Record<string, unknown>).forEach(
+			(k) => delete (paramsMeta as Record<string, unknown>)[k],
+		);
 		Object.assign(paramsMeta, params);
 	}, [paramsMeta, params]);
 	const list$ = useCallback(..._list$);
