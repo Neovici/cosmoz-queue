@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-const syncParamsMeta = (
-	paramsMeta: Record<string, unknown>,
-	params: Record<string, unknown>,
+const syncParamsMeta = <T extends Record<string, unknown>>(
+	paramsMeta: T,
+	params: T,
 ) => {
-	Object.keys(paramsMeta).forEach((k) => delete paramsMeta[k]);
+	(Object.keys(paramsMeta) as (keyof T)[]).forEach((k) => delete paramsMeta[k]);
 	Object.assign(paramsMeta, params);
 };
 
