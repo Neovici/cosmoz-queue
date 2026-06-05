@@ -1,5 +1,16 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.8.1
+
+### Patch Changes
+
+- 2f4ef25: Fix `paramsMeta` stale key accumulation in `useListCore`
+
+  When filters were cleared, `Object.assign(paramsMeta, params)` only added or
+  overwrote keys — never removing stale ones. This caused cleared filter keys to
+  leak into subsequent available-values API calls. Keys are now deleted before
+  assigning new params.
+
 ## 2.8.0
 
 ### Minor Changes
