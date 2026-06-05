@@ -63,8 +63,8 @@
     "./list/more/render": "./dist/list/more/render-more.js"
   },
   "dependencies": {
-    "@neovici/cosmoz-form": "^1.0.1 || ^2.0.0 || ^3.0.0",
-    "@neovici/cosmoz-omnitable": "^16.0.3 || ^17.0.0 || ^18.0.0",
+    "@neovici/cosmoz-form": "^1.0.1 || ^2.0.0 || ^3.1.0",
+    "@neovici/cosmoz-omnitable": "^16.0.3 || ^17.0.0 || ^18.6.0",
     "@neovici/cosmoz-router": "^11.2.8",
     "@neovici/cosmoz-slider": "^5.2.1",
     "@neovici/cosmoz-tabs": "^9.3.2",
@@ -94,7 +94,7 @@
     "http-server": "^14.1.1",
     "husky": "^9.0.11",
     "jsdom": "^26.0.0",
-    "playwright": "^1.52.0",
+    "playwright": "^1.60.0",
     "storybook": "^10.0.0",
     "typescript": "^5.4.3",
     "vitest": "^4.0.0"
