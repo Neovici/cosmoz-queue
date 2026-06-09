@@ -1,18 +1,18 @@
-import{r as e}from"./preload-helper-Dcl5TOAQ.js";import{m as t,p as n}from"./iframe-CD8xr6vf.js";var r,i=e((()=>{r=({item:e,index:t,activate:n})=>r=>{if(r.ctrlKey||r.metaKey)return;let i=new CustomEvent(`omnitable-item-click`,{cancelable:!0,bubbles:!0,composed:!0,detail:{item:e,index:t,activate:n}});r.currentTarget?.dispatchEvent(i),i.defaultPrevented&&r.preventDefault()}})),a,o,s,c,l,u,d;e((()=>{t(),i(),{expect:a,userEvent:o}=__STORYBOOK_MODULE_TEST__,s={title:`Tests/ItemClick`},c={render:()=>n`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-B0z-6tlh.js";var r,i=e((()=>{r=({item:e,index:t,activate:n})=>r=>{if(r.ctrlKey||r.metaKey)return;let i=new CustomEvent(`omnitable-item-click`,{cancelable:!0,bubbles:!0,composed:!0,detail:{item:e,index:t,activate:n}});r.currentTarget?.dispatchEvent(i),i.defaultPrevented&&r.preventDefault()}})),a,o,s,c,l,u,d;e((()=>{n(),i(),{expect:a,userEvent:o}=__STORYBOOK_MODULE_TEST__,s={title:`Tests/ItemClick`},c={render:()=>t`
         <button
             id="test-button"
             @click=${r({index:2,activate:`queue`})}
         >
             Click me
         </button>
-    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=null;t.addEventListener(`omnitable-item-click`,(e=>{n=e.detail})),await o.click(t),a(n).not.toBeNull(),a(n.index).toBe(2),a(n.activate).toBe(`queue`)}},l={render:()=>n`
+    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=null;t.addEventListener(`omnitable-item-click`,(e=>{n=e.detail})),await o.click(t),a(n).not.toBeNull(),a(n.index).toBe(2),a(n.activate).toBe(`queue`)}},l={render:()=>t`
         <button
             id="test-button"
             @click=${r({index:3,activate:`list`})}
         >
             Click me
         </button>
-    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=null,r=!1;t.addEventListener(`omnitable-item-click`,(e=>{n=e.detail,e.preventDefault()})),t.addEventListener(`click`,e=>{r=e.defaultPrevented}),await o.click(t),a(n).not.toBeNull(),a(n.index).toBe(3),a(n.activate).toBe(`list`),a(r).toBe(!0)}},u={render:()=>n`
+    `,async play({canvasElement:e}){let t=e.querySelector(`#test-button`),n=null,r=!1;t.addEventListener(`omnitable-item-click`,(e=>{n=e.detail,e.preventDefault()})),t.addEventListener(`click`,e=>{r=e.defaultPrevented}),await o.click(t),a(n).not.toBeNull(),a(n.index).toBe(3),a(n.activate).toBe(`list`),a(r).toBe(!0)}},u={render:()=>t`
         <button
             id="test-button"
             @click=${r({index:3,activate:`list`})}
