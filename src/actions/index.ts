@@ -59,6 +59,7 @@ export const defaultButton = <
 	return html`<button
 		class="button"
 		slot="${ifDefined(slot)}"
+		title="${title}"
 		data-priority="${ifDefined(opts.priority)}"
 		@click=${() =>
 			(open as AsyncOpenFn)(dialog({ ...opts, items: applicableItems, title }))}

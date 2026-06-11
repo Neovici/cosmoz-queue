@@ -75,4 +75,11 @@ describe('defaultButton', () => {
 		const container = renderToContainer(defaultButton(opts));
 		expect(container.querySelector('button')).toBeNull();
 	});
+
+	it('renders title attribute from title()', () => {
+		const opts = makeOpts();
+		const container = renderToContainer(defaultButton(opts));
+		const button = container.querySelector('button');
+		expect(button?.getAttribute('title')).toBe('Test');
+	});
 });
