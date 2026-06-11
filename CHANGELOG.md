@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.11.1
+
+### Patch Changes
+
+- 2421cf5: Add `title` attribute to `defaultButton` rendered element for accessibility and test compatibility with legacy `cz-action`.
+
 ## 2.11.0
 
 ### Minor Changes
