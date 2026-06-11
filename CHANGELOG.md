@@ -4,8 +4,13 @@
 
 ### Minor Changes
 
-- ebb3fb2: Add async dialog support for actions via `useFormDialogable$` and `formDialog$`. Action `open` now accepts `Resolvable<Dialogable<T>>` to enable `check$()`-driven dialogs that resolve after BE validation.
+- ebb3fb2: Add async dialog support for actions. Action `open` accepts `Resolvable<Dialogable<T>>` via `AsyncOpenFn` or `Dialogable<T>` via `SyncOpenFn`. Make `ActionOpts`, `Action`, `defaultButton`, and `renderActions` generic over `TOpen` so both `useFormDialogable.open` (sync) and `useFormDialogable$.open` (async) are accepted by `renderActions`.
 
+<<<<<<< HEAD
+=======
+  Add `SyncOpenFn` and `AsyncOpenFn` type aliases. Make `ActionOpts`, `Action`, `defaultButton`, and `renderActions` generic over `TOpen` so both `useFormDialogable.open` (sync) and `useFormDialogable$.open` (async) are accepted by `renderActions`.
+
+>>>>>>> 70aa4ea (chore: version 2.9.0)
 ## 2.8.1
 
 ### Patch Changes
