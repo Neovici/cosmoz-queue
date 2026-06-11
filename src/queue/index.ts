@@ -25,7 +25,12 @@ export { queue } from './queue';
 export { base, default as renderStyles } from './style';
 
 // Fetch actions
-export { actions$, default as useFetchActions } from './use-fetch-actions';
+export {
+	actions$,
+	mapActions,
+	noActions,
+	default as useFetchActions,
+} from './use-fetch-actions';
 export type { Item, Props } from './use-fetch-actions';
 
 // SSE
