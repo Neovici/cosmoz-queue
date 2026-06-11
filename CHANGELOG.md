@@ -1,5 +1,13 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.11.0
+
+### Minor Changes
+
+- 58f8fd6: Add `priority` to `Action<T>` and fix `actionCount` for partial applicability.
+  - **`Action.priority`**: New optional `number` property. `defaultButton` renders it as `data-priority` attribute, enabling `cosmoz-bottom-bar` to select the highest-priority action for the toolbar.
+  - **`actionCount` fix**: Show `(1/M)` when only 1 item is applicable out of M. Previously, `actionCount` only rendered when `applicableItems.length > 1`, which meant partial applicability like `(1/2)` was never shown.
+
 ## 2.10.0
 
 ### Minor Changes
