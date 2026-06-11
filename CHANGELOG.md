@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.11.2
+
+### Patch Changes
+
+- dd3a5c9: Fix stale actions bug in `useFetchActions` — clear `data` on new fetch and ignore `AbortError` to prevent clobbering state from in-flight requests.
+
 ## 2.11.1
 
 ### Patch Changes
