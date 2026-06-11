@@ -7,11 +7,9 @@ import { nothing } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { until } from 'lit-html/directives/until.js';
 import { when } from 'lit-html/directives/when.js';
-import { Performable } from '../types/performable';
+import { Data, mapActions, TMapActions } from './map-actions';
+export { Data, mapActions, noActions, TMapActions } from './map-actions';
 
-interface Data<TAvailableAction> {
-	[key: string]: Performable<TAvailableAction>[];
-}
 export interface Item {
 	id: string;
 }
@@ -27,28 +25,11 @@ interface State<TAvailableAction> {
 	error?: Error;
 }
 
-const mapActions = <TAvailableAction>(
-	ids: string[],
-	data?: Data<TAvailableAction>,
-) => {
-	const acts = { ...data };
-	const rows = ids.map((id) => {
-		const ac = (acts[id] ??= []);
-		return { id, actions: ac };
-	});
-	return { actions: acts, actionRows: rows };
-};
-
 export default <I extends Item, TAvailableAction>({
 	pathLocator,
 	selected,
 	api: url,
-}: Props<I>): {
-	actions: Data<TAvailableAction>;
-	actionRows: {
-		id: string;
-		actions: Performable<TAvailableAction>[];
-	}[];
+}: Props<I>): TMapActions<TAvailableAction> & {
 	actionsFetching: boolean | undefined;
 } => {
 	const [{ fetching: actionsFetching, data }, setApi$] = useState<
@@ -74,9 +55,13 @@ export default <I extends Item, TAvailableAction>({
 				}) as Promise<Data<TAvailableAction>>
 			).then(
 				(data) => setApi$((api) => ({ ...api, fetching: false, data })),
-				(err) => setApi$({ error: err }),
+				(err) => {
+					if (err?.name === 'AbortError') return;
+					setApi$({ error: err });
+				},
 			),
 			fetching: true,
+			data: undefined,
 		}));
 
 		return () => ac.abort();
