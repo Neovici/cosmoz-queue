@@ -31,18 +31,14 @@ export interface DialogOpts<TItem extends object> {
 	title: string;
 }
 
-export interface Action<
-	TItem extends object,
-	TDialog extends object = object,
-	TOpen extends SyncOpenFn | AsyncOpenFn = AsyncOpenFn,
-> {
+export interface Action<TItem extends object, TDialog extends object = object> {
 	title: () => string;
 	applicable?: (item: TItem) => boolean;
 	button?: (
-		opts: Action<TItem, TDialog, TOpen> & ActionOpts<TItem, TOpen>,
+		opts: Action<TItem, TDialog> & ActionOpts<TItem, SyncOpenFn | AsyncOpenFn>,
 	) => unknown;
 	dialog: (
-		opts: Omit<Action<TItem, TDialog, TOpen>, 'title'> & DialogOpts<TItem>,
+		opts: Omit<Action<TItem, TDialog>, 'title'> & DialogOpts<TItem>,
 	) => Dialogable<TDialog> | Promise<Dialogable<TDialog>>;
 }
 
@@ -51,7 +47,7 @@ export const defaultButton = <
 	TDialog extends object = object,
 	TOpen extends SyncOpenFn | AsyncOpenFn = AsyncOpenFn,
 >(
-	opts: Action<TItem, TDialog, TOpen> & ActionOpts<TItem, TOpen>,
+	opts: Action<TItem, TDialog> & ActionOpts<TItem, TOpen>,
 ) => {
 	const { open, dialog, items, applicable, slot } = opts;
 	const title = opts.title();
@@ -79,7 +75,9 @@ export const renderActions =
 	>(
 		opts: ActionOpts<TItem, TOpen>,
 	) =>
-	(actions: Action<TItem, TDialog, TOpen>[]) =>
-		actions.map((action) =>
-			(action.button ?? defaultButton)({ ...action, ...opts }),
-		);
+	(actions: Action<TItem, TDialog>[]) =>
+		actions.map((action) => {
+			const merged = { ...action, ...opts } as Action<TItem, TDialog> &
+				ActionOpts<TItem, TOpen>;
+			return (action.button ?? defaultButton)(merged);
+		});
