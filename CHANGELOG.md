@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.11.4
+
+### Patch Changes
+
+- e79558f: Revert `reqId` ref from `useFetchActions` — the `debounce$` + `AbortError` + `data: undefined` guards already prevent stale responses from overwriting current state. The `reqId` check was an unnecessary extra layer.
+
 ## 2.11.3
 
 ### Patch Changes
