@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.11.3
+
+### Patch Changes
+
+- 4bb6aad: Fix stale request race condition in `useFetchActions` — add `reqId` ref to prevent stale responses from overwriting current state. When `ids` change rapidly, a previous fetch response could arrive after a new fetch has started, overwriting `fetching: true` and `data: undefined` with stale data. The `reqId` check ensures only the latest request's response updates state.
+
 ## 2.11.2
 
 ### Patch Changes
