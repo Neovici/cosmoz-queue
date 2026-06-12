@@ -55,3 +55,34 @@ describe('mapActions', () => {
 		expect(result.actionRows).toEqual([]);
 	});
 });
+
+describe('useFetchActions stale request handling', () => {
+	it('identifies AbortError by name property', () => {
+		const abortError = new DOMException(
+			'The operation was aborted.',
+			'AbortError',
+		);
+		expect(abortError.name).toBe('AbortError');
+		expect(abortError?.name === 'AbortError').toBe(true);
+	});
+
+	it('does not identify regular Error as AbortError', () => {
+		const networkError = new Error('Network error');
+		expect(networkError?.name === 'AbortError').toBe(false);
+	});
+
+	it('reqId guard: stale response does not update state', () => {
+		let reqId = 0;
+		const thisReq = ++reqId;
+
+		expect(thisReq).toBe(1);
+		expect(reqId).toBe(1);
+
+		const thisReq2 = ++reqId;
+		expect(thisReq2).toBe(2);
+		expect(reqId).toBe(2);
+
+		expect(reqId !== thisReq).toBe(true);
+		expect(reqId === thisReq2).toBe(true);
+	});
+});

@@ -1,5 +1,5 @@
 import { debounce$ } from '@neovici/cosmoz-utils/promise';
-import { useEffect, useMemo, useState } from '@pionjs/pion';
+import { useEffect, useMemo, useRef, useState } from '@pionjs/pion';
 import { jsonPost } from '../util/fetch/fetch';
 import { apiUrl } from '../util/fetch/url';
 
@@ -41,12 +41,14 @@ export default <I extends Item, TAvailableAction>({
 			[ids.length, ...ids, data],
 		);
 	const post$ = useMemo(() => debounce$(jsonPost, 320), []);
+	const reqId = useRef<number>(0);
 
 	useEffect(() => {
 		if (ids.length < 1) {
 			setApi$({});
 			return;
 		}
+		const thisReq = (reqId.current = reqId.current! + 1);
 		const ac = new AbortController();
 		setApi$(() => ({
 			api$: (
@@ -54,9 +56,12 @@ export default <I extends Item, TAvailableAction>({
 					signal: ac.signal,
 				}) as Promise<Data<TAvailableAction>>
 			).then(
-				(data) => setApi$((api) => ({ ...api, fetching: false, data })),
+				(data) => {
+					if (reqId.current !== thisReq) return;
+					setApi$((api) => ({ ...api, fetching: false, data }));
+				},
 				(err) => {
-					if (err?.name === 'AbortError') return;
+					if (err?.name === 'AbortError' || reqId.current !== thisReq) return;
 					setApi$({ error: err });
 				},
 			),
