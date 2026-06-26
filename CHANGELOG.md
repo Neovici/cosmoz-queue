@@ -1,5 +1,13 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.11.5
+
+### Patch Changes
+
+- 8ba1ace: fix(list): gate load-more spinner on existing items
+
+  The load-more spinner no longer renders on initial/empty page loads. It only shows when there are already visible items (during "Load more" pagination) by gating on `hasItems = visibleItems.length > 0`.
+
 ## 2.11.4
 
 ### Patch Changes
