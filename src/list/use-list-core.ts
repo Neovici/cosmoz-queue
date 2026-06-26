@@ -38,6 +38,8 @@ export interface UseListCoreResult<
 		ListCoreState<TItem, TColumns>,
 		Pick<UseFormDialogable$, 'dialog' | 'open'> {
 	data$: PromiseLike<TItem[]>;
+	visibleItems: TItem[];
+	hasItems: boolean;
 	columns: TColumns;
 	params: TParams;
 	paramsMeta: TParams;

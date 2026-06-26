@@ -18,7 +18,11 @@ export const useListCoreState = <TItem extends object, TColumns extends object>(
 	);
 	const [groupOn, setGroupOn] = useProperty('groupOn', () => defaults?.groupOn);
 	const [sortOn, setSortOn] = useProperty('sortOn', () => defaults?.sortOn);
-	const [, setVisibleItems] = useProperty<TItem[]>('visibleItems', []);
+	const [visibleItems, setVisibleItems] = useProperty<TItem[]>(
+		'visibleItems',
+		[],
+	);
+	const hasItems = visibleItems.length > 0;
 	const [selectedItems, setSelectedItems] = useProperty<TItem[]>(
 		'selectedItems',
 		[],
@@ -36,9 +40,11 @@ export const useListCoreState = <TItem extends object, TColumns extends object>(
 		setSortOn,
 		groupOn,
 		setGroupOn,
+		visibleItems,
+		setVisibleItems,
+		hasItems,
 		selectedItems,
 		setSelectedItems,
-		setVisibleItems,
 		setTotalAvailable,
 		isMini,
 		setIsMini,

@@ -51,6 +51,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	selectedItems,
 	setSelectedItems,
 	setVisibleItems,
+	hasItems,
 	setFilters,
 	setIsMini,
 
@@ -102,7 +103,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
 			content?.({ selectedItems }),
-			renderLoadMore({ data$, onMore: loadMore }),
+			renderLoadMore({ data$, onMore: loadMore, hasItems }),
 		]}</cosmoz-omnitable
 	>`,
 	formDialog$(dialog),

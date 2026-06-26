@@ -24,10 +24,12 @@ export const style = css`
 export const renderLoadMore = ({
 	loading,
 	data$,
+	hasItems,
 	onMore,
 }: {
 	loading?: boolean;
 	data$?: PromiseLike<unknown>;
+	hasItems?: boolean;
 	onMore?: () => void;
 }) =>
 	html`<button
@@ -37,7 +39,7 @@ export const renderLoadMore = ({
 		@click="${onMore}"
 	>
 		${when(loading, () => html`<cosmoz-spinner></cosmoz-spinner>`)}
-		${when(data$, (data$) =>
+		${when(hasItems && data$, (data$) =>
 			until(
 				data$.then(
 					() => nothing,
