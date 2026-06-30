@@ -1,6 +1,6 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{n as i,r as a,t as o}from"./render-DUgPYSeW.js";var s,c,l,u,d,f,p,m,h;e((()=>{n(),o(),{expect:s,fn:c,userEvent:l}=__STORYBOOK_MODULE_TEST__,u={title:`Tests/Render`},d={render:()=>t`<div id="test-container">${i({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`button.button-nav`);s(n).toHaveLength(2);let r=t?.querySelector(`.button-nav.prev`),i=t?.querySelector(`.button-nav.next`);s(r).toHaveAttribute(`disabled`),s(i).toHaveAttribute(`disabled`)}},f={args:{prev:c(),next:c()},render:e=>t`<div id="test-container">
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{n as i,r as a,t as o}from"./render-Bjn1FtiS.js";var s,c,l,u,d,f,p,m,h;e((()=>{n(),o(),{expect:s,fn:c,userEvent:l}=__STORYBOOK_MODULE_TEST__,u={title:`Tests/Render`},d={render:()=>t`<div id="test-container">${i({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`cosmoz-button.button-nav`);s(n).toHaveLength(2);let r=t?.querySelector(`cosmoz-button.button-nav.prev`),i=t?.querySelector(`cosmoz-button.button-nav.next`);s(r).toHaveAttribute(`disabled`),s(i).toHaveAttribute(`disabled`)}},f={args:{prev:c(),next:c()},render:e=>t`<div id="test-container">
             ${i(e)}
-        </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`.button-nav.prev`),i=n?.querySelector(`.button-nav.next`);s(r).not.toHaveAttribute(`disabled`),s(i).not.toHaveAttribute(`disabled`),await l.click(r),s(e.prev).toHaveBeenCalled(),await l.click(i),s(e.next).toHaveBeenCalled()}},p={render:()=>t`<div id="test-container">
+        </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`cosmoz-button.button-nav.prev`),i=n?.querySelector(`cosmoz-button.button-nav.next`);s(r).not.toHaveAttribute(`disabled`),s(i).not.toHaveAttribute(`disabled`),await l.click(r),s(e.prev).toHaveBeenCalled(),await l.click(i),s(e.next).toHaveBeenCalled()}},p={render:()=>t`<div id="test-container">
             ${a()===r?`nothing`:a()}
         </div>`,async play({canvasElement:e}){s(e.querySelector(`#test-container`)?.textContent?.trim()).toBe(`nothing`)}},m={args:{onPage:c()},render:e=>t`<div id="test-container">
             ${a({totalPages:10,pageNumber:3,onPage:e.onPage})}
@@ -12,10 +12,10 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-h
     const container = canvasElement.querySelector('#test-container');
 
     // Both buttons should be disabled when no callbacks are provided
-    const buttons = container?.querySelectorAll('button.button-nav');
+    const buttons = container?.querySelectorAll('cosmoz-button.button-nav');
     expect(buttons).toHaveLength(2);
-    const prevButton = container?.querySelector('.button-nav.prev');
-    const nextButton = container?.querySelector('.button-nav.next');
+    const prevButton = container?.querySelector('cosmoz-button.button-nav.prev');
+    const nextButton = container?.querySelector('cosmoz-button.button-nav.next');
     expect(prevButton).toHaveAttribute('disabled');
     expect(nextButton).toHaveAttribute('disabled');
   }
@@ -32,8 +32,8 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-h
     canvasElement
   }) {
     const container = canvasElement.querySelector('#test-container');
-    const prevButton = container?.querySelector('.button-nav.prev') as HTMLButtonElement;
-    const nextButton = container?.querySelector('.button-nav.next') as HTMLButtonElement;
+    const prevButton = container?.querySelector('cosmoz-button.button-nav.prev') as HTMLButtonElement;
+    const nextButton = container?.querySelector('cosmoz-button.button-nav.next') as HTMLButtonElement;
 
     // Buttons should not be disabled when callbacks are provided
     expect(prevButton).not.toHaveAttribute('disabled');
