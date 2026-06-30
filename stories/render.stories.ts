@@ -15,11 +15,15 @@ export const RenderNavTest: StoryObj = {
 		const container = canvasElement.querySelector('#test-container');
 
 		// Both buttons should be disabled when no callbacks are provided
-		const buttons = container?.querySelectorAll('button.button-nav');
+		const buttons = container?.querySelectorAll('cosmoz-button.button-nav');
 		expect(buttons).toHaveLength(2);
 
-		const prevButton = container?.querySelector('.button-nav.prev');
-		const nextButton = container?.querySelector('.button-nav.next');
+		const prevButton = container?.querySelector(
+			'cosmoz-button.button-nav.prev',
+		);
+		const nextButton = container?.querySelector(
+			'cosmoz-button.button-nav.next',
+		);
 		expect(prevButton).toHaveAttribute('disabled');
 		expect(nextButton).toHaveAttribute('disabled');
 	},
@@ -38,10 +42,10 @@ export const RenderNavWithCallbacks: StoryObj = {
 		const container = canvasElement.querySelector('#test-container');
 
 		const prevButton = container?.querySelector(
-			'.button-nav.prev',
+			'cosmoz-button.button-nav.prev',
 		) as HTMLButtonElement;
 		const nextButton = container?.querySelector(
-			'.button-nav.next',
+			'cosmoz-button.button-nav.next',
 		) as HTMLButtonElement;
 
 		// Buttons should not be disabled when callbacks are provided
