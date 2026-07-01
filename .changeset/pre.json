@@ -5,6 +5,7 @@
     "@neovici/cosmoz-queue": "2.11.5"
   },
   "changesets": [
-    "busy-bags-grow"
+    "busy-bags-grow",
+    "new-ducks-stare"
   ]
 }
