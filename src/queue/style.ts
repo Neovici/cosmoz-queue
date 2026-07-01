@@ -4,12 +4,11 @@ export const base = css`
 	:host {
 		display: flex;
 		flex-direction: column;
-		height: calc(100% - var(--cz-spacing) * 6);
+		height: calc(100% - var(--cz-spacing) * 9);
 		position: relative;
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
 		padding-block: calc(var(--cz-spacing) * 3) 0;
-		padding-inline: calc(var(--cz-spacing) * 3);
 		border: 1px solid var(--cz-color-border-primary);
 		background: var(--cz-color-bg-secondary);
 		border-radius: var(--cz-radius-xl);
@@ -19,6 +18,7 @@ export const base = css`
 	.tabn {
 		box-shadow: none;
 		position: relative;
+		border-bottom: 1px solid var(--cz-color-border-primary);
 	}
 	.tabn-tab {
 		flex: 0 1 0.000001px;
@@ -36,7 +36,7 @@ export const base = css`
 		box-shadow: none;
 	}
 	.tabn-tab:hover {
-		color: red;
+		color: var(--cz-color-text-secondary-hover);
 	}
 	.tabn-heading {
 		font-size: var(--cz-text-lg);
@@ -114,6 +114,7 @@ export const base = css`
 	.button-page.prev,
 	.page-prev {
 		transform: scaleX(-1);
+		margin-right: calc(var(--cz-spacing) * 2);
 	}
 
 	.tabn-pagination {
