@@ -63,11 +63,13 @@
     "./list/more/render": "./dist/list/more/render-more.js"
   },
   "dependencies": {
+    "@neovici/cosmoz-button": "^1.1.0",
     "@neovici/cosmoz-form": "^1.0.1 || ^2.0.0 || ^3.2.0-beta.1",
     "@neovici/cosmoz-omnitable": "^16.0.3 || ^17.0.0 || ^18.6.0",
     "@neovici/cosmoz-router": "^11.2.8",
     "@neovici/cosmoz-slider": "^5.2.1",
-    "@neovici/cosmoz-tabs": "^9.3.2",
+    "@neovici/cosmoz-tabs": "^10.0.0-beta.1",
+    "@neovici/cosmoz-tokens": "^3.4.0",
     "@neovici/cosmoz-utils": "^6.22.0",
     "@pionjs/pion": "^2.10.0",
     "i18next": ">=23.0.0 <27.0.0",

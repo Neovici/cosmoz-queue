@@ -1,3 +1,4 @@
+import '@neovici/cosmoz-button';
 import { slideInLeft, slideInRight } from '@neovici/cosmoz-slider';
 import { renderTabs, RenderTabs } from '@neovici/cosmoz-tabs/next/index.js';
 import { lazyUntil } from '@neovici/cosmoz-utils/directives/lazy-until';
@@ -9,7 +10,6 @@ import { arrow } from './icon';
 import renderStyles from './style';
 import type { Pagination } from './types';
 import type { Tab } from './use-tabs';
-
 const _emptySlide = {
 	id: 'empty',
 	content: nothing,
@@ -24,7 +24,8 @@ export const renderNav = ({
 	next?: () => void;
 	prev?: () => void;
 }) =>
-	html` <button
+	html` <cosmoz-button
+			variant="secondary"
 			class="button-nav prev"
 			title="${t('Previous item')}"
 			?disabled=${!prev}
@@ -32,8 +33,9 @@ export const renderNav = ({
 			@click=${prev}
 		>
 			${arrow}
-		</button>
-		<button
+		</cosmoz-button>
+		<cosmoz-button
+			variant="secondary"
 			title="${t('Next item')}"
 			class="button-nav next"
 			?disabled=${!next}
@@ -41,7 +43,7 @@ export const renderNav = ({
 			@click=${next}
 		>
 			${arrow}
-		</button>`;
+		</cosmoz-button>`;
 
 export const renderPagination = (pagination?: Pagination) => {
 	if (!pagination) return nothing;
