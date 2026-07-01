@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 3.0.0-beta.0
+
+### Major Changes
+
+- 12093cf: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
+
 ## 2.11.5
 
 ### Patch Changes

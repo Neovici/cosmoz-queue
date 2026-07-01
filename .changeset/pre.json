@@ -4,5 +4,7 @@
   "initialVersions": {
     "@neovici/cosmoz-queue": "2.11.5"
   },
-  "changesets": []
+  "changesets": [
+    "busy-bags-grow"
+  ]
 }
