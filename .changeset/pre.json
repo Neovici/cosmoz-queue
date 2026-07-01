@@ -1,0 +1,8 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@neovici/cosmoz-queue": "2.11.5"
+  },
+  "changesets": []
+}
