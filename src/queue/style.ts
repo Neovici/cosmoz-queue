@@ -4,7 +4,7 @@ export const base = css`
 	:host {
 		display: flex;
 		flex-direction: column;
-		height: calc(100% - var(--cz-spacing) * 9);
+		height: calc(100% - var(--cz-spacing) * 6);
 		position: relative;
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
@@ -12,7 +12,7 @@ export const base = css`
 		border: 1px solid var(--cz-color-border-primary);
 		background: var(--cz-color-bg-secondary);
 		border-radius: var(--cz-radius-xl);
-		margin: calc(var(--cz-spacing) * 3);
+		margin-inline: calc(var(--cz-spacing) * 3);
 	}
 
 	.tabn {
