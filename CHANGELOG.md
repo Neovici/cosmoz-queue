@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 3.0.0-beta.3
+
+### Patch Changes
+
+- 5f01c15: Fix the height of host component
+
 ## 3.0.0-beta.2
 
 ### Patch Changes
