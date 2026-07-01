@@ -12,7 +12,7 @@ export const base = css`
 		border: 1px solid var(--cz-color-border-primary);
 		background: var(--cz-color-bg-secondary);
 		border-radius: var(--cz-radius-xl);
-		margin-inline: calc(var(--cz-spacing) * 3);
+		margin: calc(var(--cz-spacing) * 3);
 	}
 
 	.tabn {
