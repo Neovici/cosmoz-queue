@@ -14,7 +14,6 @@ export const base = css`
 		box-shadow: none;
 		position: relative;
 		padding-block: calc(var(--cz-spacing) * 2);
-		border-bottom: 1px solid var(--cz-color-border-secondary);
 	}
 	.tabn-tab {
 		flex: 0 1 0.000001px;
@@ -95,6 +94,7 @@ export const base = css`
 	#list,
 	#queue {
 		flex: auto;
+		border-top: 1px solid var(--cz-color-border-primary);
 	}
 
 	[data-active='split'] .view-core::part(header-bg) {
