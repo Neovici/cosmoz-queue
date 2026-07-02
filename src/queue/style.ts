@@ -56,7 +56,7 @@ export const base = css`
 		cursor: col-resize;
 		flex: none;
 		display: flex;
-		background: var(--cz-color-gray-700);
+		background: var(--cz-color-border-primary);
 		z-index: 2;
 		position: relative;
 	}
@@ -64,7 +64,7 @@ export const base = css`
 		content: '';
 		display: block;
 		flex: none;
-		background: var(--cz-color-gray-700);
+		background: var(--cz-color-border-primary);
 		width: 1px;
 		margin-left: auto;
 		pointer-events: none;
