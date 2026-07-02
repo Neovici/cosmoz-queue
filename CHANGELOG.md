@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 3.0.0-beta.5
+
+### Patch Changes
+
+- edfc27f: Remove legacy pagination button styles; add tab nav border and flex alignment to heading/stats
+
 ## 3.0.0-beta.4
 
 ### Patch Changes
