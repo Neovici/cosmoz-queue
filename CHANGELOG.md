@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 3.0.0-beta.7
+
+### Patch Changes
+
+- 26e77fd: Add border top only to queue
+
 ## 3.0.0-beta.6
 
 ### Patch Changes
