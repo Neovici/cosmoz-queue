@@ -4,21 +4,15 @@ export const base = css`
 	:host {
 		display: flex;
 		flex-direction: column;
-		height: calc(100% - var(--cz-spacing) * 6);
+		height: 100%;
 		position: relative;
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
-		padding-block: calc(var(--cz-spacing) * 3) 0;
-		border: 1px solid var(--cz-color-border-primary);
-		background: var(--cz-color-bg-secondary);
-		border-radius: var(--cz-radius-xl);
-		margin-inline: calc(var(--cz-spacing) * 3);
 	}
 
 	.tabn {
 		box-shadow: none;
 		position: relative;
-		border-bottom: 1px solid var(--cz-color-border-primary);
 	}
 	.tabn-tab {
 		flex: 0 1 0.000001px;
@@ -43,7 +37,6 @@ export const base = css`
 		font-weight: var(--cz-font-weight-semibold);
 		line-height: var(--cz-text-lg-line-height);
 		color: var(--cz-color-text-secondary);
-		margin-left: 18px;
 		white-space: nowrap;
 	}
 	.tabn-stats {
@@ -63,7 +56,7 @@ export const base = css`
 		cursor: col-resize;
 		flex: none;
 		display: flex;
-		background: var(--cz-color-gray-200);
+		background: var(--cz-color-border-primary);
 		z-index: 2;
 		position: relative;
 	}
@@ -71,7 +64,7 @@ export const base = css`
 		content: '';
 		display: block;
 		flex: none;
-		background: var(--cz-color-gray-300);
+		background: var(--cz-color-border-primary);
 		width: 1px;
 		margin-left: auto;
 		pointer-events: none;

@@ -53,23 +53,27 @@ export const renderPagination = (pagination?: Pagination) => {
 		Math.ceil((pagination.totalAvailable ?? 0) / (pagination.pageSize ?? 0));
 
 	return html` <div class="tabn-pagination">
-		<button
+		<cosmoz-button
 			title="${t('Previous page')}"
 			class="button-page page-prev"
+			size="sm"
+			variant="secondary"
 			?disabled=${!(pageNumber > 1)}
 			@click=${(e: MouseEvent) => onPage!(e.ctrlKey ? 1 : pageNumber - 1)}
 		>
 			${arrow}
-		</button>
-		<button
+		</cosmoz-button>
+		<cosmoz-button
 			title="${t('Next page')}"
+			variant="secondary"
 			class="button-page page-next"
+			size="sm"
 			?disabled=${!(pageNumber < totalPages!)}
 			@click=${(e: MouseEvent) =>
 				onPage!(e.ctrlKey ? totalPages! : pageNumber + 1)}
 		>
 			${arrow}
-		</button>
+		</cosmoz-button>
 	</div>`;
 };
 
