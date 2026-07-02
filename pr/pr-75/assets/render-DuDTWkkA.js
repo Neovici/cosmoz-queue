@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit-html-BZ3vufxv.js";import{a,c as o,i as s,n as c,r as l,s as u,t as d}from"./iframe-eOQ0wXTj.js";import{_ as f,a as p,c as m,d as h,f as g,i as _,l as v,m as y,n as b,o as x,p as S,r as C,s as w,t as T,u as E,v as D}from"./haunted-BG3T9kq-.js";var O,k=e((()=>{T(),O=D(f`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit-html-BZ3vufxv.js";import{a,c as o,i as s,n as c,r as l,s as u,t as d}from"./iframe-C7xeGqO3.js";import{_ as f,a as p,c as m,d as h,f as g,i as _,l as v,m as y,n as b,o as x,p as S,r as C,s as w,t as T,u as E,v as D}from"./haunted-Bgh338bJ.js";var O,k=e((()=>{T(),O=D(f`
 	/*
 	 * Use border-box sizing for all elements.
 	 * This is safe and doesn't conflict with child component styles.
@@ -786,7 +786,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
 		cursor: col-resize;
 		flex: none;
 		display: flex;
-		background: var(--cz-color-gray-700);
+		background: var(--cz-color-border-primary);
 		z-index: 2;
 		position: relative;
 	}
@@ -794,7 +794,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
 		content: '';
 		display: block;
 		flex: none;
-		background: var(--cz-color-gray-700);
+		background: var(--cz-color-border-primary);
 		width: 1px;
 		margin-left: auto;
 		pointer-events: none;
