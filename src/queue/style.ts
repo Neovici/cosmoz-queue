@@ -13,6 +13,8 @@ export const base = css`
 	.tabn {
 		box-shadow: none;
 		position: relative;
+		padding-block: calc(var(--cz-spacing) * 2);
+		border-bottom: 1px solid var(--cz-color-border-secondary);
 	}
 	.tabn-tab {
 		flex: 0 1 0.000001px;
@@ -38,11 +40,15 @@ export const base = css`
 		line-height: var(--cz-text-lg-line-height);
 		color: var(--cz-color-text-secondary);
 		white-space: nowrap;
+		display: flex;
+		align-items: center;
 	}
 	.tabn-stats {
 		margin: 0 calc(var(--cz-spacing) * 4);
 		color: var(--cz-color-text-secondary);
 		white-space: nowrap;
+		display: flex;
+		align-items: center;
 	}
 
 	.split {
@@ -113,41 +119,6 @@ export const base = css`
 	.tabn-pagination {
 		font-size: 0;
 		display: flex;
-		border: var(--cz-pagination-border-color);
-		border-radius: var(--cz-pagination-border-radius);
-	}
-	.button-page {
-		width: 30px;
-		height: 30px;
-		padding: 0 5px;
-		cursor: pointer;
-		outline: none;
-		border: none;
-		border-radius: var(--cz-pagination-border);
-		fill: var(--cz-pagination-color);
-		position: relative;
-		background-color: transparent;
-	}
-	.button-page[disabled] {
-		opacity: 0.45;
-		pointer-events: none;
-		fill: var(--cz-pagination-inactive-color);
-	}
-
-	.button-page:active,
-	.button-page:hover {
-		fill: var(--cz-pagination-active-color);
-	}
-
-	.tabn-pagination .button-page + .button-page::before {
-		content: '';
-		position: absolute;
-		width: 1px;
-		height: 18.5px;
-		background-color: var(--cz-pagination-border-divider-color);
-		left: -0.5px;
-		top: 50%;
-		transform: translateY(-50%);
 	}
 `;
 
