@@ -94,6 +94,9 @@ export const base = css`
 	#list,
 	#queue {
 		flex: auto;
+	}
+
+	#queue {
 		border-top: 1px solid var(--cz-color-border-primary);
 	}
 
