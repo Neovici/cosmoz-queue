@@ -42,62 +42,18 @@ export const base = css`
 		white-space: nowrap;
 	}
 
-	.split {
-		display: flex;
-		flex: auto;
-		flex-direction: row;
-		min-height: 0;
-	}
-
-	.gutter {
-		cursor: col-resize;
-		flex: none;
-		display: flex;
-		background: var(--cz-queue-gutter-bg, var(--cz-header-bg-color, #fff));
-		z-index: 2;
-		position: relative;
-	}
-	.gutter::before {
-		content: '';
-		display: block;
-		flex: none;
-		background: var(--cz-queue-gutter-bg, var(--cz-header-bg-color, #bbb));
-		width: 1px;
-		margin-left: auto;
-		pointer-events: none;
-	}
-	.gutter:hover::before {
-		background: var(--cz-accent-color);
-		box-shadow: -1px 0 0 1px var(--cz-accent-color);
-	}
-	.gutter:hover::after {
-		content: '';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: -2px;
-		right: -2px;
-		bottom: 0;
-	}
-
 	#list {
-		min-width: 0;
-	}
-	#list,
-	#queue {
-		flex: auto;
+		flex-basis: 25%;
+		min-width: 300px;
 	}
 
 	[data-active='split'] .view-core::part(header-bg) {
 		border-top-left-radius: 0;
 	}
 
-	[data-active='overview'] .view-core,
+	[data-active='overview'] #queue,
 	[data-active='queue'] #list {
-		display: none;
-	}
-	[data-active='overview'] #queue {
-		flex: none;
+		display: none !important;
 	}
 
 	.button-nav {

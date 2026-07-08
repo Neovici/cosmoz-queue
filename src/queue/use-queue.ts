@@ -7,7 +7,6 @@ import { useMobile } from './use-mobile';
 import useDataNav, { Opts as UseDataNav } from './use-data-nav';
 import useKeyNav from './use-key-nav';
 import { useListState } from './use-list';
-import useSplit, { SplitOpts } from './use-split';
 import useTabs, { Options as UseTabsOptions } from './use-tabs';
 import useUpdates from './use-updates';
 
@@ -93,7 +92,8 @@ interface Opts<I>
 	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
-	split?: SplitOpts;
+	/** @deprecated Split sizing is now controlled via CSS */
+	split?: Record<string, unknown>;
 }
 
 const useQueue = <I>({
@@ -103,7 +103,6 @@ const useQueue = <I>({
 	idHashParam,
 	fallback,
 	onActivate,
-	split,
 	...thru
 }: Opts<I>) => {
 	const { items: _items, selected } = thru,
@@ -136,7 +135,6 @@ const useQueue = <I>({
 			[item, id, items],
 		);
 	useKeyNav({ activeTab, ...nav });
-	useSplit({ activeTab, ...split });
 	useUpdates({ ensue, ...nav });
 
 	return {

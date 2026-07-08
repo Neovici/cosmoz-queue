@@ -39,7 +39,6 @@ export { useListSSE } from './use-list-sse';
 // Navigation & layout hooks
 export { default as useDataNav } from './use-data-nav';
 export { useMobile } from './use-mobile';
-export { default as useSplit } from './use-split';
 export { default as useTabs } from './use-tabs';
 
 // List hooks
