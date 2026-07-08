@@ -11,6 +11,20 @@ type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
 	item: I;
 };
 
+/**
+ * @deprecated Use CSS custom properties `--cz-queue-list-basis` and
+ * `--cz-queue-list-min-width` on the host element instead.
+ *
+ * `expandToMin` and `snapOffset` have no equivalent in the CSS flex model
+ * and are silently ignored.
+ */
+export interface SplitConfig {
+	sizes?: [number, number];
+	minSize?: [number] | number;
+	expandToMin?: boolean;
+	snapOffset?: number;
+}
+
 interface Props<I, D>
 	extends
 		Pick<UseQueue<I>, 'id' | 'api' | 'fallback'>,
@@ -26,6 +40,8 @@ interface Props<I, D>
 	idHashParam?: string;
 	tabHashParam?: string;
 	pagination?: Pagination;
+	/** @deprecated Use CSS custom properties `--cz-queue-list-basis` / `--cz-queue-list-min-width` instead. */
+	split?: SplitConfig;
 }
 
 interface Image extends HTMLElement {
@@ -47,6 +63,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		loader,
 		pagination,
 		fallback,
+		split,
 	} = props;
 
 	const queueProps = useQueue({
@@ -76,6 +93,18 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		onAsyncSimpleAction,
 	};
 
+	const splitStyle = split
+		? [
+				split.sizes?.[0] != null && `--cz-queue-list-basis: ${split.sizes[0]}%`,
+				split.minSize != null &&
+					`--cz-queue-list-min-width: ${
+						Array.isArray(split.minSize) ? split.minSize[0] : split.minSize
+					}px`,
+			]
+				.filter(Boolean)
+				.join('; ')
+		: undefined;
+
 	return renderQueue({
 		details,
 		heading,
@@ -87,6 +116,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		nav,
 		pagination,
 		persistKey: settingsId ? `${settingsId}-split` : undefined,
+		splitStyle,
 		list: list(
 			{
 				id: 'list',

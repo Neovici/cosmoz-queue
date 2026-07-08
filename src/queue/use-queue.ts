@@ -92,8 +92,6 @@ interface Opts<I>
 	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
-	/** @deprecated Split sizing is now controlled via CSS */
-	split?: Record<string, unknown>;
 }
 
 const useQueue = <I>({
