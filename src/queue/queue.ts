@@ -13,7 +13,7 @@ type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
 
 interface Props<I, D>
 	extends
-		Pick<UseQueue<I>, 'id' | 'api' | 'fallback' | 'split'>,
+		Pick<UseQueue<I>, 'id' | 'api' | 'fallback'>,
 		Pick<RenderQueue<I, D>, 'details' | 'afterHeading'> {
 	list: (
 		thru: Record<string, any>,
@@ -47,7 +47,6 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		loader,
 		pagination,
 		fallback,
-		split,
 	} = props;
 
 	const queueProps = useQueue({
@@ -56,7 +55,6 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		idHashParam,
 		tabHashParam,
 		fallback,
-		split,
 	});
 
 	const {
@@ -88,9 +86,11 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		totalAvailable,
 		nav,
 		pagination,
+		persistKey: settingsId ? `${settingsId}-split` : undefined,
 		list: list(
 			{
 				id: 'list',
+				slot: 'previous',
 				'.exposedParts': `itemRow, itemRow-${index}`,
 				'.settingsId': settingsId,
 				'@visible-items-changed': updateWith(setItems),
