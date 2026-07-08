@@ -43,8 +43,8 @@ export const base = css`
 	}
 
 	#list {
-		flex-basis: 25%;
-		min-width: 300px;
+		flex-basis: var(--cz-queue-list-basis, 50%);
+		min-width: var(--cz-queue-list-min-width, 100px);
 	}
 
 	[data-active='split'] .view-core::part(header-bg) {
