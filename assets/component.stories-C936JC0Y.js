@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit-html-B0z-6tlh.js";import{i as a,r as o}from"./iframe-DUrQYmMs.js";import{a as s,g as c,h as l,i as u,l as ee,m as d,n as f,p,r as te,s as ne,t as m,u as h}from"./haunted-I0Oiii6k.js";import{_ as re,a as g,c as _,d as ie,f as ae,g as oe,h as se,i as ce,l as le,m as ue,o as de,p as fe,s as pe,t as me,u as he}from"./render-Bfy20W2c.js";var v,y,b=e((()=>{v=e=>t=>{let n=t.match(e);return n&&{result:n,url:new URL(t,document.location.origin)}},y=(e,t)=>{for(let n of e){let e=n.rule,r=typeof e==`function`?e(t):v(e)(t);if(r)return{...n,route:n,match:r,url:t}}}})),ge=e((()=>{m()})),x,S,C,w,T=e((()=>{m(),b(),x=()=>window.location.href.replace(window.location.origin,``),S=()=>{let[e,t]=h(x);return d(()=>{let e=()=>t(x);return window.addEventListener(`popstate`,e),()=>window.removeEventListener(`popstate`,e)},[t]),e},C=e=>{let t=S();return p(()=>y(e,t),[e,t])},w=(e,t=null,{notify:n=!0,replace:r=!0}={})=>{(r?history.replaceState:history.pushState).call(history,t,``,e),n&&queueMicrotask(()=>window.dispatchEvent(new CustomEvent(`popstate`,{bubbles:!1})))}})),E,D=e((()=>{m(),T(),E=e=>{let t=C(e);return{route:t,result:p(()=>{if(t){let{handle:e,...n}=t;return e(n)}},[t])}}})),O,k,_e=e((()=>{O=class{constructor(e){this.G=e}disconnect(){this.G=void 0}reconnect(e){this.G=e}deref(){return this.G}},k=class{constructor(){this.Y=void 0,this.Z=void 0}get(){return this.Y}pause(){this.Y??=new Promise(e=>this.Z=e)}resume(){this.Z?.(),this.Y=this.Z=void 0}}})),A,j,M,N,ve=e((()=>{n(),o(),u(),_e(),ne(),A=e=>!a(e)&&typeof e.then==`function`,j=1073741823,M=class extends te{constructor(){super(...arguments),this._$Cwt=j,this._$Cbt=[],this._$CK=new O(this),this._$CX=new k}render(...e){return e.find(e=>!A(e))??r}update(e,t){let n=this._$Cbt,i=n.length;this._$Cbt=t;let a=this._$CK,o=this._$CX;this.isConnected||this.disconnected();for(let e=0;e<t.length&&!(e>this._$Cwt);e++){let r=t[e];if(!A(r))return this._$Cwt=e,r;e<i&&r===n[e]||(this._$Cwt=j,i=0,Promise.resolve(r).then(async e=>{for(;o.get();)await o.get();let t=a.deref();if(t!==void 0){let n=t._$Cbt.indexOf(r);n>-1&&n<t._$Cwt&&(t._$Cwt=n,t.setValue(e))}}))}return r}disconnected(){this._$CK.disconnect(),this._$CX.pause()}reconnected(){this._$CK.reconnect(this),this._$CX.resume()}},N=s(M)})),P,F,ye=e((()=>{m(),P=(e,t,n)=>e.dispatchEvent(new CustomEvent(t,{bubbles:!1,cancelable:!1,composed:!0,...n})),F=(e,t,n)=>{d(()=>{if(!n){P(e,`route-not-found`);return}P(e,`route-loading`,{detail:t}),Promise.resolve(n).then(()=>P(e,`route-loaded`,{detail:t})).catch(n=>P(e,`route-error`,{detail:{route:t,error:n}}))},[n])}})),I,be=e((()=>{n(),re(),ve(),m(),D(),ye(),I=e=>{let t=e.routes,{route:n,result:r}=E(t);return F(e,n,r),oe([r],()=>N(Promise.resolve(r).catch(()=>i),i))},customElements.define(`cosmoz-router`,f(I))})),xe=e((()=>{b(),ge(),T(),D(),be()})),L,R,z,B,Se=e((()=>{m(),se(),ie(),xe(),L=e=>{let t=ee(void 0);return d(()=>void(t.current=e),[e]),t.current},R=(e,t,n,r)=>e.find(e=>n(e)===n(t))??e[r]??e[0],z=(e,t,n)=>e.find(e=>n(e)===t)??e[0],B=(e,{id:t=ue,hashParam:n,maintainSelection:r})=>{let[i,a]=h(()=>e[0]),[o]=fe(n),s=p(()=>e.indexOf(i),[e,i]),c=L(s),{prev:l,next:u}=p(()=>{let t=e.length-1;return{...s>0&&{prev:()=>a(e[Math.max(0,Math.min(t,s-1))])},...s<t&&{next:()=>a(e[Math.max(0,Math.min(t,s+1))])}}},[e,s]);return d(()=>{!i||!n||w(ae(n,t(i)),null,{notify:!1})},[i]),d(()=>{e.length!==0&&a(n=>!n&&o!=null?z(e,o,t):e.indexOf(n)>=0?n:!n||!r?e[0]:R(e,n,t,c))},[e,o]),{forward:s>c,index:s,item:i,items:e,setItem:a,prev:l,next:u}}})),Ce=e((()=>{m(),c(class extends l{update(){return this.state.host}})})),we=e((()=>{m()})),V,Te=e((()=>{m(),Ce(),we(),V=()=>{let[e,t]=h(),[n,r]=h([]),[i,a]=h([]);return{totalAvailable:e,setTotalAvailable:t,items:n,setItems:r,selected:i,setSelected:a}}})),H,U,W,G=e((()=>{n(),H=t` <svg
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit-html-B0z-6tlh.js";import{i as a,r as o}from"./iframe-CyOoKo9l.js";import{_ as s,a as c,d as l,g as u,h as d,i as f,m as p,n as m,r as ee,s as h,t as g,u as te}from"./haunted-D3RiLG1W.js";import{_ as ne,a as _,c as v,d as re,f as ie,g as ae,h as oe,i as se,l as ce,m as le,o as ue,p as de,s as fe,t as pe,u as me,v as he}from"./render-evWsmsAq.js";var y,b,x=e((()=>{y=e=>t=>{let n=t.match(e);return n&&{result:n,url:new URL(t,document.location.origin)}},b=(e,t)=>{for(let n of e){let e=n.rule,r=typeof e==`function`?e(t):y(e)(t);if(r)return{...n,route:n,match:r,url:t}}}})),ge=e((()=>{g()})),S,C,w,T,E=e((()=>{g(),x(),S=()=>window.location.href.replace(window.location.origin,``),C=()=>{let[e,t]=l(S);return d(()=>{let e=()=>t(S);return window.addEventListener(`popstate`,e),()=>window.removeEventListener(`popstate`,e)},[t]),e},w=e=>{let t=C();return p(()=>b(e,t),[e,t])},T=(e,t=null,{notify:n=!0,replace:r=!0}={})=>{(r?history.replaceState:history.pushState).call(history,t,``,e),n&&queueMicrotask(()=>window.dispatchEvent(new CustomEvent(`popstate`,{bubbles:!1})))}})),D,O=e((()=>{g(),E(),D=e=>{let t=w(e);return{route:t,result:p(()=>{if(t){let{handle:e,...n}=t;return e(n)}},[t])}}})),k,A,_e=e((()=>{k=class{constructor(e){this.G=e}disconnect(){this.G=void 0}reconnect(e){this.G=e}deref(){return this.G}},A=class{constructor(){this.Y=void 0,this.Z=void 0}get(){return this.Y}pause(){this.Y??=new Promise(e=>this.Z=e)}resume(){this.Z?.(),this.Y=this.Z=void 0}}})),j,M,N,P,ve=e((()=>{n(),o(),f(),_e(),h(),j=e=>!a(e)&&typeof e.then==`function`,M=1073741823,N=class extends ee{constructor(){super(...arguments),this._$Cwt=M,this._$Cbt=[],this._$CK=new k(this),this._$CX=new A}render(...e){return e.find(e=>!j(e))??r}update(e,t){let n=this._$Cbt,i=n.length;this._$Cbt=t;let a=this._$CK,o=this._$CX;this.isConnected||this.disconnected();for(let e=0;e<t.length&&!(e>this._$Cwt);e++){let r=t[e];if(!j(r))return this._$Cwt=e,r;e<i&&r===n[e]||(this._$Cwt=M,i=0,Promise.resolve(r).then(async e=>{for(;o.get();)await o.get();let t=a.deref();if(t!==void 0){let n=t._$Cbt.indexOf(r);n>-1&&n<t._$Cwt&&(t._$Cwt=n,t.setValue(e))}}))}return r}disconnected(){this._$CK.disconnect(),this._$CX.pause()}reconnected(){this._$CK.reconnect(this),this._$CX.resume()}},P=c(N)})),F,I,ye=e((()=>{g(),F=(e,t,n)=>e.dispatchEvent(new CustomEvent(t,{bubbles:!1,cancelable:!1,composed:!0,...n})),I=(e,t,n)=>{d(()=>{if(!n){F(e,`route-not-found`);return}F(e,`route-loading`,{detail:t}),Promise.resolve(n).then(()=>F(e,`route-loaded`,{detail:t})).catch(n=>F(e,`route-error`,{detail:{route:t,error:n}}))},[n])}})),L,be=e((()=>{n(),ne(),ve(),g(),O(),ye(),L=e=>{let t=e.routes,{route:n,result:r}=D(t);return I(e,n,r),ae([r],()=>P(Promise.resolve(r).catch(()=>i),i))},customElements.define(`cosmoz-router`,m(L))})),xe=e((()=>{x(),ge(),E(),O(),be()})),R,z,B,V,Se=e((()=>{g(),oe(),re(),xe(),R=e=>{let t=te(void 0);return d(()=>void(t.current=e),[e]),t.current},z=(e,t,n,r)=>e.find(e=>n(e)===n(t))??e[r]??e[0],B=(e,t,n)=>e.find(e=>n(e)===t)??e[0],V=(e,{id:t=le,hashParam:n,maintainSelection:r})=>{let[i,a]=l(()=>e[0]),[o]=de(n),s=p(()=>e.indexOf(i),[e,i]),c=R(s),{prev:u,next:f}=p(()=>{let t=e.length-1;return{...s>0&&{prev:()=>a(e[Math.max(0,Math.min(t,s-1))])},...s<t&&{next:()=>a(e[Math.max(0,Math.min(t,s+1))])}}},[e,s]);return d(()=>{!i||!n||T(ie(n,t(i)),null,{notify:!1})},[i]),d(()=>{e.length!==0&&a(n=>!n&&o!=null?B(e,o,t):e.indexOf(n)>=0?n:!n||!r?e[0]:z(e,n,t,c))},[e,o]),{forward:s>c,index:s,item:i,items:e,setItem:a,prev:u,next:f}}})),Ce=e((()=>{g(),s(class extends u{update(){return this.state.host}})})),we=e((()=>{g()})),H,Te=e((()=>{g(),Ce(),we(),H=()=>{let[e,t]=l(),[n,r]=l([]),[i,a]=l([]);return{totalAvailable:e,setTotalAvailable:t,items:n,setItems:r,selected:i,setSelected:a}}})),U,W,G,Ee=e((()=>{n(),U=t` <svg
 	width="18"
 	height="14"
 	viewBox="0 0 18 14"
@@ -12,7 +12,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
 	/>
 	<line x1="1" y1="9.39288" x2="17" y2="9.39288" stroke-width="1.5" />
 	<line x1="1" y1="12.8214" x2="17" y2="12.8214" stroke-width="1.5" />
-</svg>`,U=t`
+</svg>`,W=t`
 	<svg
 		width="22"
 		height="16"
@@ -28,7 +28,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
 			stroke-width="1.5"
 		/>
 	</svg>
-`,W=t`
+`,G=t`
 	<svg
 		width="19"
 		height="14"
@@ -55,9 +55,9 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
 		/>
 		<line x1="7" y1="1.75" x2="4.15643e-07" y2="1.75" stroke-width="1.5" />
 	</svg>
-`})),K,Ee=e((()=>{le(),m(),pe(),G(),K=({items:e,hashParam:t,mobile:n,fallback:r,onActivate:i})=>{let a=he(p(()=>[{name:`overview`,title:_(`List`),disabled:!1,content:H},{name:`split`,disabled:n||!(e.length>0),title:_(`Split`),content:W},{name:`queue`,disabled:!(e.length>0),title:_(`Queue`),content:U}].map(e=>e.name===r?{...e,fallback:!0}:e),[e.length,n,r]),{hashParam:t,onActivate:i}),o=p(()=>a,Object.values(a));return{activeTab:o.active?.name,tabnav:o}}})),q,J,Y,X,Z,Q,$;e((()=>{m(),n(),me(),de(),Se(),Te(),Ee(),q={title:`Components/Queue`,component:`cosmoz-queue`},J=[{id:`1`,name:`Task Alpha`,description:`Complete the project setup`,status:`active`},{id:`2`,name:`Task Beta`,description:`Review code changes`,status:`pending`},{id:`3`,name:`Task Gamma`,description:`Write documentation`,status:`active`},{id:`4`,name:`Task Delta`,description:`Run tests`,status:`completed`},{id:`5`,name:`Task Epsilon`,description:`Deploy to staging`,status:`pending`}],Y=()=>{let{items:e,setItems:n,totalAvailable:r,setTotalAvailable:i}=V();e.length===0&&(n(J),i(J.length));let{activeTab:a,tabnav:o}=K({items:e.length>0?e:J,fallback:`overview`}),s=B(e.length>0?e:J,{id:e=>e.id,hashParam:void 0}),c=e=>{s.setItem(e),a===`overview`&&o.activate(`queue`)};return t`
+`})),K,De=e((()=>{ce(),g(),fe(),Ee(),K=({items:e,hashParam:t,mobile:n,fallback:r,onActivate:i})=>{let a=me(p(()=>[{name:`overview`,title:v(`List`),disabled:!1,content:U},{name:`split`,disabled:n||!(e.length>0),title:v(`Split`),content:G},{name:`queue`,disabled:!(e.length>0),title:v(`Queue`),content:W}].map(e=>e.name===r?{...e,fallback:!0}:e),[e.length,n,r]),{hashParam:t,onActivate:i}),o=p(()=>a,Object.values(a));return{activeTab:o.active?.name,tabnav:o}}})),q,J,Y,X,Z,Q,$;e((()=>{he(),g(),n(),pe(),ue(),Se(),Te(),De(),q={title:`Components/Queue`,component:`cosmoz-queue`},J=[{id:`1`,name:`Task Alpha`,description:`Complete the project setup`,status:`active`},{id:`2`,name:`Task Beta`,description:`Review code changes`,status:`pending`},{id:`3`,name:`Task Gamma`,description:`Write documentation`,status:`active`},{id:`4`,name:`Task Delta`,description:`Run tests`,status:`completed`},{id:`5`,name:`Task Epsilon`,description:`Deploy to staging`,status:`pending`}],Y=()=>{let{items:e,setItems:n,totalAvailable:r,setTotalAvailable:i}=H();e.length===0&&(n(J),i(J.length));let{activeTab:a,tabnav:o}=K({items:e.length>0?e:J,fallback:`overview`}),s=V(e.length>0?e:J,{id:e=>e.id,hashParam:void 0}),c=e=>{s.setItem(e),a===`overview`&&o.activate(`queue`)};return t`
         <style>
-            ${g}
+            ${_}
         </style>
         <div style="height: 100%; display: flex; flex-direction: column;">
             <!-- Header with tabs -->
@@ -73,13 +73,13 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
                             ${e.title}
                         </button>
                     `)}
-                ${ce({index:s.index,items:e.length>0?e:J,totalAvailable:r??J.length,nav:s})}
+                ${se({index:s.index,items:e.length>0?e:J,totalAvailable:r??J.length,nav:s})}
             </div>
 
             <!-- Content area -->
-            <div class="split" data-active=${a}>
+            <cosmoz-resizable-view data-active=${a} persist="demo-queue">
                 <!-- List view -->
-                <div id="list" style="padding: 16px;">
+                <div id="list" slot="previous" style="padding: 16px;">
                     <h3 style="margin-top: 0;">Items</h3>
                     ${(e.length>0?e:J).map(e=>t`
                             <div
@@ -114,7 +114,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
                 </div>
 
                 <!-- Detail view -->
-                <div id="queue" style="padding: 16px;">
+                <div id="queue" slot="next" style="padding: 16px;">
                     ${s.item?t`
                                 <div
                                     style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;"
@@ -150,9 +150,9 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
                                 </div>
                             `}
                 </div>
-            </div>
+            </cosmoz-resizable-view>
         </div>
-    `},X=f(Y,{observedAttributes:[],useShadowDOM:!0,styleSheets:[g]}),customElements.get(`cosmoz-queue-demo`)||customElements.define(`cosmoz-queue-demo`,X),Z=()=>t`
+    `},X=m(Y,{observedAttributes:[],useShadowDOM:!0,styleSheets:[_]}),customElements.get(`cosmoz-queue-demo`)||customElements.define(`cosmoz-queue-demo`,X),Z=()=>t`
     <div
         style="height: 600px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;"
     >
@@ -221,14 +221,6 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
                     </td>
                     <td style="padding: 8px; border: 1px solid #e0e0e0;">
                         Tab state management (list/split/queue modes)
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #e0e0e0;">
-                        <code>useSplit</code>
-                    </td>
-                    <td style="padding: 8px; border: 1px solid #e0e0e0;">
-                        Split.js integration for resizable panels
                     </td>
                 </tr>
                 <tr>
@@ -325,14 +317,6 @@ const MyQueueComponent = () => {
                     </td>
                     <td style="padding: 8px; border: 1px solid #e0e0e0;">
                         Tab state management (list/split/queue modes)
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #e0e0e0;">
-                        <code>useSplit</code>
-                    </td>
-                    <td style="padding: 8px; border: 1px solid #e0e0e0;">
-                        Split.js integration for resizable panels
                     </td>
                 </tr>
                 <tr>
