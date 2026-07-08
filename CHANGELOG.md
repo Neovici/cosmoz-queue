@@ -1,5 +1,17 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.12.1
+
+### Patch Changes
+
+- 9a6e7eb: Restore `split` prop compatibility and fix default sizing.
+  - `split` prop is now converted to CSS custom properties (`--cz-queue-list-basis`, `--cz-queue-list-min-width`) applied on `<cosmoz-resizable-view>`
+  - `split.sizes[0]` → `--cz-queue-list-basis` (percentage), `split.minSize` → `--cz-queue-list-min-width` (px)
+  - `expandToMin` and `snapOffset` are silently ignored (no CSS equivalent)
+  - Default `#list` sizing changed from `25%`/`300px` to `50%`/`100px` (matching split.js defaults)
+  - Consumers without `split` prop now get 50/50 split (was 25/75)
+  - `split` prop marked `@deprecated` — use CSS custom properties directly instead
+
 ## 2.12.0
 
 ### Minor Changes
