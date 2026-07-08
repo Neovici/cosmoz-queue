@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+import '@neovici/cosmoz-resizable';
 import { component } from '@pionjs/pion';
 import { html } from 'lit-html';
 import { renderStats } from '../src/queue/render';
@@ -108,9 +109,9 @@ const DemoQueue = () => {
 			</div>
 
 			<!-- Content area -->
-			<div class="split" data-active=${activeTab}>
+			<cosmoz-resizable-view data-active=${activeTab} persist="demo-queue">
 				<!-- List view -->
-				<div id="list" style="padding: 16px;">
+				<div id="list" slot="previous" style="padding: 16px;">
 					<h3 style="margin-top: 0;">Items</h3>
 					${(items.length > 0 ? items : sampleItems).map(
 						(item) => html`
@@ -159,7 +160,7 @@ const DemoQueue = () => {
 				</div>
 
 				<!-- Detail view -->
-				<div id="queue" style="padding: 16px;">
+				<div id="queue" slot="next" style="padding: 16px;">
 					${nav.item
 						? html`
 								<div
@@ -197,7 +198,7 @@ const DemoQueue = () => {
 								</div>
 							`}
 				</div>
-			</div>
+			</cosmoz-resizable-view>
 		</div>
 	`;
 };
@@ -285,14 +286,6 @@ export const Documentation = () => html`
 					</td>
 					<td style="padding: 8px; border: 1px solid #e0e0e0;">
 						Tab state management (list/split/queue modes)
-					</td>
-				</tr>
-				<tr>
-					<td style="padding: 8px; border: 1px solid #e0e0e0;">
-						<code>useSplit</code>
-					</td>
-					<td style="padding: 8px; border: 1px solid #e0e0e0;">
-						Split.js integration for resizable panels
 					</td>
 				</tr>
 				<tr>

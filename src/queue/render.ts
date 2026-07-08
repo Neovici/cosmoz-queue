@@ -1,4 +1,5 @@
 import '@neovici/cosmoz-button';
+import '@neovici/cosmoz-resizable';
 import { slideInLeft, slideInRight } from '@neovici/cosmoz-slider';
 import { renderTabs, RenderTabs } from '@neovici/cosmoz-tabs/next/index.js';
 import { lazyUntil } from '@neovici/cosmoz-utils/directives/lazy-until';
@@ -193,6 +194,8 @@ export interface RenderQueue<I, D> extends Pick<
 	totalAvailable?: number;
 	list: TemplateResult;
 	pagination?: Pagination;
+	persistKey?: string;
+	splitStyle?: string;
 	tabnav: RenderTabs<Tab>;
 	nav: Omit<RenderSlide<I, D>, 'renderItem' | 'renderLoader' | 'details'> &
 		Pick<RenderView<I, D>, 'details'> & { index: number };
@@ -211,6 +214,8 @@ export const renderQueue = <I, D>({
 	renderItem,
 	details = nav?.details,
 	pagination: _pagination,
+	persistKey,
+	splitStyle,
 }: RenderQueue<I, D>) => {
 	const activeTab = tabnav.active?.name;
 	const pagination = _pagination
@@ -235,16 +240,22 @@ export const renderQueue = <I, D>({
 			${renderPagination(pagination)}
 		</cosmoz-tabs-next>
 
-		<div class="split" data-active=${activeTab}>
+		<cosmoz-resizable-view
+			data-active=${activeTab}
+			direction="horizontal"
+			persist=${persistKey}
+			style=${splitStyle}
+		>
 			${list}
 			<cosmoz-slider
 				id="queue"
+				slot="next"
 				.slide=${when(
 					activeTab !== 'overview',
 					() => renderSlide({ ...nav, renderLoader, renderItem, details }),
 					emptySlide,
 				)}
 			></cosmoz-slider>
-		</div>
+		</cosmoz-resizable-view>
 	`;
 };

@@ -50,50 +50,9 @@ export const base = css`
 		align-items: center;
 	}
 
-	.split {
-		display: flex;
-		flex: auto;
-		flex-direction: row;
-		min-height: 0;
-	}
-
-	.gutter {
-		cursor: col-resize;
-		flex: none;
-		display: flex;
-		background: var(--cz-color-border-primary);
-		z-index: 2;
-		position: relative;
-	}
-	.gutter::before {
-		content: '';
-		display: block;
-		flex: none;
-		background: var(--cz-color-border-primary);
-		width: 1px;
-		margin-left: auto;
-		pointer-events: none;
-	}
-	.gutter:hover::before {
-		background: var(--cz-color-bg-brand-secondary);
-		box-shadow: -1px 0 0 1px var(--cz-color-bg-brand-secondary);
-	}
-	.gutter:hover::after {
-		content: '';
-		display: block;
-		position: absolute;
-		top: 0;
-		left: -2px;
-		right: -2px;
-		bottom: 0;
-	}
-
 	#list {
-		min-width: 0;
-	}
-	#list,
-	#queue {
-		flex: auto;
+		flex-basis: var(--cz-queue-list-basis, 50%);
+		min-width: var(--cz-queue-list-min-width, 100px);
 	}
 
 	#queue {
@@ -104,12 +63,9 @@ export const base = css`
 		border-top-left-radius: 0;
 	}
 
-	[data-active='overview'] .view-core,
+	[data-active='overview'] #queue,
 	[data-active='queue'] #list {
-		display: none;
-	}
-	[data-active='overview'] #queue {
-		flex: none;
+		display: none !important;
 	}
 
 	.button-nav.prev,

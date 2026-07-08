@@ -48,6 +48,30 @@
 
 - 12093cf: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
 
+## 2.12.1
+
+### Patch Changes
+
+- 9a6e7eb: Restore `split` prop compatibility and fix default sizing.
+  - `split` prop is now converted to CSS custom properties (`--cz-queue-list-basis`, `--cz-queue-list-min-width`) applied on `<cosmoz-resizable-view>`
+  - `split.sizes[0]` → `--cz-queue-list-basis` (percentage), `split.minSize` → `--cz-queue-list-min-width` (px)
+  - `expandToMin` and `snapOffset` are silently ignored (no CSS equivalent)
+  - Default `#list` sizing changed from `25%`/`300px` to `50%`/`100px` (matching split.js defaults)
+  - Consumers without `split` prop now get 50/50 split (was 25/75)
+  - `split` prop marked `@deprecated` — use CSS custom properties directly instead
+
+## 2.12.0
+
+### Minor Changes
+
+- e331ef4: Migrate from split.js to `@neovici/cosmoz-resizable` v2 CSS-driven flex model.
+  - Replace split.js gutter with `<cosmoz-resizable-view>` + `<cosmoz-resize-handle>`
+  - `#list` gets `slot="previous"`, cosmoz-slider gets `slot="next"`
+  - `#list` CSS: `flex-basis: 25%; min-width: 300px` (replaces `initialSizes`/`minSize` props)
+  - Persist key derived from `settingsId + '-split'`, passed via `persist` attribute
+  - `split` prop deprecated (silently ignored — sizing is CSS-only)
+  - Removed `use-split.ts`, `split.js` dependency, `@types/split.js`
+
 ## 2.11.5
 
 ### Patch Changes
