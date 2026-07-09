@@ -42,11 +42,6 @@ export const base = css`
 		white-space: nowrap;
 	}
 
-	#list {
-		flex-basis: var(--cz-queue-list-basis, 50%);
-		min-width: var(--cz-queue-list-min-width, 100px);
-	}
-
 	[data-active='split'] .view-core::part(header-bg) {
 		border-top-left-radius: 0;
 	}

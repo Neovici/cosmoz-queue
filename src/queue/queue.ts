@@ -12,11 +12,9 @@ type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
 };
 
 /**
- * @deprecated Use CSS custom properties `--cz-queue-list-basis` and
- * `--cz-queue-list-min-width` on the host element instead.
- *
- * `expandToMin` and `snapOffset` have no equivalent in the CSS flex model
- * and are silently ignored.
+ * @deprecated Use `initial-size` and `min-size` attributes on
+ * `<cosmoz-resizable-view>` instead (mapped automatically from this prop).
+ * `expandToMin` and `snapOffset` have no equivalent and are silently ignored.
  */
 export interface SplitConfig {
 	sizes?: [number, number];
@@ -40,7 +38,7 @@ interface Props<I, D>
 	idHashParam?: string;
 	tabHashParam?: string;
 	pagination?: Pagination;
-	/** @deprecated Use CSS custom properties `--cz-queue-list-basis` / `--cz-queue-list-min-width` instead. */
+	/** @deprecated Use `initial-size` / `min-size` attributes on `<cosmoz-resizable-view>` instead. */
 	split?: SplitConfig;
 }
 
@@ -93,17 +91,16 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		onAsyncSimpleAction,
 	};
 
-	const splitStyle = split
-		? [
-				split.sizes?.[0] != null && `--cz-queue-list-basis: ${split.sizes[0]}%`,
-				split.minSize != null &&
-					`--cz-queue-list-min-width: ${
-						Array.isArray(split.minSize) ? split.minSize[0] : split.minSize
-					}px`,
-			]
-				.filter(Boolean)
-				.join('; ')
-		: undefined;
+	const splitAttrs = split
+		? {
+				initialSize:
+					split.sizes?.[0] != null ? `${split.sizes[0]}%` : undefined,
+				minSize:
+					split.minSize != null
+						? `${Array.isArray(split.minSize) ? split.minSize[0] : split.minSize}`
+						: undefined,
+			}
+		: { initialSize: '50%', minSize: '100' };
 
 	return renderQueue({
 		details,
@@ -116,7 +113,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		nav,
 		pagination,
 		persistKey: settingsId ? `${settingsId}-split` : undefined,
-		splitStyle,
+		splitAttrs,
 		list: list(
 			{
 				id: 'list',
