@@ -189,7 +189,7 @@ export interface RenderQueue<I, D> extends Pick<
 	list: TemplateResult;
 	pagination?: Pagination;
 	persistKey?: string;
-	splitStyle?: string;
+	splitAttrs?: { initialSize?: string; minSize?: string };
 	tabnav: RenderTabs<Tab>;
 	nav: Omit<RenderSlide<I, D>, 'renderItem' | 'renderLoader' | 'details'> &
 		Pick<RenderView<I, D>, 'details'> & { index: number };
@@ -209,7 +209,7 @@ export const renderQueue = <I, D>({
 	details = nav?.details,
 	pagination: _pagination,
 	persistKey,
-	splitStyle,
+	splitAttrs,
 }: RenderQueue<I, D>) => {
 	const activeTab = tabnav.active?.name;
 	const pagination = _pagination
@@ -238,7 +238,8 @@ export const renderQueue = <I, D>({
 			data-active=${activeTab}
 			direction="horizontal"
 			persist=${persistKey}
-			style=${splitStyle}
+			initial-size=${splitAttrs?.initialSize ?? nothing}
+			min-size=${splitAttrs?.minSize ?? nothing}
 		>
 			${list}
 			<cosmoz-slider
