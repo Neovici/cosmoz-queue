@@ -1,10 +1,17 @@
-import { StateUpdater, useEffect, useMemo, useState } from '@pionjs/pion';
+import {
+	StateUpdater,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from '@pionjs/pion';
 
 export interface TList$<TParams extends object, TItem extends object> {
 	(props: {
 		params: TParams;
 		page: number;
 		pageSize: number;
+		signal?: AbortSignal;
 	}): PromiseLike<{ items: TItem[]; total: number }>;
 }
 
@@ -36,6 +43,7 @@ export const useMore = <TParams extends object, TItem extends object>({
 		totalAvailable: Infinity,
 		params: _params,
 	});
+	const abortRef = useRef<AbortController | null>(null);
 	const hasMore =
 		pageSize > 0 &&
 		totalAvailable < Infinity &&
@@ -58,26 +66,43 @@ export const useMore = <TParams extends object, TItem extends object>({
 	);
 
 	useEffect(() => {
+		const controller = new AbortController();
+		abortRef.current = controller;
+		const { signal } = controller;
+
 		setData(({ data$, params, page, ...thru }) => ({
 			...thru,
 			params,
 			page,
 			data$: Promise.resolve(data$).then((prev) =>
-				list$({
-					params,
-					page,
-					pageSize,
-				}).then((data) => {
-					const totalAvailable = data.total;
-					setTotalAvailable(totalAvailable);
-					setData((s) => ({
-						...s,
-						totalAvailable,
-					}));
-					return [...prev.slice(0, page * pageSize), ...data.items];
-				}),
+				Promise.resolve(
+					list$({
+						params,
+						page,
+						pageSize,
+						signal,
+					}),
+				)
+					.then((data) => {
+						if (signal.aborted) return prev;
+						const totalAvailable = data.total;
+						setTotalAvailable(totalAvailable);
+						setData((s) => ({
+							...s,
+							totalAvailable,
+						}));
+						return [...prev.slice(0, page * pageSize), ...data.items];
+					})
+					.catch((error) => {
+						if (error.name === 'AbortError') return prev;
+						return Promise.reject(error);
+					}),
 			),
 		}));
+
+		return () => {
+			controller.abort();
+		};
 	}, [page, params, list$, pageSize]);
 
 	return { data$, loadMore };
