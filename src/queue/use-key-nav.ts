@@ -11,9 +11,12 @@ const keys = <L, Q>(tab: Tab, listKeys: L[], queueKeys: Q[]) => [
 ];
 
 const overlaps = (host: HTMLElement) => {
-	const root = host.shadowRoot!,
-		button = root.querySelector('.button-nav')!,
-		bounds = button.getBoundingClientRect();
+	const root = host.shadowRoot,
+		button = root?.querySelector('.button-nav');
+	if (!root || !button) {
+		return false;
+	}
+	const bounds = button.getBoundingClientRect();
 	return (
 		root
 			.elementFromPoint(
