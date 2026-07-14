@@ -1,5 +1,15 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.12.3
+
+### Patch Changes
+
+- 929e5dd: **Fix:** Guard against unmounted component in `overlaps()` function
+
+  The `overlaps()` function in `use-key-nav.ts` would crash with `TypeError: Cannot read properties of null (reading 'getBoundingClientRect')` when the component unmounted but keyboard events still fired (e.g., user holding a key). This fix adds null guards to prevent the crash, returning `false` when the component is unmounted, which safely blocks keyboard navigation via `permits()`.
+
+  **Fixes FE-959**
+
 ## 2.12.2
 
 ### Patch Changes
