@@ -60,6 +60,39 @@
 
 - 12093cf: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
 
+## 2.13.0
+
+### Minor Changes
+
+- 41e71f2: feat(list/more): add AbortSignal support to useMore
+
+  Pass an AbortSignal to the `list$` callback so consumers can cancel
+  in-flight fetches when params/list$ deps change simultaneously. The
+  previous fetch is aborted via AbortController, preventing stale
+  responses from clobbering newer data. The `signal` prop on `TList$`
+  is optional — existing consumers remain compatible without changes.
+
+## 2.12.3
+
+### Patch Changes
+
+- 929e5dd: **Fix:** Guard against unmounted component in `overlaps()` function
+
+  The `overlaps()` function in `use-key-nav.ts` would crash with `TypeError: Cannot read properties of null (reading 'getBoundingClientRect')` when the component unmounted but keyboard events still fired (e.g., user holding a key). This fix adds null guards to prevent the crash, returning `false` when the component is unmounted, which safely blocks keyboard navigation via `permits()`.
+
+  **Fixes FE-959**
+
+## 2.12.2
+
+### Patch Changes
+
+- 7b10996: Restore `split` prop compatibility via `cosmoz-resizable-view` attributes.
+  - `split` prop is converted to `initial-size` / `min-size` attributes on `<cosmoz-resizable-view>`
+  - `split.sizes[0]` → `initial-size` (percentage), `split.minSize` → `min-size` (px)
+  - `expandToMin` and `snapOffset` are silently ignored (no equivalent)
+  - Default sizing: `50%` / `100px` (matching split.js defaults)
+  - `split` prop marked `@deprecated` — use attributes on `<cosmoz-resizable-view>` directly
+
 ## 2.12.1
 
 ### Patch Changes
