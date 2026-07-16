@@ -137,21 +137,22 @@ export const buttonStyles = css`
 	.button:not([slot='bottom-bar-menu']),
 	.file::-webkit-file-upload-button,
 	.file::file-selector-button {
-		background: var(--cosmoz-button-bg-color, #101010);
-		color: var(--cosmoz-button-color, #fff);
+		background-color: var(--cz-color-bg-brand-solid);
+		color: var(--cz-color-text-on-brand);
+		box-shadow: var(--cz-shadow-xs-skeumorphic);
 		box-sizing: border-box;
 		cursor: pointer;
 		outline: none;
 		flex: none;
 		border: none;
-		padding: 0 18px;
-		border-radius: 6px;
-		min-height: 40px;
+		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
+		border-radius: var(--cz-radius-md);
+		height: 40px;
 		min-width: 78px;
 		font-family: inherit;
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 40px;
+		font-size: var(--cz-text-sm);
+		font-weight: var(--cz-font-weight-semibold);
+		line-height: var(--cz-text-sm-line-height);
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
@@ -159,7 +160,7 @@ export const buttonStyles = css`
 	.button:not([slot='bottom-bar-menu']):active,
 	.file::-webkit-file-upload-button:hover,
 	.file::file-selector-button:hover {
-		background: var(--cosmoz-button-hover-bg-color, #3a3f44);
+		background-color: var(--cz-color-bg-brand-solid-hover);
 	}
 	.button[disabled],
 	.button:disabled {
