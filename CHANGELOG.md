@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 3.0.0-beta.10
+
+### Patch Changes
+
+- 599c2ee: Add abortSignal support to useMore
+
 ## 3.0.0-beta.9
 
 ### Patch Changes
