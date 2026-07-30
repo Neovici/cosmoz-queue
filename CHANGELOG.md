@@ -1,5 +1,13 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.13.1
+
+### Patch Changes
+
+- 0bd045d: Fix: default split initialSize to 50% when sizes not provided
+
+  When `split` config is provided without `sizes`, `initialSize` was `undefined`, causing `flex-basis: auto` (intrinsic sizing) and a "dancing omnitable" layout feedback loop. Now defaults to `50%`, matching the no-split fallback.
+
 ## 2.13.0
 
 ### Minor Changes
