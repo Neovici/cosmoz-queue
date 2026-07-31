@@ -1,5 +1,11 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 3.0.0-beta.11
+
+### Patch Changes
+
+- 339cb9c: Add a fallback split initial size to 50%
+
 ## 3.0.0-beta.10
 
 ### Patch Changes
