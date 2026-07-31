@@ -66,6 +66,14 @@
 
 - 12093cf: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
 
+## 2.13.1
+
+### Patch Changes
+
+- 0bd045d: Fix: default split initialSize to 50% when sizes not provided
+
+  When `split` config is provided without `sizes`, `initialSize` was `undefined`, causing `flex-basis: auto` (intrinsic sizing) and a "dancing omnitable" layout feedback loop. Now defaults to `50%`, matching the no-split fallback.
+
 ## 2.13.0
 
 ### Minor Changes

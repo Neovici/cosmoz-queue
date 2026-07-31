@@ -93,8 +93,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 
 	const splitAttrs = split
 		? {
-				initialSize:
-					split.sizes?.[0] != null ? `${split.sizes[0]}%` : undefined,
+				initialSize: split.sizes?.[0] != null ? `${split.sizes[0]}%` : '50%',
 				minSize:
 					split.minSize != null
 						? `${Array.isArray(split.minSize) ? split.minSize[0] : split.minSize}`
