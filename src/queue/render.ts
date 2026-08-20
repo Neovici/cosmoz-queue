@@ -238,8 +238,8 @@ export const renderQueue = <I, D>({
 			data-active=${activeTab}
 			direction="horizontal"
 			persist=${persistKey}
-			initial-size=${splitAttrs?.initialSize ?? nothing}
-			min-size=${splitAttrs?.minSize ?? nothing}
+			initial-size=${splitAttrs?.initialSize ?? '50%'}
+			min-size=${splitAttrs?.minSize ?? '100'}
 		>
 			${list}
 			<cosmoz-slider
