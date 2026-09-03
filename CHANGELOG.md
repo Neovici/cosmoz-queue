@@ -1,5 +1,38 @@
 ## [2.7.2](https://github.com/Neovici/cosmoz-queue/compare/v2.7.1...v2.7.2) (2026-05-20)
 
+## 2.14.1
+
+### Patch Changes
+
+- 0f8459d: Fix: default splitAttrs in renderQueue to prevent layout feedback loop
+
+  `renderQueue` didn't default `splitAttrs` when omitted, leaving `initial-size`/`min-size` unset → `cosmoz-resizable-view` fell back to `flex-basis: auto` (content-sized) for the list pane. Combined with omnitable's fixed-px cell widths, this created a self-sustaining resize loop ("dancing omnitable").
+
+  Now defaults to `initialSize: '50%'` / `minSize: '100'`, matching the `queue()` helper's existing default (since 2.13.1). Direct `renderQueue` callers are now protected the same as `queue()` consumers.
+
+- 7182042: Fix: guard persist attribute with ifDefined in renderQueue
+
+  When `persistKey` was `undefined`, `persist=${persistKey}` rendered `persist=""` (empty attribute). pion's `attributeChangedCallback` converts `""` → `true`, so `cosmoz-resizable-view` received `persist = true` → persisted split state under a shared `cosmoz-resizable-view:true:horizontal` localStorage key, cross-contaminating all queue views that don't pass a `settingsId`.
+
+  Using `ifDefined` omits the attribute entirely when `persistKey` is `undefined`, so persistence stays disabled as intended.
+
+## 2.14.0
+
+### Minor Changes
+
+- fe9f425: feat(list): always render an unnamed `<slot>` in renderListCore
+
+  `renderListCore` now always renders `html`<slot></slot>`` as a child of
+`cosmoz-omnitable`, regardless of whether the `content` prop is provided.
+Previously, every consumer had to include `html`<slot></slot>`` in their
+  `content` callback to provide the queue-to-omnitable projection conduit.
+  This removes that boilerplate — the slot is always available, and `content`
+  is a pure extension point for extras (action slots, bottom bar slots, etc.).
+
+  Existing consumers that still include `html`<slot></slot>``in`content` will
+  get a duplicate slot — harmless (content projects into the first), but should
+  be cleaned up.
+
 ## 3.0.0-beta.11
 
 ### Patch Changes
@@ -71,6 +104,39 @@
 ### Major Changes
 
 - 12093cf: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
+
+## 2.14.1
+
+### Patch Changes
+
+- 0f8459d: Fix: default splitAttrs in renderQueue to prevent layout feedback loop
+
+  `renderQueue` didn't default `splitAttrs` when omitted, leaving `initial-size`/`min-size` unset → `cosmoz-resizable-view` fell back to `flex-basis: auto` (content-sized) for the list pane. Combined with omnitable's fixed-px cell widths, this created a self-sustaining resize loop ("dancing omnitable").
+
+  Now defaults to `initialSize: '50%'` / `minSize: '100'`, matching the `queue()` helper's existing default (since 2.13.1). Direct `renderQueue` callers are now protected the same as `queue()` consumers.
+
+- 7182042: Fix: guard persist attribute with ifDefined in renderQueue
+
+  When `persistKey` was `undefined`, `persist=${persistKey}` rendered `persist=""` (empty attribute). pion's `attributeChangedCallback` converts `""` → `true`, so `cosmoz-resizable-view` received `persist = true` → persisted split state under a shared `cosmoz-resizable-view:true:horizontal` localStorage key, cross-contaminating all queue views that don't pass a `settingsId`.
+
+  Using `ifDefined` omits the attribute entirely when `persistKey` is `undefined`, so persistence stays disabled as intended.
+
+## 2.14.0
+
+### Minor Changes
+
+- fe9f425: feat(list): always render an unnamed `<slot>` in renderListCore
+
+  `renderListCore` now always renders `html`<slot></slot>`` as a child of
+`cosmoz-omnitable`, regardless of whether the `content` prop is provided.
+Previously, every consumer had to include `html`<slot></slot>`` in their
+  `content` callback to provide the queue-to-omnitable projection conduit.
+  This removes that boilerplate — the slot is always available, and `content`
+  is a pure extension point for extras (action slots, bottom bar slots, etc.).
+
+  Existing consumers that still include `html`<slot></slot>``in`content` will
+  get a duplicate slot — harmless (content projects into the first), but should
+  be cleaned up.
 
 ## 2.13.1
 

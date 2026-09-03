@@ -7,6 +7,7 @@ import { t } from 'i18next';
 import { html, nothing, TemplateResult } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { when } from 'lit-html/directives/when.js';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { arrow } from './icon';
 import renderStyles from './style';
 import type { Pagination } from './types';
@@ -243,9 +244,9 @@ export const renderQueue = <I, D>({
 		<cosmoz-resizable-view
 			data-active=${activeTab}
 			direction="horizontal"
-			persist=${persistKey}
-			initial-size=${splitAttrs?.initialSize ?? nothing}
-			min-size=${splitAttrs?.minSize ?? nothing}
+			persist=${ifDefined(persistKey)}
+			initial-size=${splitAttrs?.initialSize ?? '50%'}
+			min-size=${splitAttrs?.minSize ?? '100'}
 		>
 			${list}
 			<cosmoz-slider

@@ -102,6 +102,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 				actions,
 				renderActions({ open, items: selectedItems, slot: 'actions' }),
 			),
+			html`<slot></slot>`,
 			content?.({ selectedItems }),
 			renderLoadMore({ data$, onMore: loadMore, hasItems }),
 		]}</cosmoz-omnitable
