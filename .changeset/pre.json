@@ -1,21 +1,4 @@
 {
-  "mode": "pre",
-  "tag": "beta",
-  "initialVersions": {
-    "@neovici/cosmoz-queue": "2.11.5"
-  },
-  "changesets": [
-    "all-taxis-refuse",
-    "busy-bags-grow",
-    "dull-loops-taste",
-    "full-zoos-dig",
-    "great-mugs-feel",
-    "kind-ducks-tan",
-    "mighty-toes-vanish",
-    "new-ducks-stare",
-    "shaggy-boats-fold",
-    "smart-buckets-watch",
-    "two-taxis-guess",
-    "violet-onions-make"
-  ]
+  "mode": "exit",
+  "tag": "beta"
 }
