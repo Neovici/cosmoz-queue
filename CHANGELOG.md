@@ -2,7 +2,7 @@
 
 ### Major Changes
 
-- 9681fcc: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
+- 9681fcc: Migrate `renderNav` and `renderPagination` to the new queue UI styling and component model, including `cosmoz-button`-based navigation and pagination controls.
 
 ### Patch Changes
 
