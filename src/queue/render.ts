@@ -1,3 +1,4 @@
+import '@neovici/cosmoz-button';
 import '@neovici/cosmoz-resizable';
 import { slideInLeft, slideInRight } from '@neovici/cosmoz-slider';
 import { renderTabs, RenderTabs } from '@neovici/cosmoz-tabs/next/index.js';
@@ -11,7 +12,6 @@ import { arrow } from './icon';
 import renderStyles from './style';
 import type { Pagination } from './types';
 import type { Tab } from './use-tabs';
-
 const _emptySlide = {
 	id: 'empty',
 	content: nothing,
@@ -26,7 +26,8 @@ export const renderNav = ({
 	next?: () => void;
 	prev?: () => void;
 }) =>
-	html` <button
+	html` <cosmoz-button
+			variant="secondary"
 			class="button-nav prev"
 			title="${t('Previous item')}"
 			?disabled=${!prev}
@@ -34,8 +35,9 @@ export const renderNav = ({
 			@click=${prev}
 		>
 			${arrow}
-		</button>
-		<button
+		</cosmoz-button>
+		<cosmoz-button
+			variant="secondary"
 			title="${t('Next item')}"
 			class="button-nav next"
 			?disabled=${!next}
@@ -43,7 +45,7 @@ export const renderNav = ({
 			@click=${next}
 		>
 			${arrow}
-		</button>`;
+		</cosmoz-button>`;
 
 export const renderPagination = (pagination?: Pagination) => {
 	if (!pagination) return nothing;
@@ -53,23 +55,27 @@ export const renderPagination = (pagination?: Pagination) => {
 		Math.ceil((pagination.totalAvailable ?? 0) / (pagination.pageSize ?? 0));
 
 	return html` <div class="tabn-pagination">
-		<button
+		<cosmoz-button
 			title="${t('Previous page')}"
 			class="button-page page-prev"
+			size="sm"
+			variant="secondary"
 			?disabled=${!(pageNumber > 1)}
 			@click=${(e: MouseEvent) => onPage!(e.ctrlKey ? 1 : pageNumber - 1)}
 		>
 			${arrow}
-		</button>
-		<button
+		</cosmoz-button>
+		<cosmoz-button
 			title="${t('Next page')}"
+			variant="secondary"
 			class="button-page page-next"
+			size="sm"
 			?disabled=${!(pageNumber < totalPages!)}
 			@click=${(e: MouseEvent) =>
 				onPage!(e.ctrlKey ? totalPages! : pageNumber + 1)}
 		>
 			${arrow}
-		</button>
+		</cosmoz-button>
 	</div>`;
 };
 

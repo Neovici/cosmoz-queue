@@ -6,40 +6,57 @@ export const base = css`
 		flex-direction: column;
 		height: 100%;
 		position: relative;
-		font-size: 14px;
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
 	}
 
 	.tabn {
-		--cosmoz-tabs-bg-color: var(--cz-bg-color);
 		box-shadow: none;
 		position: relative;
-		color: #959ba5;
+		padding-block: calc(var(--cz-spacing) * 2);
 	}
 	.tabn-tab {
 		flex: 0 1 0.000001px;
 		flex: 0 1 min-content;
 		padding: 11px 16px;
 		background: inherit;
+		color: var(--cz-color-gray-400);
 	}
 	.tabn-tab:first-of-type {
 		margin-left: auto;
 	}
+
 	.tabn-tab[active] {
-		color: var(--cz-tabn-tab-active-color);
+		color: var(--cz-color-text-primary);
 		box-shadow: none;
 	}
+	.tabn-tab:hover {
+		color: var(--cz-color-text-secondary-hover);
+	}
 	.tabn-heading {
-		font-size: 17px;
-		font-weight: 600;
-		line-height: 25px;
-		color: var(--cz-tabn-heading-color, var(--cz-text-secondary-color));
-		margin-left: 18px;
+		font-size: var(--cz-text-lg);
+		font-weight: var(--cz-font-weight-semibold);
+		line-height: var(--cz-text-lg-line-height);
+		color: var(--cz-color-text-secondary);
 		white-space: nowrap;
+		display: flex;
+		align-items: center;
 	}
 	.tabn-stats {
-		margin: 0 16px;
-		color: var(--cz-text-color);
+		margin: 0 calc(var(--cz-spacing) * 4);
+		color: var(--cz-color-text-secondary);
 		white-space: nowrap;
+		display: flex;
+		align-items: center;
+	}
+
+	#list {
+		flex-basis: var(--cz-queue-list-basis, 50%);
+		min-width: var(--cz-queue-list-min-width, 100px);
+	}
+
+	#queue {
+		border-top: 1px solid var(--cz-color-border-primary);
 	}
 
 	[data-active='split'] .view-core::part(header-bg) {
@@ -51,79 +68,16 @@ export const base = css`
 		display: none !important;
 	}
 
-	.button-nav {
-		flex: none;
-		width: 40px;
-		height: 40px;
-		cursor: pointer;
-		outline: none;
-		background-color: var(--cz-button-nav-bg, #fff);
-		border-radius: 500px;
-		border: solid 1px var(--cz-button-nav-border, #a4abae);
-		font-size: 1.08em;
-		letter-spacing: -0.01em;
-		padding: 0 10px;
-		text-transform: none;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		color: var(--cz-button-nav-color, #343434);
-		font-weight: normal;
-		margin: 0 0.29em;
-	}
-
-	.button-nav[disabled] {
-		opacity: 0.5;
-	}
-
-	.button-nav:active {
-		background: var(--cz-button-nav-active-bg, rgba(52, 52, 52, 0.4));
-	}
 	.button-nav.prev,
 	.button-page.prev,
 	.page-prev {
 		transform: scaleX(-1);
+		margin-right: calc(var(--cz-spacing) * 2);
 	}
 
 	.tabn-pagination {
 		font-size: 0;
 		display: flex;
-		border: var(--cz-pagination-border-color);
-		border-radius: var(--cz-pagination-border-radius);
-	}
-	.button-page {
-		width: 30px;
-		height: 30px;
-		padding: 0 5px;
-		cursor: pointer;
-		outline: none;
-		border: none;
-		border-radius: var(--cz-pagination-border);
-		fill: var(--cz-pagination-color);
-		position: relative;
-		background-color: transparent;
-	}
-	.button-page[disabled] {
-		opacity: 0.45;
-		pointer-events: none;
-		fill: var(--cz-pagination-inactive-color);
-	}
-
-	.button-page:active,
-	.button-page:hover {
-		fill: var(--cz-pagination-active-color);
-	}
-
-	.tabn-pagination .button-page + .button-page::before {
-		content: '';
-		position: absolute;
-		width: 1px;
-		height: 18.5px;
-		background-color: var(--cz-pagination-border-divider-color);
-		left: -0.5px;
-		top: 50%;
-		transform: translateY(-50%);
 	}
 `;
 
@@ -131,15 +85,13 @@ export default ({ index }: { index?: number | string }) => css`
 	${base}
 
 	#list::part(itemRow-${index || '0'}) {
-		background: var(
-			--cosmoz-omnitable-highlight-color,
-			rgba(80, 138, 239, 0.4)
-		);
+		background: var(--cz-color-bg-tertiary);
 	}
 
 	:host([data-mobile]) .tabn-heading {
-		font-size: 14px;
-		margin-left: 12px;
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
+		margin-left: calc(var(--cz-spacing) * 3);
 	}
 	:host([data-mobile]) .tabn-tab {
 		padding: 10px;
