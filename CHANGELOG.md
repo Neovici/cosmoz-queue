@@ -1,3 +1,16 @@
+## 3.0.0
+
+### Major Changes
+
+- 9681fcc: Migrate `renderNav` and `renderPagination` to new UI library. Replace `cosmoz-button` nav buttons and pagination controls with the new UI library equivalents.
+
+### Patch Changes
+
+- 9681fcc: Adjust host height/padding and tab hover color token; add pagination nav margin
+- 9681fcc: Remove legacy pagination button styles; add tab nav border and flex alignment to heading/stats
+- 9681fcc: Add border top only to queue
+- 9681fcc: Style the non sloted bottom-bar-menu buttons
+
 ## 2.14.1
 
 ### Patch Changes
