@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-B0z-6tlh.js";var r,i=e((()=>{r=({item:e,index:t,activate:n})=>r=>{if(r.ctrlKey||r.metaKey)return;let i=new CustomEvent(`omnitable-item-click`,{cancelable:!0,bubbles:!0,composed:!0,detail:{item:e,index:t,activate:n}});r.currentTarget?.dispatchEvent(i),i.defaultPrevented&&r.preventDefault()}})),a,o,s,c,l,u,d;e((()=>{n(),i(),{expect:a,userEvent:o}=__STORYBOOK_MODULE_TEST__,s={title:`Tests/ItemClick`},c={render:()=>t`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";var r,i=e((()=>{r=({item:e,index:t,activate:n})=>r=>{if(r.ctrlKey||r.metaKey)return;let i=new CustomEvent(`omnitable-item-click`,{cancelable:!0,bubbles:!0,composed:!0,detail:{item:e,index:t,activate:n}});r.currentTarget?.dispatchEvent(i),i.defaultPrevented&&r.preventDefault()}})),a,o,s,c,l,u,d;e((()=>{n(),i(),{expect:a,userEvent:o}=__STORYBOOK_MODULE_TEST__,s={title:`Tests/ItemClick`},c={render:()=>t`
         <button
             id="test-button"
             @click=${r({index:2,activate:`queue`})}
