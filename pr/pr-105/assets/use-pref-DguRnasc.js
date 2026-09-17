@@ -1,0 +1,1 @@
+import{t as e}from"./chunk-BvrOYcoh.js";import{d as t,p as n,t as r}from"./haunted-Cuc4b_8X.js";function i(e,r){let[i,s]=t(()=>o(e)||r);return[i,n(t=>{try{e&&localStorage.setItem(a(e),t)}catch{}s(t)},[e,s])]}var a,o,s=e((()=>{r(),a=e=>`pref-${e}`,o=e=>{if(!e)return null;try{return localStorage.getItem(a(e))}catch{return null}}}));export{i as n,s as t};
