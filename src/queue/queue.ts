@@ -26,7 +26,7 @@ export interface SplitConfig {
 interface Props<I, D>
 	extends
 		Pick<UseQueue<I>, 'id' | 'api' | 'fallback'>,
-		Pick<RenderQueue<I, D>, 'details' | 'afterHeading'> {
+		Pick<RenderQueue<I, D>, 'details' | 'afterHeading' | 'header'> {
 	list: (
 		thru: Record<string, any>,
 		props: QueueProps<I> & { onRef: (el?: Element) => void },
@@ -50,6 +50,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 	const {
 		heading,
 		afterHeading,
+		header,
 		settingsId,
 		idHashParam = 'qid',
 		tabHashParam = 'qtab',
@@ -105,6 +106,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		details,
 		heading,
 		afterHeading,
+		header,
 		index,
 		items,
 		tabnav,

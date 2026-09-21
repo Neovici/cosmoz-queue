@@ -6,8 +6,8 @@ import { lazyUntil } from '@neovici/cosmoz-utils/directives/lazy-until';
 import { t } from 'i18next';
 import { html, nothing, TemplateResult } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
-import { when } from 'lit-html/directives/when.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { when } from 'lit-html/directives/when.js';
 import { arrow } from './icon';
 import renderStyles from './style';
 import type { Pagination } from './types';
@@ -188,6 +188,12 @@ export interface RenderQueue<I, D> extends Pick<
 	RenderView<I, D>,
 	'renderItem' | 'renderLoader' | 'details'
 > {
+	/** Render the header from its parts. Defaults to the tab row. */
+	header?: (parts: {
+		tabnav: RenderTabs<Tab>;
+		heading?: string;
+		afterHeading?: unknown;
+	}) => TemplateResult;
 	heading?: string;
 	afterHeading?: unknown;
 	index?: number;
@@ -203,6 +209,7 @@ export interface RenderQueue<I, D> extends Pick<
 }
 
 export const renderQueue = <I, D>({
+	header,
 	heading,
 	afterHeading,
 	index,
@@ -222,11 +229,7 @@ export const renderQueue = <I, D>({
 	const pagination = _pagination
 		? { ..._pagination, totalAvailable }
 		: undefined;
-	return html`
-		<style>
-			${renderStyles({ index })}
-		</style>
-
+	const tabn = html`
 		<cosmoz-tabs-next class="tabn">
 			<div class="tabn-heading">${heading}${afterHeading}</div>
 			${renderTabs({ ...tabnav, className: 'tabn-tab' })}
@@ -240,6 +243,17 @@ export const renderQueue = <I, D>({
 			})}
 			${renderPagination(pagination)}
 		</cosmoz-tabs-next>
+	`;
+	return html`
+		<style>
+			${renderStyles({ index })}
+		</style>
+
+		${when(
+			header,
+			(header) => header({ tabnav, heading, afterHeading }),
+			() => tabn,
+		)}
 
 		<cosmoz-resizable-view
 			data-active=${activeTab}
