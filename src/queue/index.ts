@@ -22,7 +22,7 @@ export { usePagination } from './pagination';
 export { queue } from './queue';
 
 // Styling
-export { base, default as renderStyles } from './style';
+export { base, queueStyle, default as renderStyles } from './style';
 
 // Fetch actions
 export {

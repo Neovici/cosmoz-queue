@@ -9,7 +9,7 @@ import { guard } from 'lit-html/directives/guard.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
 import { arrow } from './icon';
-import renderStyles from './style';
+import { queueStyle } from './style';
 import type { Pagination } from './types';
 import type { Tab } from './use-tabs';
 const _emptySlide = {
@@ -247,7 +247,7 @@ export const renderQueue = <I, D>({
 	`;
 	return html`
 		<style>
-			${renderStyles({ index })}
+			${queueStyle}
 		</style>
 
 		${when(
