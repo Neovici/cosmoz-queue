@@ -1,9 +1,5 @@
 import { css } from '@pionjs/pion';
-import {
-	bottomBarInfoStyles,
-	buttonStyles,
-	statusStyle,
-} from '../styles/shared-styles';
+import { bottomBarInfoStyles, statusStyle } from '../styles/shared-styles';
 import { style as loadMoreStyle } from './more/render-more';
 export const style = css`
 	:host {
@@ -17,7 +13,6 @@ export const style = css`
 		min-height: 200px;
 	}
 	${bottomBarInfoStyles}
-	${buttonStyles}
 	${statusStyle}
 	${loadMoreStyle}
 `;

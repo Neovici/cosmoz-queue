@@ -11,6 +11,8 @@ const htmlMock = (
 	return template;
 };
 
+vi.mock('@neovici/cosmoz-button', () => ({}));
+
 vi.mock('lit-html', () => ({
 	html: htmlMock,
 }));
