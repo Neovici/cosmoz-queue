@@ -80,7 +80,7 @@
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@eslint/eslintrc": "^2.0.0",
-    "@neovici/cfg": "^2.11.0",
+    "@neovici/cfg": "^2.15.0",
     "@neovici/testing": "^2.2.0",
     "@playwright/test": "^1.62.1",
     "@storybook/addon-links": "^10.0.0",
