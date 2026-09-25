@@ -50,11 +50,6 @@ export const base = css`
 		align-items: center;
 	}
 
-	#list {
-		flex-basis: var(--cz-queue-list-basis, 50%);
-		min-width: var(--cz-queue-list-min-width, 100px);
-	}
-
 	#queue {
 		border-top: 1px solid var(--cz-color-border-primary);
 	}
