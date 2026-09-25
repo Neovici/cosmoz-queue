@@ -28,6 +28,7 @@ export const renderNav = ({
 }) =>
 	html` <cosmoz-button
 			variant="secondary"
+			icon-only
 			class="button-nav prev"
 			title="${t('Previous item')}"
 			?disabled=${!prev}
@@ -38,6 +39,7 @@ export const renderNav = ({
 		</cosmoz-button>
 		<cosmoz-button
 			variant="secondary"
+			icon-only
 			title="${t('Next item')}"
 			class="button-nav next"
 			?disabled=${!next}
@@ -60,6 +62,7 @@ export const renderPagination = (pagination?: Pagination) => {
 			class="button-page page-prev"
 			size="sm"
 			variant="secondary"
+			icon-only
 			?disabled=${!(pageNumber > 1)}
 			@click=${(e: MouseEvent) => onPage!(e.ctrlKey ? 1 : pageNumber - 1)}
 		>
@@ -68,6 +71,7 @@ export const renderPagination = (pagination?: Pagination) => {
 		<cosmoz-button
 			title="${t('Next page')}"
 			variant="secondary"
+			icon-only
 			class="button-page page-next"
 			size="sm"
 			?disabled=${!(pageNumber < totalPages!)}
