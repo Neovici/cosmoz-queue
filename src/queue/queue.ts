@@ -1,3 +1,4 @@
+import { useCallback } from '@pionjs/pion';
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
@@ -87,6 +88,16 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 	} = queueProps;
 
 	const { listRef, onAsyncSimpleAction } = useAsyncAction(nav);
+
+	// Marks the active row with the static `itemRow-active` part.
+	const rowPartFn = useCallback(
+		(row: I): string | undefined =>
+			nav.item != null && nav.id(row) === nav.id(nav.item)
+				? 'itemRow-active'
+				: undefined,
+		[nav.item, nav.id],
+	);
+
 	const renderProps = {
 		...queueProps,
 		onAsyncSimpleAction,
@@ -119,7 +130,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 			{
 				id: 'list',
 				slot: 'previous',
-				'.exposedParts': `itemRow, itemRow-${index}`,
+				'.rowPartFn': rowPartFn,
 				'.settingsId': settingsId,
 				'@visible-items-changed': updateWith(setItems),
 				'@selected-items-changed': updateWith(setSelected),
