@@ -194,6 +194,7 @@ export interface RenderQueue<I, D> extends Pick<
 		heading?: string;
 		afterHeading?: unknown;
 		totalAvailable?: number;
+		pagination?: Pagination;
 	}) => TemplateResult;
 	heading?: string;
 	afterHeading?: unknown;
@@ -252,7 +253,8 @@ export const renderQueue = <I, D>({
 
 		${when(
 			header,
-			(header) => header({ tabnav, heading, afterHeading, totalAvailable }),
+			(header) =>
+				header({ tabnav, heading, afterHeading, totalAvailable, pagination }),
 			() => tabn,
 		)}
 
