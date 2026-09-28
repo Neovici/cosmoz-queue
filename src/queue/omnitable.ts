@@ -1,15 +1,17 @@
-import { html } from 'lit-html';
-import { guard } from 'lit-html/directives/guard.js';
-import { until } from 'lit-html/directives/until.js';
-import { when } from 'lit-html/directives/when.js';
 import '@neovici/cosmoz-omnitable';
 import { Rec } from '@neovici/cosmoz-utils/object';
-import { updateWith } from '../util/polymer-property-changed-event.js';
 import { Ref } from '@pionjs/pion';
+import { html } from 'lit-html';
+import { guard } from 'lit-html/directives/guard.js';
 import { ref } from 'lit-html/directives/ref.js';
+import { until } from 'lit-html/directives/until.js';
+import { when } from 'lit-html/directives/when.js';
+import { updateWith } from '../util/polymer-property-changed-event.js';
 
 interface Props<I> {
 	exposedParts?: string;
+	/** Appended to each row's `part` list (forwarded to the omnitable's rowPartFn). */
+	rowPartFn?: (item: I, index: number) => string | undefined;
 	settingsId?: string;
 
 	data$?: Promise<I[]>;
@@ -53,7 +55,8 @@ const data$$ = <T, D>(data$?: Promise<T>, data?: D) =>
 
 const omnitable = <I extends Rec>(
 	{
-		exposedParts,
+		exposedParts = 'itemRow, itemRow-active',
+		rowPartFn,
 		settingsId,
 		data$,
 		onData,
@@ -76,6 +79,7 @@ const omnitable = <I extends Rec>(
 		.data=${data$$(data$)}
 		?loading=${loading$$(data$)}
 		exportparts=${exposedParts}
+		.rowPartFn=${rowPartFn}
 		.sortOn=${sortOn}
 		@sort-on-changed=${updateWith(onSort)}
 		.descending=${descending}

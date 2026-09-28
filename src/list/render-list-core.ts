@@ -22,6 +22,7 @@ export interface RenderListCoreProps<TItem extends object> {
 	actions?: Action<TItem, any>[];
 	content?: (opts: { selectedItems: TItem[] }) => Renderable;
 	compareItemsFn?: (a: TItem, b: TItem) => boolean;
+	rowPartFn?: (item: TItem, index: number) => string | undefined;
 }
 
 export interface RenderListCore<TColumns extends Columns, TItem extends object>
@@ -37,7 +38,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	hashParam,
 	enabledColumns,
 	csvFilename,
-	exposedParts,
+	exposedParts = 'itemRow, itemRow-active',
 	data$,
 	noLocal = true,
 	miniBreakpoint,
@@ -65,6 +66,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 
 	loadMore,
 	compareItemsFn,
+	rowPartFn,
 }: RenderListCore<TColumns, TItem>) => [
 	html`<cosmoz-omnitable
 		id="omnitable"
@@ -84,6 +86,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		guard([], () => (a: { id: string }, b: { id: string }) => a.id === b.id)}
 		.settingsId=${settingsId}
 		exportparts=${exposedParts}
+		.rowPartFn=${rowPartFn}
 		@visible-data-changed=${lift(setVisibleItems)}
 		@filters-changed=${lift(setFilters)}
 		.selectedItems=${selectedItems}
