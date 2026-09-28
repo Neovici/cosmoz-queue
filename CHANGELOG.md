@@ -1,3 +1,13 @@
+## 3.2.0
+
+### Minor Changes
+
+- 3dc5a7a: Allow `@neovici/cosmoz-tokens` ^3 || ^4 (light-dark() adoption)
+
+### Patch Changes
+
+- 5c90766: `useListSSE` no longer fetches when none of the updated items are in the list. An empty `objectIds` filter was dropped from the query string, so each such update ran an unfiltered, unpaged search.
+
 ## 3.1.1
 
 ### Patch Changes
