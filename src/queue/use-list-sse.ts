@@ -118,6 +118,8 @@ const check$$ = async <I extends Item, P extends Rec>(opts: Check<I, P>) => {
 			return [];
 		});
 	ids.clear();
+	// an empty objectIds filter is dropped from the query, turning this into an unfiltered search
+	if (objectIds.length === 0) return;
 	const res = await list$({ ...params, objectIds });
 	const updates = Array.isArray(res) ? res : res.items ?? [];
 	return process$({ ...opts, idProperty, objectIds, updates });
