@@ -1,6 +1,6 @@
 import '@neovici/cosmoz-omnitable';
 import { Rec } from '@neovici/cosmoz-utils/object';
-import { Ref } from '@pionjs/pion';
+import type { Ref } from '@pionjs/pion';
 import { html } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { ref } from 'lit-html/directives/ref.js';
@@ -10,7 +10,6 @@ import { updateWith } from '../util/polymer-property-changed-event.js';
 
 interface Props<I> {
 	exposedParts?: string;
-	/** Appended to each row's `part` list (forwarded to the omnitable's rowPartFn). */
 	rowPartFn?: (item: I, index: number) => string | undefined;
 	settingsId?: string;
 
