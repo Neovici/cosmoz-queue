@@ -1,3 +1,55 @@
+## 3.3.1
+
+### Patch Changes
+
+- e676a1b: queue() sets the static exposedParts on the list element via thru again; Polymer list-cores receive itemRow/itemRow-active like pion consumers do
+
+## 3.3.0
+
+### Minor Changes
+
+- 29f366f: feat(queue): `useQueue` returns `rowPartFn`
+
+  `useQueue` computes and returns `rowPartFn`, which marks the active row with
+  the static `itemRow-active` part (matched by id, so it survives
+  `touch()`/SSE item replacement). `queue()` sets it on the list element via
+  its `thru` spread, and views forward it to the omnitable through their
+  existing props plumbing (`listCore` and the low-level `omnitable()` helper
+  accept it and bind it on the omnitable).
+
+## 3.2.1
+
+### Patch Changes
+
+- 5c14810: feat(queue): static queue stylesheet via `rowPartFn`
+
+  The queue stylesheet is now a static module constant (`queueStyle`), written
+  into the `<style>` element once and never re-parsed. The active row is
+  highlighted through the omnitable's `rowPartFn` extension point, which marks
+  the active row with a static `itemRow-active` part (matched by id, so it
+  survives `touch()`/SSE item replacement). `exportparts` is static
+  (`itemRow, itemRow-active`); `exposedParts` now defaults to that value in
+  `listCore` and `omnitable`, so queue views no longer need to forward it
+  (custom values still override).
+
+  `rowPartFn` is forwarded via props like any other host prop: `listCore` and
+  the low-level `omnitable()` helper accept it and bind it on the omnitable,
+  which appends the returned part to each row.
+
+  `queueStyle` is exported for the pion `styleSheets` option, so views can
+  attach the sheet declaratively. The default `renderStyles` export is
+  deprecated in favour of `queueStyle` (its `index` parameter is now ignored).
+
+## 3.2.0
+
+### Minor Changes
+
+- 3dc5a7a: Allow `@neovici/cosmoz-tokens` ^3 || ^4 (light-dark() adoption)
+
+### Patch Changes
+
+- 5c90766: `useListSSE` no longer fetches when none of the updated items are in the list. An empty `objectIds` filter was dropped from the query string, so each such update ran an unfiltered, unpaged search.
+
 ## 3.1.1
 
 ### Patch Changes

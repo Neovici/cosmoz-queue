@@ -143,6 +143,11 @@ const useQueue = <I>({
 		hideActions: selected?.length > 0 && activeTab === 'split',
 
 		index: useMemo(() => items.indexOf(item), [item, items]),
+		rowPartFn: useCallback(
+			(row: I): string | undefined =>
+				item != null && id(row) === id(item) ? 'itemRow-active' : undefined,
+			[item, id],
+		),
 		onItemClick: useCallback(
 			(e: Event) => {
 				type Detail = Omit<ItemClickOpts, 'activate'> & {

@@ -81,10 +81,14 @@ export const base = css`
 	}
 `;
 
-export default ({ index }: { index?: number | string }) => css`
+/**
+ * Static queue stylesheet, highlighted by the static `itemRow-active` part
+ * (marked on the active row via the omnitable's `rowPartFn`).
+ */
+export const queueStyle = css`
 	${base}
 
-	#list::part(itemRow-${index || '0'}) {
+	#list::part(itemRow-active) {
 		background: var(--cz-color-bg-tertiary);
 	}
 
@@ -100,3 +104,10 @@ export default ({ index }: { index?: number | string }) => css`
 		display: none;
 	}
 `;
+
+/**
+ * @deprecated Attach the static `queueStyle` via the pion `styleSheets` option
+ * instead. The `index` parameter is ignored.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default (_opts?: { index?: number | string }): string => queueStyle;

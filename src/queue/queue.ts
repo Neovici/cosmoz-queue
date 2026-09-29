@@ -82,11 +82,13 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		totalAvailable,
 		setTotalAvailable,
 		onItemClick,
+		rowPartFn,
 		nav,
 		tabnav,
 	} = queueProps;
 
 	const { listRef, onAsyncSimpleAction } = useAsyncAction(nav);
+
 	const renderProps = {
 		...queueProps,
 		onAsyncSimpleAction,
@@ -119,7 +121,8 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 			{
 				id: 'list',
 				slot: 'previous',
-				'.exposedParts': `itemRow, itemRow-${index}`,
+				'.rowPartFn': rowPartFn,
+				'.exposedParts': 'itemRow, itemRow-active',
 				'.settingsId': settingsId,
 				'@visible-items-changed': updateWith(setItems),
 				'@selected-items-changed': updateWith(setSelected),
