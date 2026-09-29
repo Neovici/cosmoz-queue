@@ -1,3 +1,9 @@
+## 3.3.1
+
+### Patch Changes
+
+- e676a1b: queue() sets the static exposedParts on the list element via thru again; Polymer list-cores receive itemRow/itemRow-active like pion consumers do
+
 ## 3.3.0
 
 ### Minor Changes
