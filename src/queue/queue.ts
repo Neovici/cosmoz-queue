@@ -122,6 +122,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 				id: 'list',
 				slot: 'previous',
 				'.rowPartFn': rowPartFn,
+				'.exposedParts': 'itemRow, itemRow-active',
 				'.settingsId': settingsId,
 				'@visible-items-changed': updateWith(setItems),
 				'@selected-items-changed': updateWith(setSelected),
