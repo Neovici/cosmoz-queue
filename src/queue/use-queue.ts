@@ -13,6 +13,25 @@ import useUpdates from './use-updates';
 import type { ItemClickOpts } from './item-click';
 import { getItems, normalizeHeaders } from './util';
 
+/**
+ * Part name of the active row, as marked by `useRowPartFn`.
+ */
+export const ACTIVE_ROW_PART = 'itemRow-active';
+
+/**
+ * Marks the active item's row with the `itemRow-active` part so the queue
+ * stylesheet can highlight it.
+ */
+export const useRowPartFn = <I>(
+	item: I | undefined,
+	id: (i: I) => string,
+): ((row: I) => string | undefined) =>
+	useCallback(
+		(row) =>
+			item != null && id(row) === id(item) ? ACTIVE_ROW_PART : undefined,
+		[item, id],
+	);
+
 type ActiveTab = ReturnType<typeof useTabs>['activeTab'];
 
 const _id = <T>(item: T): T extends { id: infer I } ? I : undefined =>
@@ -143,11 +162,7 @@ const useQueue = <I>({
 		hideActions: selected?.length > 0 && activeTab === 'split',
 
 		index: useMemo(() => items.indexOf(item), [item, items]),
-		rowPartFn: useCallback(
-			(row: I): string | undefined =>
-				item != null && id(row) === id(item) ? 'itemRow-active' : undefined,
-			[item, id],
-		),
+		rowPartFn: useRowPartFn(item, id),
 		onItemClick: useCallback(
 			(e: Event) => {
 				type Detail = Omit<ItemClickOpts, 'activate'> & {
