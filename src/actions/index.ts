@@ -1,3 +1,4 @@
+import '@neovici/cosmoz-button';
 import type { Dialogable, Resolvable } from '@neovici/cosmoz-form';
 import { html, nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
@@ -56,8 +57,7 @@ export const defaultButton = <
 	const title = opts.title();
 	const applicableItems = applicable ? items.filter(applicable) : items;
 	if (!applicableItems.length) return nothing;
-	return html`<button
-		class="button"
+	return html`<cosmoz-button
 		slot="${ifDefined(slot)}"
 		title="${title}"
 		data-priority="${ifDefined(opts.priority)}"
@@ -65,7 +65,7 @@ export const defaultButton = <
 			(open as AsyncOpenFn)(dialog({ ...opts, items: applicableItems, title }))}
 	>
 		${title} ${actionCount(items, applicableItems)}
-	</button>`;
+	</cosmoz-button>`;
 };
 
 export const action = <TItem extends object, TAction extends object>(
