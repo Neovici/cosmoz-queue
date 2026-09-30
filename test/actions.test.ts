@@ -70,6 +70,20 @@ describe('defaultButton', () => {
 		expect(button?.hasAttribute('data-priority')).toBe(false);
 	});
 
+	it('renders data-group when group is set', () => {
+		const opts = makeOpts({ group: 'Edit' });
+		const container = renderToContainer(defaultButton(opts));
+		const button = container.querySelector('button');
+		expect(button?.getAttribute('data-group')).toBe('Edit');
+	});
+
+	it('omits data-group when group is undefined', () => {
+		const opts = makeOpts();
+		const container = renderToContainer(defaultButton(opts));
+		const button = container.querySelector('button');
+		expect(button?.hasAttribute('data-group')).toBe(false);
+	});
+
 	it('renders nothing when no items are applicable', () => {
 		const opts = makeOpts({ applicable: () => false });
 		const container = renderToContainer(defaultButton(opts));

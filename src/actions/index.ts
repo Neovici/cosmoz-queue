@@ -37,6 +37,7 @@ export interface Action<TItem extends object, TDialog extends object = object> {
 	title: () => string;
 	applicable?: (item: TItem) => boolean;
 	priority?: number;
+	group?: string;
 	button?: (
 		opts: Action<TItem, TDialog> & ActionOpts<TItem, SyncOpenFn | AsyncOpenFn>,
 	) => unknown;
@@ -61,6 +62,7 @@ export const defaultButton = <
 		slot="${ifDefined(slot)}"
 		title="${title}"
 		data-priority="${ifDefined(opts.priority)}"
+		data-group="${ifDefined(opts.group)}"
 		@click=${() =>
 			(open as AsyncOpenFn)(dialog({ ...opts, items: applicableItems, title }))}
 	>
