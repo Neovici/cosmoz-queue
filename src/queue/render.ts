@@ -194,8 +194,13 @@ export interface RenderQueue<I, D> extends Pick<
 		heading?: string;
 		afterHeading?: unknown;
 		totalAvailable?: number;
+		/** Currently selected list item. */
+		item?: I;
+		/** Hash parameter controlling the layout. */
+		tabHashParam?: string;
 	}) => TemplateResult;
 	heading?: string;
+	tabHashParam?: string;
 	afterHeading?: unknown;
 	index?: number;
 	items: I[];
@@ -218,6 +223,7 @@ export const renderQueue = <I, D>({
 	items,
 	totalAvailable,
 	nav,
+	tabHashParam,
 	list,
 	renderLoader,
 	renderItem,
@@ -252,7 +258,15 @@ export const renderQueue = <I, D>({
 
 		${when(
 			header,
-			(header) => header({ tabnav, heading, afterHeading, totalAvailable }),
+			(header) =>
+				header({
+					tabnav,
+					heading,
+					afterHeading,
+					totalAvailable,
+					item: nav?.item,
+					tabHashParam,
+				}),
 			() => tabn,
 		)}
 
