@@ -123,6 +123,8 @@ export const renderStats = <I>({
 
 interface RenderView<I, D> {
 	animationEnd$: Promise<unknown>;
+	/** Re-renders the view when the active item departs or returns. */
+	departure?: unknown;
 	details?: (i: I) => PromiseLike<D>;
 	item: I;
 	next?: () => void;
@@ -138,6 +140,7 @@ interface RenderView<I, D> {
 }
 export const renderView = <I, D>({
 	animationEnd$,
+	departure,
 	details,
 	item,
 	next,
@@ -151,7 +154,7 @@ export const renderView = <I, D>({
 		return renderItem({ item, nav, next, prev, animationEnd$ });
 	}
 	const detail$ = details(item);
-	return guard([detail$, animationEnd$, next], () =>
+	return guard([detail$, animationEnd$, next, departure], () =>
 		lazyUntil(
 			Promise.all([detail$, animationEnd$]).then(([item]) =>
 				renderItem({ item, nav, next, prev }),

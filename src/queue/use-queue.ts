@@ -111,6 +111,8 @@ interface Opts<I>
 	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
+	/** Keep the active item open when it drops out of the list. @see useUpdates */
+	keepDeparted?: boolean;
 }
 
 const useQueue = <I>({
@@ -120,6 +122,7 @@ const useQueue = <I>({
 	idHashParam,
 	fallback,
 	onActivate,
+	keepDeparted,
 	...thru
 }: Opts<I>) => {
 	const { items: _items, selected } = thru,
@@ -152,7 +155,11 @@ const useQueue = <I>({
 			[item, id, items],
 		);
 	useKeyNav({ activeTab, ...nav });
-	useUpdates({ ensue, ...nav });
+	const departure = useUpdates({
+		ensue,
+		activeId: item ? id(item) : undefined,
+		keepDeparted,
+	});
 
 	return {
 		...thru,
@@ -191,6 +198,7 @@ const useQueue = <I>({
 		),
 
 		ensue,
+		departure,
 
 		nav,
 	};

@@ -25,7 +25,7 @@ export interface SplitConfig {
 
 interface Props<I, D>
 	extends
-		Pick<UseQueue<I>, 'id' | 'api' | 'fallback'>,
+		Pick<UseQueue<I>, 'id' | 'api' | 'fallback' | 'keepDeparted'>,
 		Pick<RenderQueue<I, D>, 'details' | 'afterHeading' | 'header'> {
 	list: (
 		thru: Record<string, any>,
@@ -63,6 +63,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		pagination,
 		fallback,
 		split,
+		keepDeparted,
 	} = props;
 
 	const queueProps = useQueue({
@@ -71,6 +72,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		idHashParam,
 		tabHashParam,
 		fallback,
+		keepDeparted,
 	});
 
 	const {
@@ -85,6 +87,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		rowPartFn,
 		nav,
 		tabnav,
+		departure,
 	} = queueProps;
 
 	const { listRef, onAsyncSimpleAction } = useAsyncAction(nav);
@@ -113,7 +116,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		items,
 		tabnav,
 		totalAvailable,
-		nav,
+		nav: { ...nav, departure },
 		pagination,
 		persistKey: settingsId ? `${settingsId}-split` : undefined,
 		splitAttrs,
@@ -142,6 +145,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 					exportparts: 'header, header-bg',
 					'.hideActions': hideActions,
 					'.item': item,
+					'.departure': departure,
 					'@async-simple-action': onAsyncSimpleAction,
 					'@rendered': (event: Event) =>
 						(event.target as Image).syncImageState(),

@@ -50,6 +50,20 @@ describe('useListSSE', () => {
 		expect(list$).not.toHaveBeenCalled();
 	});
 
+	it('lets the handler of a removal check the item again', async () => {
+		// a fresh id, as listeners from earlier tests are still on window
+		const list$ = setup([{ id: '9' }]);
+		const onRemove = vi.fn((e: Event) => e.preventDefault());
+		host.addEventListener('list-item-remove', onRemove);
+		update('9');
+		await vi.waitFor(() => expect(onRemove).toHaveBeenCalled());
+		const { check } = (onRemove.mock.calls[0][0] as CustomEvent).detail;
+		check();
+		expect(list$).toHaveBeenCalledTimes(2);
+		expect(list$).toHaveBeenLastCalledWith({ q: 1, objectIds: ['9'] });
+		host.removeEventListener('list-item-remove', onRemove);
+	});
+
 	it('skips the fetch while the list is empty', () => {
 		const list$ = setup([]);
 		update('1');

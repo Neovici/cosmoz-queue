@@ -1,8 +1,8 @@
-import { useMemo, useEffect } from '@pionjs/pion';
 import { useHost } from '@neovici/cosmoz-utils/hooks/use-host';
 import { useMeta } from '@neovici/cosmoz-utils/hooks/use-meta';
 import { Rec } from '@neovici/cosmoz-utils/object';
 import { debounce$ } from '@neovici/cosmoz-utils/promise';
+import { useEffect, useMemo } from '@pionjs/pion';
 import { get } from '../util/path';
 
 export interface ListEventHandlersMap {
@@ -15,6 +15,8 @@ export interface ListEventHandlersMap {
 		id: string;
 		item: unknown;
 		remove: () => void;
+		/** Fetches the item again; it is updated or removed as usual. */
+		check?: () => void;
 	}>;
 }
 
@@ -38,12 +40,14 @@ const process$ = <I extends Item>({
 	omnitable,
 	host,
 	idProperty,
+	recheck,
 }: {
 	updates: I[];
 	omnitable: Omnitable<I>;
 	objectIds: string[];
 	host: HTMLElement;
 	idProperty: string;
+	recheck: (id: string) => void;
 }) => {
 	for (const id of objectIds) {
 		const update = updates.find((i) => get(i, idProperty) === id),
@@ -80,6 +84,7 @@ const process$ = <I extends Item>({
 							id,
 							item,
 							remove,
+							check: () => recheck(id),
 						},
 					}),
 				)
@@ -101,6 +106,7 @@ interface Base<I extends Item, P extends Rec> {
 interface Check<I extends Item, P extends Rec> extends Base<I, P> {
 	host: HTMLElement;
 	ids: Set<string>;
+	recheck: (id: string) => void;
 }
 
 const check$$ = async <I extends Item, P extends Rec>(opts: Check<I, P>) => {
@@ -121,12 +127,14 @@ const check$$ = async <I extends Item, P extends Rec>(opts: Check<I, P>) => {
 	// an empty objectIds filter is dropped from the query, turning this into an unfiltered search
 	if (objectIds.length === 0) return;
 	const res = await list$({ ...params, objectIds });
-	const updates = Array.isArray(res) ? res : res.items ?? [];
+	const updates = Array.isArray(res) ? res : (res.items ?? []);
 	return process$({ ...opts, idProperty, objectIds, updates });
 };
 
-interface Opts<I extends Item, P extends Rec>
-	extends Omit<Base<I, P>, 'omnitable'> {
+interface Opts<I extends Item, P extends Rec> extends Omit<
+	Base<I, P>,
+	'omnitable'
+> {
 	entity: string;
 	omnitable?: Omnitable<I>;
 }
@@ -138,24 +146,25 @@ export const useListSSE = <I extends Item, P extends Rec>({
 	const host = useHost(),
 		ids = useMemo(() => new Set<string>(), []),
 		meta = useMeta(thru),
-		check$ = useMemo(
-			() =>
-				debounce$(
-					() =>
-						check$$({
-							...meta,
-							host,
-							ids,
-							omnitable:
-								meta.omnitable ??
-								host.shadowRoot!.querySelector<Omnitable<I>>(
-									'cosmoz-omnitable',
-								)!,
-						}),
-					600,
-				),
-			[],
-		);
+		check$ = useMemo(() => {
+			const check = debounce$(
+				() =>
+					check$$({
+						...meta,
+						host,
+						ids,
+						recheck: (id: string) => {
+							ids.add(id);
+							check();
+						},
+						omnitable:
+							meta.omnitable ??
+							host.shadowRoot!.querySelector<Omnitable<I>>('cosmoz-omnitable')!,
+					}),
+				600,
+			);
+			return check;
+		}, []);
 
 	useEffect(() => {
 		const ev = `cosmoz-${entity}-updated`,
