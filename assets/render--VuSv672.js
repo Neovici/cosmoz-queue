@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,c as n,o as r,r as i,t as a}from"./lit-html-BZ3vufxv.js";import{a as o,c as s,i as c,n as l,r as u,s as d,t as f}from"./iframe-CSjXUAfk.js";import{a as p,b as m,c as h,d as g,f as _,g as v,h as y,i as b,l as x,m as S,n as C,o as w,p as T,r as E,s as D,t as O,u as k,y as A}from"./haunted-DOvAJeNB.js";var ee,te,ne,re,ie=e((()=>{O(),ee=e=>{if(typeof e!=`object`||!e)return!1;let t=e;return typeof t.px==`number`&&t.px>=0&&!Number.isNaN(t.px)},te=e=>{try{let t=JSON.parse(e);if(ee(t))return t}catch{}},ne=(e=`cosmoz-resizable-view:`)=>{let t=new Map,n,r=new Map,i=()=>{n=void 0;for(let[t,n]of r)try{localStorage.setItem(e+t,JSON.stringify(n))}catch{}r.clear()},a=(e,t)=>{r.set(e,t),n??=setTimeout(i,100)},o=n=>{if(n.key==null||!n.key.startsWith(e)||n.newValue==null)return;let r=n.key.slice(e.length),i=te(n.newValue);if(i==null)return;let a=t.get(r);if(a)for(let e of a)e(i)};return typeof window<`u`&&window.addEventListener(`storage`,o),{get(t){let n;try{n=localStorage.getItem(e+t)}catch{return}if(n!=null)return te(n)},set(e,t){a(e,t)},subscribe(e,n){let r=t.get(e);return r||(r=new Set,t.set(e,r)),r.add(n),()=>{let r=t.get(e);r&&(r.delete(n),r.size===0&&t.delete(e))}},destroy(){typeof window<`u`&&window.removeEventListener(`storage`,o),n!=null&&(clearTimeout(n),i())}}},re=(e,t,n)=>{let r=k(n);if(r.current=n,v(()=>{if(!e||!t)return;let n=e.get(t);n!=null&&r.current?.(n);let i=e.subscribe?.(t,e=>r.current?.(e));return()=>{i?.(),e.destroy?.()}},[e,t]),!(!e||!t))return n=>e.set(t,n)}})),ae,j,oe=e((()=>{r(),b(),D(),ae=new WeakMap,j=p(class extends E{render(e){return a}update(e,[t]){let n=t!==this.G;return n&&this.rt(void 0),(n||this.lt!==this.ct)&&(this.G=t,this.ht=e.options?.host,this.rt(this.ct=e.element)),a}rt(e){if(this.G!==void 0)if(this.isConnected||(e=void 0),typeof this.G==`function`){let t=this.ht??globalThis,n=ae.get(t);n===void 0&&(n=new WeakMap,ae.set(t,n)),n.get(this.G)!==void 0&&this.G.call(this.ht,void 0),n.set(this.G,e),e!==void 0&&this.G.call(this.ht,e)}else this.G.value=e}get lt(){return typeof this.G==`function`?ae.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0)}reconnected(){this.rt(this.ct)}})})),se,ce=e((()=>{O(),se=A`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,c as n,o as r,r as i,t as a}from"./lit-html-BZ3vufxv.js";import{a as o,c as s,i as c,n as l,r as u,s as d,t as f}from"./iframe-BTZ1zIQh.js";import{a as p,b as m,c as h,d as g,f as _,g as v,h as y,i as b,l as x,m as S,n as C,o as w,p as T,r as E,s as D,t as O,u as k,y as A}from"./haunted-DRbtaNJm.js";var ee,te,ne,re,ie=e((()=>{O(),ee=e=>{if(typeof e!=`object`||!e)return!1;let t=e;return typeof t.px==`number`&&t.px>=0&&!Number.isNaN(t.px)},te=e=>{try{let t=JSON.parse(e);if(ee(t))return t}catch{}},ne=(e=`cosmoz-resizable-view:`)=>{let t=new Map,n,r=new Map,i=()=>{n=void 0;for(let[t,n]of r)try{localStorage.setItem(e+t,JSON.stringify(n))}catch{}r.clear()},a=(e,t)=>{r.set(e,t),n??=setTimeout(i,100)},o=n=>{if(n.key==null||!n.key.startsWith(e)||n.newValue==null)return;let r=n.key.slice(e.length),i=te(n.newValue);if(i==null)return;let a=t.get(r);if(a)for(let e of a)e(i)};return typeof window<`u`&&window.addEventListener(`storage`,o),{get(t){let n;try{n=localStorage.getItem(e+t)}catch{return}if(n!=null)return te(n)},set(e,t){a(e,t)},subscribe(e,n){let r=t.get(e);return r||(r=new Set,t.set(e,r)),r.add(n),()=>{let r=t.get(e);r&&(r.delete(n),r.size===0&&t.delete(e))}},destroy(){typeof window<`u`&&window.removeEventListener(`storage`,o),n!=null&&(clearTimeout(n),i())}}},re=(e,t,n)=>{let r=k(n);if(r.current=n,v(()=>{if(!e||!t)return;let n=e.get(t);n!=null&&r.current?.(n);let i=e.subscribe?.(t,e=>r.current?.(e));return()=>{i?.(),e.destroy?.()}},[e,t]),!(!e||!t))return n=>e.set(t,n)}})),ae,j,oe=e((()=>{r(),b(),D(),ae=new WeakMap,j=p(class extends E{render(e){return a}update(e,[t]){let n=t!==this.G;return n&&this.rt(void 0),(n||this.lt!==this.ct)&&(this.G=t,this.ht=e.options?.host,this.rt(this.ct=e.element)),a}rt(e){if(this.G!==void 0)if(this.isConnected||(e=void 0),typeof this.G==`function`){let t=this.ht??globalThis,n=ae.get(t);n===void 0&&(n=new WeakMap,ae.set(t,n)),n.get(this.G)!==void 0&&this.G.call(this.ht,void 0),n.set(this.G,e),e!==void 0&&this.G.call(this.ht,e)}else this.G.value=e}get lt(){return typeof this.G==`function`?ae.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0)}reconnected(){this.rt(this.ct)}})})),se,ce=e((()=>{O(),se=A`
 	:host {
 		display: flex;
 		flex-direction: row;
@@ -1327,6 +1327,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,c as n,o as r,r as i,t as 
 	}
 `})),dT,fT,pT,mT,hT,gT,_T,vT,yT=e((()=>{Le(),De(),lt(),$w(),oT(),_w(),r(),Ke(),F(),R(),sT(),uT(),dT={id:`empty`,content:a,animation:at},fT=()=>dT,pT=({next:e,prev:n})=>t` <cosmoz-button
 			variant="secondary"
+			icon-only
 			class="button-nav prev"
 			title="${X(`Previous item`)}"
 			?disabled=${!n}
@@ -1337,6 +1338,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,c as n,o as r,r as i,t as 
 		</cosmoz-button>
 		<cosmoz-button
 			variant="secondary"
+			icon-only
 			title="${X(`Next item`)}"
 			class="button-nav next"
 			?disabled=${!e}
@@ -1350,6 +1352,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,c as n,o as r,r as i,t as 
 			class="button-page page-prev"
 			size="sm"
 			variant="secondary"
+			icon-only
 			?disabled=${!(n>1)}
 			@click=${e=>r(e.ctrlKey?1:n-1)}
 		>
@@ -1358,6 +1361,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,c as n,o as r,r as i,t as 
 		<cosmoz-button
 			title="${X(`Next page`)}"
 			variant="secondary"
+			icon-only
 			class="button-page page-next"
 			size="sm"
 			?disabled=${!(n<i)}
