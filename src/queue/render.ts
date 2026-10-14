@@ -54,7 +54,7 @@ export const renderPagination = (pagination?: Pagination) => {
 		pagination.totalPages ??
 		Math.ceil((pagination.totalAvailable ?? 0) / (pagination.pageSize ?? 0));
 
-	return html` <div class="tabn-pagination">
+	return html` <div class="tabn-pagination" slot="stats">
 		<cosmoz-button
 			title="${t('Previous page')}"
 			class="button-page page-prev"
@@ -97,7 +97,7 @@ export const renderStats = <I>({
 	if (items.length < 1) {
 		return nothing;
 	}
-	return html`<div class="tabn-stats">
+	return html`<div class="tabn-stats" slot="stats">
 		${(() => {
 			if (pagination) {
 				const { pageNumber, pageSize } = pagination;
@@ -232,7 +232,7 @@ export const renderQueue = <I, D>({
 		: undefined;
 	const tabn = html`
 		<cosmoz-tabs-next class="tabn">
-			<div class="tabn-heading">${heading}${afterHeading}</div>
+			<div class="tabn-heading" slot="tabs">${heading}${afterHeading}</div>
 			${renderTabs({ ...tabnav, className: 'tabn-tab' })}
 			${renderStats({
 				pagination,
