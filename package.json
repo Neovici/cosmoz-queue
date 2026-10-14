@@ -64,6 +64,7 @@
   "dependencies": {
     "@neovici/cosmoz-button": "^1.1.0",
     "@neovici/cosmoz-form": "^4.0.0",
+    "@neovici/cosmoz-icons": "^1.6.0",
     "@neovici/cosmoz-omnitable": "^19.0.0",
     "@neovici/cosmoz-resizable": "^2.0.0",
     "@neovici/cosmoz-router": "^11.2.8",
