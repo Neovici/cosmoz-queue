@@ -28,6 +28,7 @@ export const renderNav = ({
 }) =>
 	html` <cosmoz-button
 			variant="secondary"
+			icon-only
 			class="button-nav prev"
 			title="${t('Previous item')}"
 			?disabled=${!prev}
@@ -38,6 +39,7 @@ export const renderNav = ({
 		</cosmoz-button>
 		<cosmoz-button
 			variant="secondary"
+			icon-only
 			title="${t('Next item')}"
 			class="button-nav next"
 			?disabled=${!next}
@@ -54,12 +56,13 @@ export const renderPagination = (pagination?: Pagination) => {
 		pagination.totalPages ??
 		Math.ceil((pagination.totalAvailable ?? 0) / (pagination.pageSize ?? 0));
 
-	return html` <div class="tabn-pagination">
+	return html` <div class="tabn-pagination" slot="stats">
 		<cosmoz-button
 			title="${t('Previous page')}"
 			class="button-page page-prev"
 			size="sm"
 			variant="secondary"
+			icon-only
 			?disabled=${!(pageNumber > 1)}
 			@click=${(e: MouseEvent) => onPage!(e.ctrlKey ? 1 : pageNumber - 1)}
 		>
@@ -68,6 +71,7 @@ export const renderPagination = (pagination?: Pagination) => {
 		<cosmoz-button
 			title="${t('Next page')}"
 			variant="secondary"
+			icon-only
 			class="button-page page-next"
 			size="sm"
 			?disabled=${!(pageNumber < totalPages!)}
@@ -97,7 +101,7 @@ export const renderStats = <I>({
 	if (items.length < 1) {
 		return nothing;
 	}
-	return html`<div class="tabn-stats">
+	return html`<div class="tabn-stats" slot="stats">
 		${(() => {
 			if (pagination) {
 				const { pageNumber, pageSize } = pagination;
@@ -232,7 +236,7 @@ export const renderQueue = <I, D>({
 		: undefined;
 	const tabn = html`
 		<cosmoz-tabs-next class="tabn">
-			<div class="tabn-heading">${heading}${afterHeading}</div>
+			<div class="tabn-heading" slot="tabs">${heading}${afterHeading}</div>
 			${renderTabs({ ...tabnav, className: 'tabn-tab' })}
 			${renderStats({
 				pagination,

@@ -1,3 +1,36 @@
+## 3.4.1
+
+### Patch Changes
+
+- 64a1c2c: Update `@neovici/cosmoz-tabs` to 11.1
+
+  Refreshes the floor to `^11.1.0`. The built-in tab bar picks up the
+  tabs 11.1 keyboard model: the arrow keys move the focus only, and
+  Enter/Space activate the focused tab (manual activation, like a
+  native tablist). Tabs with `href` pick through their link, and the
+  keys are handled from the tab's first render.
+
+## 3.4.0
+
+### Minor Changes
+
+- ad3381a: Move to `@neovici/cosmoz-tabs` 11
+
+  The built-in tab bar puts the heading in the `tabs` slot, and the stats and
+  pagination in the `stats` slot. Tabs 11 no longer routes extra children, and
+  treats anything in the default slot as a tab. Queues that pass their own
+  `header` are unaffected.
+
+## 3.3.2
+
+### Patch Changes
+
+- 8645d02: feat(queue): export useRowPartFn
+
+  Export `useRowPartFn` (matcher for the active row's `itemRow-active`
+  part) and the `ACTIVE_ROW_PART` constant; `useQueue`'s returned
+  `rowPartFn` uses it internally.
+
 ## 3.3.1
 
 ### Patch Changes

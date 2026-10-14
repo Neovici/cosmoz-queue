@@ -1,13 +1,17 @@
 export { default as useAsyncAction } from './use-async-action';
 export { default as useDataService } from './use-data-service';
-export { default as useQueue } from './use-queue';
+export {
+	ACTIVE_ROW_PART,
+	default as useQueue,
+	useRowPartFn,
+} from './use-queue';
 
 export { getItems, touch } from './util';
 
 export * from './render';
 
 export type * from './types';
-export type * from './use-queue';
+export type { UseQueue } from './use-queue';
 
 // Item interactions
 export { itemClick } from './item-click';

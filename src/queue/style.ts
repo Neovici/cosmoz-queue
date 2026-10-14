@@ -18,7 +18,7 @@ export const base = css`
 	.tabn-tab {
 		flex: 0 1 0.000001px;
 		flex: 0 1 min-content;
-		padding: 11px 16px;
+		padding: var(--cz-queue-tab-padding, 11px 16px);
 		background: inherit;
 		color: var(--cz-color-gray-400);
 	}
