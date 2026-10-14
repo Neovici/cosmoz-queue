@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit-html';
 import { expect, fn, userEvent } from 'storybook/test';
-import { renderNav, renderPagination } from '../src/queue/render';
+import {
+	type RenderQueue,
+	renderNav,
+	renderPagination,
+	renderQueue,
+} from '../src/queue/render';
+import { splitAttrs } from '../src/queue/split';
 
 const meta: Meta = {
 	title: 'Tests/Render',
@@ -105,5 +111,46 @@ export const RenderPaginationTest: StoryObj = {
 		(args.onPage as ReturnType<typeof fn>).mockClear();
 		await userEvent.click(prevButton);
 		expect(args.onPage).toHaveBeenCalledWith(2);
+	},
+};
+
+export const RenderQueueSplitTest: StoryObj = {
+	render: () => {
+		const props: RenderQueue<unknown, unknown> = {
+			heading: 'Split',
+			index: 0,
+			items: [],
+			tabnav: {
+				tabs: [],
+				active: { name: 'overview', content: nothing },
+				onActivate: () => undefined,
+			},
+			nav: { id: () => '', item: undefined, index: 0 },
+			list: html`<div>list</div>`,
+			renderItem: () => html`<div>item</div>`,
+			renderLoader: () => html`<div>loading</div>`,
+		};
+		return html`<div id="test-container">
+			${renderQueue({
+				...props,
+				splitAttrs: splitAttrs({ minSize: [300, 400] }),
+			})}
+			${renderQueue(props)}
+		</div>`;
+	},
+	async play({ canvasElement }) {
+		const views = canvasElement.querySelectorAll<HTMLElement>(
+			'cosmoz-resizable-view',
+		);
+
+		// first queue: both pane minimums forwarded, second: '100' fallback
+		expect([...views].map((el) => el.getAttribute('min-size'))).toEqual([
+			'300 400',
+			'100',
+		]);
+		expect([...views].map((el) => el.getAttribute('initial-size'))).toEqual([
+			'50%',
+			'50%',
+		]);
 	},
 };
