@@ -1,16 +1,19 @@
 import { array } from '@neovici/cosmoz-utils/array';
 
 /**
- * @deprecated Use `initial-size` and `min-size` attributes on
- * `<cosmoz-resizable-view>` instead (mapped automatically to `splitAttrs`,
- * by both `queue()` and `useQueue()`).
- * `expandToMin` and `snapOffset` have no equivalent and are silently ignored.
+ * Split-view sizing options for `queue()` and `useQueue()`.
+ *
+ * Mapped to the `initial-size` / `min-size` attributes of
+ * `<cosmoz-resizable-view>` by both `queue()` and `useQueue()`.
  */
 export interface SplitConfig {
+	/** Initial widths of the two panes in percent. */
 	sizes?: [number, number];
-	/** Minimum widths forwarded to `min-size`: `300` (previous pane only) or `[300, 400]` (both panes). */
+	/** Minimum widths per pane, forwarded to the `min-size` attribute. */
 	minSize?: number[] | number;
+	/** @deprecated Split.js leftovers, ignored. */
 	expandToMin?: boolean;
+	/** @deprecated Split.js leftovers, ignored. */
 	snapOffset?: number;
 }
 
