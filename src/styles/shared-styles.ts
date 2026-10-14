@@ -137,8 +137,11 @@ export const buttonStyles = css`
 	.button:not([slot='bottom-bar-menu']),
 	.file::-webkit-file-upload-button,
 	.file::file-selector-button {
-		background-color: var(--cz-color-bg-brand-solid);
-		color: var(--cz-color-text-on-brand);
+		background-color: var(
+			--cz-color-bg-action-solid,
+			var(--cz-color-bg-brand-solid)
+		);
+		color: var(--cz-color-text-on-action, var(--cz-color-text-on-brand));
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
 		box-sizing: border-box;
 		cursor: pointer;
@@ -160,7 +163,10 @@ export const buttonStyles = css`
 	.button:not([slot='bottom-bar-menu']):active,
 	.file::-webkit-file-upload-button:hover,
 	.file::file-selector-button:hover {
-		background-color: var(--cz-color-bg-brand-solid-hover);
+		background-color: var(
+			--cz-color-bg-action-solid-hover,
+			var(--cz-color-bg-brand-solid-hover)
+		);
 	}
 	.button[disabled],
 	.button:disabled {
