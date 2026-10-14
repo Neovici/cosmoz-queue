@@ -1,3 +1,4 @@
+import { array } from '@neovici/cosmoz-utils/array';
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
@@ -18,7 +19,8 @@ type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
  */
 export interface SplitConfig {
 	sizes?: [number, number];
-	minSize?: [number] | number;
+	/** Minimum widths forwarded to `min-size`: `300` (previous pane only) or `[300, 400]` (both panes). */
+	minSize?: number[] | number;
 	expandToMin?: boolean;
 	snapOffset?: number;
 }
@@ -97,9 +99,11 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 	const splitAttrs = split
 		? {
 				initialSize: split.sizes?.[0] != null ? `${split.sizes[0]}%` : '50%',
+				// `''` must never reach renderQueue: it would bypass its `?? '100'`
+				// fallback and render an empty `min-size` (no pane minimums).
 				minSize:
 					split.minSize != null
-						? `${Array.isArray(split.minSize) ? split.minSize[0] : split.minSize}`
+						? array(split.minSize).join(' ') || undefined
 						: undefined,
 			}
 		: { initialSize: '50%', minSize: '100' };

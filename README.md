@@ -80,7 +80,7 @@ customElements.define('order-list-queue', component(OrderListQueue));
 | `loader`       | `(thru, props) => TemplateResult` | --       | Renders the loading skeleton                                           |
 | `pagination`   | `Pagination?`                     | --       | Server-side pagination config                                          |
 | `fallback`     | `string?`                         | --       | Default tab when none is set in URL hash                               |
-| `split`        | `SplitOpts?`                      | --       | Split.js configuration (sizes, min sizes)                              |
+| `split`        | `SplitOpts?`                      | --       | Split.js configuration (sizes; `minSize`: minimum width per pane)      |
 | `afterHeading` | `unknown?`                        | --       | Extra content rendered after the heading                               |
 
 Use **`details`** when you control the fetch (most common). Use **`api`** when you want the queue to handle fetching via URL.
