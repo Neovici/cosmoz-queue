@@ -1,11 +1,11 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{i,n as a,r as o,t as s}from"./render-BQZZOz1Y.js";import{n as c,t as l}from"./split-B7s6IbSh.js";var u,d,f,p,m,h,g,_,v,y;e((()=>{n(),s(),l(),{expect:u,fn:d,userEvent:f}=__STORYBOOK_MODULE_TEST__,p={title:`Tests/Render`},m={render:()=>t`<div id="test-container">${a({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`cosmoz-button.button-nav`);u(n).toHaveLength(2);let r=t?.querySelector(`cosmoz-button.button-nav.prev`),i=t?.querySelector(`cosmoz-button.button-nav.next`);u(r).toHaveAttribute(`disabled`),u(i).toHaveAttribute(`disabled`)}},h={args:{prev:d(),next:d()},render:e=>t`<div id="test-container">
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{i,n as a,r as o,t as s}from"./render-DuaW6pZ-.js";import{n as c,t as l}from"./split-CMQA6YWr.js";var u,d,f,p,m,h,g,_,v,y;e((()=>{n(),s(),c(),{expect:u,fn:d,userEvent:f}=__STORYBOOK_MODULE_TEST__,p={title:`Tests/Render`},m={render:()=>t`<div id="test-container">${a({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`cosmoz-button.button-nav`);u(n).toHaveLength(2);let r=t?.querySelector(`cosmoz-button.button-nav.prev`),i=t?.querySelector(`cosmoz-button.button-nav.next`);u(r).toHaveAttribute(`disabled`),u(i).toHaveAttribute(`disabled`)}},h={args:{prev:d(),next:d()},render:e=>t`<div id="test-container">
             ${a(e)}
         </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`cosmoz-button.button-nav.prev`),i=n?.querySelector(`cosmoz-button.button-nav.next`);u(r).not.toHaveAttribute(`disabled`),u(i).not.toHaveAttribute(`disabled`),await f.click(r),u(e.prev).toHaveBeenCalled(),await f.click(i),u(e.next).toHaveBeenCalled()}},g={render:()=>t`<div id="test-container">
             ${o()===r?`nothing`:o()}
         </div>`,async play({canvasElement:e}){u(e.querySelector(`#test-container`)?.textContent?.trim()).toBe(`nothing`)}},_={args:{onPage:d()},render:e=>t`<div id="test-container">
             ${o({totalPages:10,pageNumber:3,onPage:e.onPage})}
         </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`.page-prev`),i=n?.querySelector(`.page-next`);u(r).toBeTruthy(),u(i).toBeTruthy(),await f.click(i),u(e.onPage).toHaveBeenCalledWith(4),e.onPage.mockClear(),await f.click(r),u(e.onPage).toHaveBeenCalledWith(2)}},v={render:()=>{let e={heading:`Split`,index:0,items:[],tabnav:{tabs:[],active:{name:`overview`,content:r},onActivate:()=>void 0},nav:{id:()=>``,item:void 0,index:0},list:t`<div>list</div>`,renderItem:()=>t`<div>item</div>`,renderLoader:()=>t`<div>loading</div>`};return t`<div id="test-container">
-            ${i({...e,splitAttrs:c({minSize:[300,400]})})}
+            ${i({...e,splitAttrs:l({minSize:[300,400]})})}
             ${i(e)}
         </div>`},async play({canvasElement:e}){let t=e.querySelectorAll(`cosmoz-resizable-view`);u([...t].map(e=>e.getAttribute(`min-size`))).toEqual([`300 400`,`100`]),u([...t].map(e=>e.getAttribute(`initial-size`))).toEqual([`50%`,`50%`])}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
   render: () => html\`<div id="test-container">\${renderNav({})}</div>\`,
@@ -114,7 +114,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-h
     return html\`<div id="test-container">
             \${renderQueue({
       ...props,
-      splitAttrs: splitAttrs({
+      splitAttrs: computeSplitAttrs({
         minSize: [300, 400]
       })
     })}
