@@ -7,7 +7,7 @@ import {
 	renderPagination,
 	renderQueue,
 } from '../src/queue/render';
-import { splitAttrs } from '../src/queue/split';
+import { computeSplitAttrs } from '../src/queue/split';
 
 const meta: Meta = {
 	title: 'Tests/Render',
@@ -133,7 +133,7 @@ export const RenderQueueSplitTest: StoryObj = {
 		return html`<div id="test-container">
 			${renderQueue({
 				...props,
-				splitAttrs: splitAttrs({ minSize: [300, 400] }),
+				splitAttrs: computeSplitAttrs({ minSize: [300, 400] }),
 			})}
 			${renderQueue(props)}
 		</div>`;

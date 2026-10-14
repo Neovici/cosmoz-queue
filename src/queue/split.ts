@@ -26,7 +26,7 @@ export interface SplitAttrs {
  * Maps the `split` option to `initial-size` / `min-size` attribute values.
  * Shared by `queue()` and `useQueue()`, consumed via `renderQueue`.
  */
-export const splitAttrs = (split?: SplitConfig): SplitAttrs =>
+export const computeSplitAttrs = (split?: SplitConfig): SplitAttrs =>
 	split
 		? {
 				initialSize: split.sizes?.[0] != null ? `${split.sizes[0]}%` : '50%',

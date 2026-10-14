@@ -4,7 +4,7 @@ import { useCallback, useMemo } from '@pionjs/pion';
 import { json } from '../util/fetch/fetch';
 import { useMobile } from './use-mobile';
 
-import { splitAttrs as computeSplitAttrs, SplitConfig } from './split';
+import { computeSplitAttrs, SplitConfig } from './split';
 import useDataNav, { Opts as UseDataNav } from './use-data-nav';
 import useKeyNav from './use-key-nav';
 import { useListState } from './use-list';

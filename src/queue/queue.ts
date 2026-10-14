@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
-import { splitAttrs as computeSplitAttrs, SplitConfig } from './split';
+import { computeSplitAttrs, SplitConfig } from './split';
 import { Pagination } from './types';
 import useAsyncAction, { Ot } from './use-async-action';
 import useQueue, { UseQueue } from './use-queue';
