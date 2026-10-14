@@ -1,7 +1,7 @@
-import { array } from '@neovici/cosmoz-utils/array';
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
+import { splitAttrs as computeSplitAttrs, SplitConfig } from './split';
 import { Pagination } from './types';
 import useAsyncAction, { Ot } from './use-async-action';
 import useQueue, { UseQueue } from './use-queue';
@@ -11,19 +11,6 @@ type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
 	nav: TemplateResult;
 	item: I;
 };
-
-/**
- * @deprecated Use `initial-size` and `min-size` attributes on
- * `<cosmoz-resizable-view>` instead (mapped automatically from this prop).
- * `expandToMin` and `snapOffset` have no equivalent and are silently ignored.
- */
-export interface SplitConfig {
-	sizes?: [number, number];
-	/** Minimum widths forwarded to `min-size`: `300` (previous pane only) or `[300, 400]` (both panes). */
-	minSize?: number[] | number;
-	expandToMin?: boolean;
-	snapOffset?: number;
-}
 
 interface Props<I, D>
 	extends
@@ -96,17 +83,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		onAsyncSimpleAction,
 	};
 
-	const splitAttrs = split
-		? {
-				initialSize: split.sizes?.[0] != null ? `${split.sizes[0]}%` : '50%',
-				// `''` must never reach renderQueue: it would bypass its `?? '100'`
-				// fallback and render an empty `min-size` (no pane minimums).
-				minSize:
-					split.minSize != null
-						? array(split.minSize).join(' ') || undefined
-						: undefined,
-			}
-		: { initialSize: '50%', minSize: '100' };
+	const splitAttrs = computeSplitAttrs(split);
 
 	return renderQueue({
 		details,

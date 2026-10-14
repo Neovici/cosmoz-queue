@@ -17,3 +17,9 @@ into the attribute, mapping to per-pane minimums:
 Per-pane minimums are honored by `@neovici/cosmoz-resizable` >= 2.2.0
 (`^2.0.0` already spans it; older 2.x releases ignore the attribute
 entirely).
+
+The hook pattern is supported as well: `useQueue` now accepts the
+deprecated `split` option and returns the computed `splitAttrs` object
+(sharing the mapping with `queue()`), to pass directly to
+`renderQueue` when the legacy `useQueue(...)` + `renderQueue(...)`
+pattern is used.
