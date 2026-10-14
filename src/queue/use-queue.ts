@@ -86,7 +86,7 @@ const useQNav = <I>({
 interface Opts<I>
 	extends
 		ReturnType<typeof useListState<I>>,
-		Pick<UseTabsOptions<I>, 'fallback'> {
+		Pick<UseTabsOptions<I>, 'fallback' | 'tabPersistKey'> {
 	tabHashParam?: string;
 	idHashParam?: string;
 	onActivate?: (name: string) => void;
@@ -120,6 +120,7 @@ const useQueue = <I>({
 	idHashParam,
 	fallback,
 	onActivate,
+	tabPersistKey,
 	...thru
 }: Opts<I>) => {
 	const { items: _items, selected } = thru,
@@ -131,6 +132,7 @@ const useQueue = <I>({
 			hashParam: tabHashParam,
 			fallback,
 			onActivate,
+			tabPersistKey,
 			mobile,
 		}),
 		nav = useQNav({

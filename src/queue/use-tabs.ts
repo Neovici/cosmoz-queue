@@ -10,6 +10,8 @@ export interface Options<I> {
 	mobile?: boolean;
 	onActivate?: (name: string) => void;
 	fallback?: string;
+	/** Remembers the layout (List or Split) the user clicks under this localStorage key. */
+	tabPersistKey?: string;
 	sizes?: { list?: string; view?: string };
 }
 
@@ -23,6 +25,7 @@ export default <I = unknown>({
 	mobile,
 	fallback,
 	onActivate,
+	tabPersistKey,
 }: Options<I>) => {
 	const tabs = useMemo(
 		() =>
@@ -45,6 +48,8 @@ export default <I = unknown>({
 						disabled: !(items.length > 0),
 						title: t('Queue'),
 						content: icons.queue,
+						// the details tab is never where a list should open
+						persist: false,
 					},
 				] as const
 			).map((tab) =>
@@ -53,7 +58,11 @@ export default <I = unknown>({
 		[items.length, mobile, fallback],
 	);
 
-	const _tabnav = useTabs(tabs, { hashParam, onActivate }),
+	const _tabnav = useTabs(tabs, {
+			hashParam,
+			onActivate,
+			persist: tabPersistKey,
+		}),
 		tabnav = useMemo(() => _tabnav, Object.values(_tabnav)),
 		activeTab = tabnav.active?.name;
 

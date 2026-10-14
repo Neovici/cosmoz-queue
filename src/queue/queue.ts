@@ -25,7 +25,7 @@ export interface SplitConfig {
 
 interface Props<I, D>
 	extends
-		Pick<UseQueue<I>, 'id' | 'api' | 'fallback'>,
+		Pick<UseQueue<I>, 'id' | 'api' | 'fallback' | 'tabPersistKey'>,
 		Pick<RenderQueue<I, D>, 'details' | 'afterHeading' | 'header'> {
 	list: (
 		thru: Record<string, any>,
@@ -62,6 +62,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		loader,
 		pagination,
 		fallback,
+		tabPersistKey,
 		split,
 	} = props;
 
@@ -71,6 +72,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		idHashParam,
 		tabHashParam,
 		fallback,
+		tabPersistKey,
 	});
 
 	const {
