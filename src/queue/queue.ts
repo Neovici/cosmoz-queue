@@ -54,12 +54,17 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		split,
 	} = props;
 
+	// Shared by the resizable split persist and the remembered-tab persist;
+	// queues without a settingsId persist neither.
+	const persistKey = settingsId ? `${settingsId}-split` : undefined;
+
 	const queueProps = useQueue({
 		id,
 		api,
 		idHashParam,
 		tabHashParam,
 		fallback,
+		persistKey,
 	});
 
 	const {
@@ -96,7 +101,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		totalAvailable,
 		nav,
 		pagination,
-		persistKey: settingsId ? `${settingsId}-split` : undefined,
+		persistKey,
 		splitAttrs,
 		list: list(
 			{
