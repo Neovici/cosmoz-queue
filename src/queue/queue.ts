@@ -93,6 +93,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		heading,
 		afterHeading,
 		header,
+		tabHashParam,
 		index,
 		items,
 		tabnav,
