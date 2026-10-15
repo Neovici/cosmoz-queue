@@ -1,3 +1,39 @@
+## 3.5.0
+
+### Minor Changes
+
+- 86a8b33: feat(queue): forward second pane min size (`split.minSize: number[]`) to `cosmoz-resizable-view`
+
+  `queue()` forwarded only the first entry of `split.minSize` to the
+  `min-size` attribute of `<cosmoz-resizable-view>`, so the detail pane
+  could be dragged to ~0 width and obscured. All entries are now joined
+  into the attribute, mapping to per-pane minimums:
+  - `minSize` unset -> attribute omitted, `min-size` falls back to `100`
+  - `300` -> `min-size="300"` (previous pane only)
+  - `[300]` -> `min-size="300"` (unchanged from before)
+  - `[300, 400]` -> `min-size="300 400"` (minimums for both panes)
+
+  Per-pane minimums are honored by `@neovici/cosmoz-resizable` >= 2.2.0
+  (`^2.0.0` already spans it; older 2.x releases ignore the attribute
+  entirely).
+
+  The hook pattern is supported as well: `useQueue` now accepts the
+  deprecated `split` option and returns the computed `splitAttrs` object
+  (sharing the mapping with `queue()`), to pass directly to
+  `renderQueue` when the legacy `useQueue(...)` + `renderQueue(...)`
+  pattern is used.
+
+- f515336: Render the item navigation and pagination arrows as icon-only buttons
+
+  The prev/next item buttons and the pagination arrows set `cosmoz-button`'s
+  `icon-only` attribute, so with cosmoz-button 2.x they are square (32×32, and
+  28×28 for `sm` pagination) and line up with the bottom bar's overflow button.
+  cosmoz-button 1.x ignores the attribute.
+
+### Patch Changes
+
+- 2b4f185: Use Untitled UI icons (`list`, `columns-02`, `square`) for the list/split/queue view-mode tabs, and expose `--cz-queue-tab-padding` so hosts can tighten the tab row.
+
 ## 3.4.1
 
 ### Patch Changes
