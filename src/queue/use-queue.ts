@@ -4,6 +4,7 @@ import { useCallback, useMemo } from '@pionjs/pion';
 import { json } from '../util/fetch/fetch';
 import { useMobile } from './use-mobile';
 
+import { computeSplitAttrs, SplitConfig } from './split';
 import useDataNav, { Opts as UseDataNav } from './use-data-nav';
 import useKeyNav from './use-key-nav';
 import { useListState } from './use-list';
@@ -111,6 +112,8 @@ interface Opts<I>
 	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
+	/** @deprecated Use `initial-size` / `min-size` attributes on `<cosmoz-resizable-view>` instead (mapped automatically to the returned `splitAttrs`). */
+	split?: SplitConfig;
 }
 
 const useQueue = <I>({
@@ -120,6 +123,7 @@ const useQueue = <I>({
 	idHashParam,
 	fallback,
 	onActivate,
+	split,
 	...thru
 }: Opts<I>) => {
 	const { items: _items, selected } = thru,
@@ -140,6 +144,7 @@ const useQueue = <I>({
 			hashParam: idHashParam,
 			maintainSelection: ['queue', 'split'].includes(activeTab),
 		}),
+		splitAttrs = useMemo(() => computeSplitAttrs(split), [split]),
 		{ item, setItem } = nav,
 		ensue = useCallback(
 			(itemId: string) => {
@@ -159,6 +164,7 @@ const useQueue = <I>({
 		tabnav,
 		activeTab,
 		mobile,
+		splitAttrs,
 		hideActions: selected?.length > 0 && activeTab === 'split',
 
 		index: useMemo(() => items.indexOf(item), [item, items]),

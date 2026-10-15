@@ -1,6 +1,7 @@
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
+import { computeSplitAttrs, SplitConfig } from './split';
 import { Pagination } from './types';
 import useAsyncAction, { Ot } from './use-async-action';
 import useQueue, { UseQueue } from './use-queue';
@@ -10,18 +11,6 @@ type ViewProps<I> = Omit<QueueProps<I>, 'nav'> & {
 	nav: TemplateResult;
 	item: I;
 };
-
-/**
- * @deprecated Use `initial-size` and `min-size` attributes on
- * `<cosmoz-resizable-view>` instead (mapped automatically from this prop).
- * `expandToMin` and `snapOffset` have no equivalent and are silently ignored.
- */
-export interface SplitConfig {
-	sizes?: [number, number];
-	minSize?: [number] | number;
-	expandToMin?: boolean;
-	snapOffset?: number;
-}
 
 interface Props<I, D>
 	extends
@@ -94,15 +83,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		onAsyncSimpleAction,
 	};
 
-	const splitAttrs = split
-		? {
-				initialSize: split.sizes?.[0] != null ? `${split.sizes[0]}%` : '50%',
-				minSize:
-					split.minSize != null
-						? `${Array.isArray(split.minSize) ? split.minSize[0] : split.minSize}`
-						: undefined,
-			}
-		: { initialSize: '50%', minSize: '100' };
+	const splitAttrs = computeSplitAttrs(split);
 
 	return renderQueue({
 		details,
