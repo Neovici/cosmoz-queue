@@ -67,21 +67,21 @@ customElements.define('order-list-queue', component(OrderListQueue));
 
 ### `queue()` props
 
-| Prop           | Type                              | Default  | Description                                                                                                                            |
-| -------------- | --------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `heading`      | `string`                          | --       | Title displayed above the tabs                                                                                                         |
-| `settingsId`   | `string?`                         | --       | Key for persisting omnitable column settings                                                                                           |
-| `idHashParam`  | `string`                          | `'qid'`  | URL hash param for the selected item ID                                                                                                |
-| `tabHashParam` | `string`                          | `'qtab'` | URL hash param for the active tab                                                                                                      |
-| `details`      | `(item: I) => PromiseLike<D>`     | --       | Fetches full details for a list item                                                                                                   |
-| `api`          | `(id: string, item: I) => string` | --       | Alternative to `details`: returns a URL, queue fetches JSON internally                                                                 |
-| `list`         | `(thru, props) => TemplateResult` | --       | Renders the list component                                                                                                             |
-| `view`         | `(thru, props) => TemplateResult` | --       | Renders the detail view                                                                                                                |
-| `loader`       | `(thru, props) => TemplateResult` | --       | Renders the loading skeleton                                                                                                           |
-| `pagination`   | `Pagination?`                     | --       | Server-side pagination config                                                                                                          |
-| `fallback`     | `string?`                         | --       | Opening tab when the hash names none and nothing is remembered; the user's last tab click is remembered per `settingsId` and preferred |
-| `split`        | `SplitOpts?`                      | --       | Split.js configuration (sizes; `minSize`: minimum width per pane)                                                                      |
-| `afterHeading` | `unknown?`                        | --       | Extra content rendered after the heading                                                                                               |
+| Prop           | Type                              | Default  | Description                                                            |
+| -------------- | --------------------------------- | -------- | ---------------------------------------------------------------------- |
+| `heading`      | `string`                          | --       | Title displayed above the tabs                                         |
+| `settingsId`   | `string?`                         | --       | Key for persisting omnitable settings and the picked tab               |
+| `idHashParam`  | `string`                          | `'qid'`  | URL hash param for the selected item ID                                |
+| `tabHashParam` | `string`                          | `'qtab'` | URL hash param for the active tab                                      |
+| `details`      | `(item: I) => PromiseLike<D>`     | --       | Fetches full details for a list item                                   |
+| `api`          | `(id: string, item: I) => string` | --       | Alternative to `details`: returns a URL, queue fetches JSON internally |
+| `list`         | `(thru, props) => TemplateResult` | --       | Renders the list component                                             |
+| `view`         | `(thru, props) => TemplateResult` | --       | Renders the detail view                                                |
+| `loader`       | `(thru, props) => TemplateResult` | --       | Renders the loading skeleton                                           |
+| `pagination`   | `Pagination?`                     | --       | Server-side pagination config                                          |
+| `fallback`     | `string?`                         | --       | Opening tab when the hash names none and no pick is remembered         |
+| `split`        | `SplitOpts?`                      | --       | Split.js configuration (sizes; `minSize`: minimum width per pane)      |
+| `afterHeading` | `unknown?`                        | --       | Extra content rendered after the heading                               |
 
 Use **`details`** when you control the fetch (most common). Use **`api`** when you want the queue to handle fetching via URL.
 
@@ -397,16 +397,16 @@ const MyQueue = ({ heading }: { heading: string }) => {
 
 ### Individual hooks
 
-| Hook                                                          | Import                  | Purpose                                                                                                                                                    |
-| ------------------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useTabs({ items, hashParam, mobile, fallback, persistKey })` | `@neovici/cosmoz-queue` | Manages overview/split/queue tabs. Returns `{ tabnav, activeTab }`. With `persistKey`, remembers the clicked tab under `<persistKey>-tab` and opens on it. |
-| `useDataNav(items, opts)`                                     | `@neovici/cosmoz-queue` | Item navigation with prev/next, URL hash sync. Returns `{ item, setItem, next, prev, forward, index }`.                                                    |
-| `useSplit({ activeTab, ...splitOpts })`                       | `@neovici/cosmoz-queue` | Initializes Split.js when in split mode.                                                                                                                   |
-| `useListState()`                                              | `@neovici/cosmoz-queue` | Creates `items`, `selected`, `totalAvailable` state with setters.                                                                                          |
-| `useListSSE({ entity, params, list$ })`                       | `@neovici/cosmoz-queue` | Subscribes to Server-Sent Events (`cosmoz-${entity}-updated`) for real-time list updates.                                                                  |
-| `useFetchActions({ pathLocator, selected, api })`             | `@neovici/cosmoz-queue` | Fetches available actions for selected items from an API. Returns `{ actions, actionRows, actionsFetching }`.                                              |
-| `useAsyncAction(nav)`                                         | `@neovici/cosmoz-queue` | Handles async action completion with automatic item removal from the list. Returns `{ listRef, onAsyncSimpleAction }`.                                     |
-| `usePagination()`                                             | `@neovici/cosmoz-queue` | URL hash-based page state. Returns `{ page, onPage }`.                                                                                                     |
+| Hook                                              | Import                  | Purpose                                                                                                                |
+| ------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `useTabs({ items, hashParam, mobile, fallback })` | `@neovici/cosmoz-queue` | Manages overview/split/queue tabs. Returns `{ tabnav, activeTab }`. `persistKey` remembers the picked tab.             |
+| `useDataNav(items, opts)`                         | `@neovici/cosmoz-queue` | Item navigation with prev/next, URL hash sync. Returns `{ item, setItem, next, prev, forward, index }`.                |
+| `useSplit({ activeTab, ...splitOpts })`           | `@neovici/cosmoz-queue` | Initializes Split.js when in split mode.                                                                               |
+| `useListState()`                                  | `@neovici/cosmoz-queue` | Creates `items`, `selected`, `totalAvailable` state with setters.                                                      |
+| `useListSSE({ entity, params, list$ })`           | `@neovici/cosmoz-queue` | Subscribes to Server-Sent Events (`cosmoz-${entity}-updated`) for real-time list updates.                              |
+| `useFetchActions({ pathLocator, selected, api })` | `@neovici/cosmoz-queue` | Fetches available actions for selected items from an API. Returns `{ actions, actionRows, actionsFetching }`.          |
+| `useAsyncAction(nav)`                             | `@neovici/cosmoz-queue` | Handles async action completion with automatic item removal from the list. Returns `{ listRef, onAsyncSimpleAction }`. |
+| `usePagination()`                                 | `@neovici/cosmoz-queue` | URL hash-based page state. Returns `{ page, onPage }`.                                                                 |
 
 ## Utilities
 
