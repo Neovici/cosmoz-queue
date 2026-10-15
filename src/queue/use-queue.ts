@@ -136,16 +136,10 @@ const useQueue = <I>({
 		() => getItems(items, selected),
 		[items, selected],
 	);
-	const pref = useTabsPref({
-		persistKey,
-		fallback,
-		except: 'queue',
-		onActivate,
-	});
 	const { tabnav, activeTab } = useTabs({
 		items: queueItems,
 		hashParam: tabHashParam,
-		...pref,
+		...useTabsPref({ persistKey, fallback, except: 'queue', onActivate }),
 		mobile,
 	});
 	const nav = useQNav({
