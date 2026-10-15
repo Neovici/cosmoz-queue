@@ -9,6 +9,7 @@ import useDataNav, { Opts as UseDataNav } from './use-data-nav';
 import useKeyNav from './use-key-nav';
 import { useListState } from './use-list';
 import useTabs, { Options as UseTabsOptions } from './use-tabs';
+import useTabsPref from './use-tabs-pref';
 import useUpdates from './use-updates';
 
 import type { ItemClickOpts } from './item-click';
@@ -87,10 +88,11 @@ const useQNav = <I>({
 interface Opts<I>
 	extends
 		ReturnType<typeof useListState<I>>,
-		Pick<UseTabsOptions<I>, 'fallback' | 'persistKey'> {
+		Pick<UseTabsOptions<I>, 'fallback'> {
 	tabHashParam?: string;
 	idHashParam?: string;
 	onActivate?: (name: string) => void;
+	persistKey?: string;
 	/**
 	 * @deprecated Use the `details` property instead. The `api` property will be removed in v2.0.0.
 	 *
@@ -134,12 +136,16 @@ const useQueue = <I>({
 		() => getItems(items, selected),
 		[items, selected],
 	);
+	const pref = useTabsPref({
+		persistKey,
+		fallback,
+		except: 'queue',
+		onActivate,
+	});
 	const { tabnav, activeTab } = useTabs({
 		items: queueItems,
 		hashParam: tabHashParam,
-		fallback,
-		onActivate,
-		persistKey,
+		...pref,
 		mobile,
 	});
 	const nav = useQNav({

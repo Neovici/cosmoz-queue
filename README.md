@@ -399,7 +399,8 @@ const MyQueue = ({ heading }: { heading: string }) => {
 
 | Hook                                              | Import                  | Purpose                                                                                                                |
 | ------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `useTabs({ items, hashParam, mobile, fallback })` | `@neovici/cosmoz-queue` | Manages overview/split/queue tabs. Returns `{ tabnav, activeTab }`. `persistKey` remembers the picked tab.             |
+| `useTabs({ items, hashParam, mobile, fallback })` | `@neovici/cosmoz-queue` | Manages overview/split/queue tabs. Returns `{ tabnav, activeTab }`.                                                    |
+| `useTabsPref({ persistKey, ...opts })`            | `@neovici/cosmoz-queue` | Remembers the tab picked for `useTabs`; spread its result into the `useTabs` options.                                  |
 | `useDataNav(items, opts)`                         | `@neovici/cosmoz-queue` | Item navigation with prev/next, URL hash sync. Returns `{ item, setItem, next, prev, forward, index }`.                |
 | `useSplit({ activeTab, ...splitOpts })`           | `@neovici/cosmoz-queue` | Initializes Split.js when in split mode.                                                                               |
 | `useListState()`                                  | `@neovici/cosmoz-queue` | Creates `items`, `selected`, `totalAvailable` state with setters.                                                      |

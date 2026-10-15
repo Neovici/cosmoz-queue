@@ -1,29 +1,44 @@
 import { renderTabs } from '@neovici/cosmoz-tabs/next/index.js';
-import { renderHook } from '@neovici/testing';
+import { renderHook, waitUntil } from '@neovici/testing';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, render } from 'lit-html';
 import { expect } from 'storybook/test';
-import useTabs, { Options } from '../src/queue/use-tabs';
+import useQueue, { type UseQueue } from '../src/queue/use-queue';
 
 const meta: Meta = {
-	title: 'Tests/UseTabs',
+	title: 'Tests/UseQueue',
 };
 
 export default meta;
 
-const items = [{ id: '1' }, { id: '2' }];
+interface Item {
+	id: string;
+}
 
-// Mounts the hook and renders its real tab row — the same `renderTabs`
-// binding `render.ts` uses — into the story container.
-const mountTabs = async (
-	options: Omit<Options<unknown>, 'items'>,
+const items: Item[] = [{ id: '1' }, { id: '2' }];
+
+// Mounts the queue and renders its real tab row — the same `renderTabs`
+// binding `render.ts` uses. Items arrive the way the list delivers them:
+// after the mount.
+const mountQueue = async (
+	options: UseQueue<Item>,
 	canvasElement: HTMLElement,
+	seed = true,
 ) => {
-	const hooked = await renderHook(() => useTabs({ items, ...options }));
+	const hooked = await renderHook(() => useQueue<Item>(options));
+	// useMobile measures the host element — renderHook mounts it with no
+	// width, so give it desktop width before the ResizeObserver settles
+	hooked.host.style.display = 'block';
+	hooked.host.style.width = '800px';
+	await waitUntil(() => hooked.result.current.mobile === false);
 	render(
 		renderTabs({ ...hooked.result.current.tabnav }),
 		canvasElement.querySelector('#test-container') as HTMLElement,
 	);
+	if (seed) {
+		hooked.result.current.setItems(items);
+		await hooked.nextUpdate();
+	}
 	return hooked;
 };
 
@@ -41,19 +56,19 @@ export const StoresPickedTab: StoryObj = {
 	async play({ canvasElement }) {
 		localStorage.removeItem('pref-test-queue-tab');
 		try {
-			const { result, unmount, nextUpdate } = await mountTabs(
+			const { result, unmount, nextUpdate } = await mountQueue(
 				{ persistKey: 'test-queue', fallback: 'overview' },
 				canvasElement,
 			);
 
 			// No stored pick yet: the fallback tab opens
-			expect(result.current.tabnav.active?.name).toBe('overview');
+			expect(result.current.activeTab).toBe('overview');
 
 			// Clicking Split is remembered
 			clickTab(tab(canvasElement, 'split'));
 			await nextUpdate();
 
-			expect(result.current.tabnav.active?.name).toBe('split');
+			expect(result.current.activeTab).toBe('split');
 			expect(localStorage.getItem('pref-test-queue-tab')).toBe('split');
 			unmount();
 		} finally {
@@ -67,13 +82,13 @@ export const OpensOnStoredTab: StoryObj = {
 	async play({ canvasElement }) {
 		localStorage.setItem('pref-test-queue-2-tab', 'split');
 		try {
-			const { result, unmount } = await mountTabs(
+			const { result, unmount } = await mountQueue(
 				{ persistKey: 'test-queue-2', fallback: 'overview' },
 				canvasElement,
 			);
 
 			// A fresh mount opens on the remembered tab
-			expect(result.current.tabnav.active?.name).toBe('split');
+			expect(result.current.activeTab).toBe('split');
 			unmount();
 		} finally {
 			localStorage.removeItem('pref-test-queue-2-tab');
@@ -89,13 +104,14 @@ export const HashWinsOverStored: StoryObj = {
 		// the params live after an inner '#' in the routed hash format
 		location.hash = '#!#qtab=overview';
 		try {
-			const { result, unmount } = await mountTabs(
-				{ persistKey: 'test-queue-3', hashParam: 'qtab', fallback: 'split' },
+			const { result, unmount } = await mountQueue(
+				{ persistKey: 'test-queue-3', tabHashParam: 'qtab', fallback: 'split' },
 				canvasElement,
+				false,
 			);
 
 			// The hash names the tab — the stored pick and the fallback lose
-			expect(result.current.tabnav.active?.name).toBe('overview');
+			expect(result.current.activeTab).toBe('overview');
 			// and the visit does not overwrite the stored pick
 			expect(localStorage.getItem('pref-test-queue-3-tab')).toBe('split');
 			unmount();
@@ -113,13 +129,14 @@ export const InvalidStoredTabFallsThrough: StoryObj = {
 	async play({ canvasElement }) {
 		localStorage.setItem('pref-test-queue-4-tab', 'split');
 		try {
-			const { result, unmount } = await mountTabs(
-				{ persistKey: 'test-queue-4', mobile: true, fallback: 'overview' },
+			const { result, unmount } = await mountQueue(
+				{ persistKey: 'test-queue-4', fallback: 'overview' },
 				canvasElement,
+				false,
 			);
 
-			// The remembered Split is disabled on mobile — the fallback opens
-			expect(result.current.tabnav.active?.name).toBe('overview');
+			// The remembered Split is disabled on an empty queue — the fallback opens
+			expect(result.current.activeTab).toBe('overview');
 			expect(
 				result.current.tabnav.tabs.find((t) => t.name === 'split')?.disabled,
 			).toBe(true);
@@ -135,7 +152,7 @@ export const ProgrammaticActivateDoesNotStore: StoryObj = {
 	async play({ canvasElement }) {
 		localStorage.removeItem('pref-test-queue-5-tab');
 		try {
-			const { result, unmount, nextUpdate } = await mountTabs(
+			const { result, unmount, nextUpdate } = await mountQueue(
 				{ persistKey: 'test-queue-5', fallback: 'overview' },
 				canvasElement,
 			);
@@ -144,7 +161,7 @@ export const ProgrammaticActivateDoesNotStore: StoryObj = {
 			// it switches the tab…
 			result.current.tabnav.activate('split');
 			await nextUpdate();
-			expect(result.current.tabnav.active?.name).toBe('split');
+			expect(result.current.activeTab).toBe('split');
 
 			// …but does not count as a pick
 			expect(localStorage.getItem('pref-test-queue-5-tab')).toBeNull();
@@ -160,7 +177,7 @@ export const DetailsClickDoesNotChangeLanding: StoryObj = {
 	async play({ canvasElement }) {
 		localStorage.removeItem('pref-test-queue-6-tab');
 		try {
-			const first = await mountTabs(
+			const first = await mountQueue(
 				{ persistKey: 'test-queue-6', fallback: 'overview' },
 				canvasElement,
 			);
@@ -168,16 +185,16 @@ export const DetailsClickDoesNotChangeLanding: StoryObj = {
 			// Clicking the details (queue) tab is stored…
 			clickTab(tab(canvasElement, 'queue'));
 			await first.nextUpdate();
-			expect(first.result.current.tabnav.active?.name).toBe('queue');
+			expect(first.result.current.activeTab).toBe('queue');
 			expect(localStorage.getItem('pref-test-queue-6-tab')).toBe('queue');
 			first.unmount();
 
 			// …but a fresh visit never opens there: the fallback wins
-			const second = await mountTabs(
+			const second = await mountQueue(
 				{ persistKey: 'test-queue-6', fallback: 'overview' },
 				canvasElement,
 			);
-			expect(second.result.current.tabnav.active?.name).toBe('overview');
+			expect(second.result.current.activeTab).toBe('overview');
 			second.unmount();
 		} finally {
 			localStorage.removeItem('pref-test-queue-6-tab');

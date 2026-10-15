@@ -53,6 +53,7 @@
     ".": "./dist/index.js",
     "./use-queue": "./dist/queue/use-queue.js",
     "./use-tabs": "./dist/queue/use-tabs.js",
+    "./use-tabs-pref": "./dist/queue/use-tabs-pref.js",
     "./use-data-nav": "./dist/queue/use-data-nav.js",
     "./use-list": "./dist/queue/use-list.js",
     "./util/fetch": "./dist/util/fetch/fetch.js",
