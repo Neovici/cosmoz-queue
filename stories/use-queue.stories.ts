@@ -31,14 +31,14 @@ const mountQueue = async (
 	hooked.host.style.display = 'block';
 	hooked.host.style.width = '800px';
 	await waitUntil(() => hooked.result.current.mobile === false);
-	render(
-		renderTabs({ ...hooked.result.current.tabnav }),
-		canvasElement.querySelector('#test-container') as HTMLElement,
-	);
 	if (seed) {
 		hooked.result.current.setItems(items);
 		await hooked.nextUpdate();
 	}
+	render(
+		renderTabs({ ...hooked.result.current.tabnav }),
+		canvasElement.querySelector('#test-container') as HTMLElement,
+	);
 	return hooked;
 };
 
