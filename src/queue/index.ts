@@ -44,6 +44,7 @@ export { useListSSE } from './use-list-sse';
 export { default as useDataNav } from './use-data-nav';
 export { useMobile } from './use-mobile';
 export { default as useTabs } from './use-tabs';
+export { default as useTabsPref } from './use-tabs-pref';
 
 // List hooks
 export { filter, notify, useList, useListState } from './use-list';
