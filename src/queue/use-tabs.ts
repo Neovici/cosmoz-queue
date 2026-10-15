@@ -11,11 +11,6 @@ export interface Options<I> {
 	mobile?: boolean;
 	onActivate?: (name: string) => void;
 	fallback?: string;
-	/**
-	 * When set, the tab the user picks by clicking is remembered under
-	 * `<persistKey>-tab` and used to pick the opening tab on later visits,
-	 * whenever the hash names none.
-	 */
 	persistKey?: string;
 	sizes?: { list?: string; view?: string };
 }
@@ -35,9 +30,6 @@ export default <I = unknown>({
 	const [stored, setStored] = usePref<string>(
 			persistKey ? `${persistKey}-tab` : undefined,
 		),
-		// Opening order: hash → remembered pick → consumer fallback. Any click
-		// is remembered, but the details tab is not a place a list should open:
-		// a remembered 'queue' defers to the fallback.
 		defaultTab = stored && stored !== 'queue' ? stored : fallback,
 		tabs = useMemo(
 			() =>
@@ -67,9 +59,6 @@ export default <I = unknown>({
 				),
 			[items.length, mobile, defaultTab],
 		),
-		// Only tab clicks land here — the programmatic tabnav.activate (e.g.
-		// opening a record from the list) does not — so this is what counts
-		// as a pick.
 		_onActivate = useCallback(
 			(name: string) => {
 				setStored(name);
