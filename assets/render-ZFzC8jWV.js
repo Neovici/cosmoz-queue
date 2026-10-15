@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit-html-BZ3vufxv.js";import{a,c as o,i as s,n as c,r as l,s as u,t as d}from"./iframe-fPC5M702.js";import{a as f,b as p,c as m,f as h,g,h as _,i as v,l as y,m as b,n as x,o as ee,p as te,r as ne,s as S,t as C,u as w,y as T}from"./haunted-BleYZ_lI.js";import{C as re,S as E,b as ie,c as D,m as O,n as ae,p as oe,s as se,t as ce,v as le,w as k,x as ue,y as A}from"./next-ClUailIM.js";var de,j,fe,pe,me=e((()=>{C(),de=e=>{if(typeof e!=`object`||!e)return!1;let t=e;return typeof t.px==`number`&&t.px>=0&&!Number.isNaN(t.px)},j=e=>{try{let t=JSON.parse(e);if(de(t))return t}catch{}},fe=(e=`cosmoz-resizable-view:`)=>{let t=new Map,n,r=new Map,i=()=>{n=void 0;for(let[t,n]of r)try{localStorage.setItem(e+t,JSON.stringify(n))}catch{}r.clear()},a=(e,t)=>{r.set(e,t),n??=setTimeout(i,100)},o=n=>{if(n.key==null||!n.key.startsWith(e)||n.newValue==null)return;let r=n.key.slice(e.length),i=j(n.newValue);if(i==null)return;let a=t.get(r);if(a)for(let e of a)e(i)};return typeof window<`u`&&window.addEventListener(`storage`,o),{get(t){let n;try{n=localStorage.getItem(e+t)}catch{return}if(n!=null)return j(n)},set(e,t){a(e,t)},subscribe(e,n){let r=t.get(e);return r||(r=new Set,t.set(e,r)),r.add(n),()=>{let r=t.get(e);r&&(r.delete(n),r.size===0&&t.delete(e))}},destroy(){typeof window<`u`&&window.removeEventListener(`storage`,o),n!=null&&(clearTimeout(n),i())}}},pe=(e,t,n)=>{let r=w(n);if(r.current=n,g(()=>{if(!e||!t)return;let n=e.get(t);n!=null&&r.current?.(n);let i=e.subscribe?.(t,e=>r.current?.(e));return()=>{i?.(),e.destroy?.()}},[e,t]),!(!e||!t))return n=>e.set(t,n)}})),he,ge=e((()=>{C(),he=T`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit-html-BZ3vufxv.js";import{a,c as o,i as s,n as c,r as l,s as u,t as d}from"./iframe-CZDeG4Fn.js";import{a as f,b as p,c as m,f as h,g,h as _,i as v,l as y,m as b,n as x,o as ee,p as te,r as ne,s as S,t as C,u as w,y as T}from"./haunted-9WxK7qv6.js";import{C as re,S as E,b as ie,c as D,m as O,n as ae,p as oe,s as se,t as ce,v as le,w as k,x as ue,y as A}from"./next-WfjCH9nW.js";var de,j,fe,pe,me=e((()=>{C(),de=e=>{if(typeof e!=`object`||!e)return!1;let t=e;return typeof t.px==`number`&&t.px>=0&&!Number.isNaN(t.px)},j=e=>{try{let t=JSON.parse(e);if(de(t))return t}catch{}},fe=(e=`cosmoz-resizable-view:`)=>{let t=new Map,n,r=new Map,i=()=>{n=void 0;for(let[t,n]of r)try{localStorage.setItem(e+t,JSON.stringify(n))}catch{}r.clear()},a=(e,t)=>{r.set(e,t),n??=setTimeout(i,100)},o=n=>{if(n.key==null||!n.key.startsWith(e)||n.newValue==null)return;let r=n.key.slice(e.length),i=j(n.newValue);if(i==null)return;let a=t.get(r);if(a)for(let e of a)e(i)};return typeof window<`u`&&window.addEventListener(`storage`,o),{get(t){let n;try{n=localStorage.getItem(e+t)}catch{return}if(n!=null)return j(n)},set(e,t){a(e,t)},subscribe(e,n){let r=t.get(e);return r||(r=new Set,t.set(e,r)),r.add(n),()=>{let r=t.get(e);r&&(r.delete(n),r.size===0&&t.delete(e))}},destroy(){typeof window<`u`&&window.removeEventListener(`storage`,o),n!=null&&(clearTimeout(n),i())}}},pe=(e,t,n)=>{let r=w(n);if(r.current=n,g(()=>{if(!e||!t)return;let n=e.get(t);n!=null&&r.current?.(n);let i=e.subscribe?.(t,e=>r.current?.(e));return()=>{i?.(),e.destroy?.()}},[e,t]),!(!e||!t))return n=>e.set(t,n)}})),he,ge=e((()=>{C(),he=T`
 	:host {
 		display: flex;
 		flex-direction: row;
@@ -751,32 +751,32 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,r,t as i}from"./lit
 	</div>`},$=({pagination:e,index:n,items:r,totalAvailable:a,nav:o,activeTab:s})=>r.length<1?i:t`<div class="tabn-stats" slot="stats">
 		${(()=>{if(e){let{pageNumber:t,pageSize:i}=e,a=i??r.length;return[((t??1)-1)*a+n+1,r.length<a?e.totalAvailable:(t??1)*a].join(`-`)}let t=o.index,i=o.items?.length;return[i!==r.length&&[`queue`,`split`].includes(s||``)?[t<0?`?`:t+1,i].join(`/`):[n+1,r.length].join(`-`)]})()}
 		${[D(`of`),a??D(`many`)].join(` `)}
-	</div>`,ut=({animationEnd$:e,details:t,item:n,next:r,prev:i,renderItem:a,renderLoader:o})=>{let s=Z({next:r,prev:i});if(!t)return a({item:n,nav:s,next:r,prev:i,animationEnd$:e});let c=t(n);return A([c,e,r],()=>it(Promise.all([c,e]).then(([e])=>a({item:e,nav:s,next:r,prev:i})),o({item:n,nav:s})))},dt=({id:e,forward:t,item:n,...r})=>n?{id:e(n),render:e=>ut({...e,item:n,...r}),animation:t?G:Ze}:X(),ft=({header:e,heading:n,afterHeading:r,index:i,tabnav:a,items:o,totalAvailable:s,nav:c,list:l,renderLoader:u,renderItem:d,details:f=c?.details,pagination:p,persistKey:m,splitAttrs:h})=>{let g=a.active?.name,_=p?{...p,totalAvailable:s}:void 0,v=t`
+	</div>`,ut=({animationEnd$:e,details:t,item:n,next:r,prev:i,renderItem:a,renderLoader:o})=>{let s=Z({next:r,prev:i});if(!t)return a({item:n,nav:s,next:r,prev:i,animationEnd$:e});let c=t(n);return A([c,e,r],()=>it(Promise.all([c,e]).then(([e])=>a({item:e,nav:s,next:r,prev:i})),o({item:n,nav:s})))},dt=({id:e,forward:t,item:n,...r})=>n?{id:e(n),render:e=>ut({...e,item:n,...r}),animation:t?G:Ze}:X(),ft=({header:e,heading:n,afterHeading:r,index:i,tabnav:a,items:o,totalAvailable:s,nav:c,tabHashParam:l,list:u,renderLoader:d,renderItem:f,details:p=c?.details,pagination:m,persistKey:h,splitAttrs:g})=>{let _=a.active?.name,v=m?{...m,totalAvailable:s}:void 0,y=t`
 		<cosmoz-tabs-next class="tabn">
 			<div class="tabn-heading" slot="tabs">${n}${r}</div>
 			${ae({...a,className:`tabn-tab`})}
-			${$({pagination:_,totalAvailable:s,index:i,items:o,nav:c,activeTab:g})}
-			${Q(_)}
+			${$({pagination:v,totalAvailable:s,index:i,items:o,nav:c,activeTab:_})}
+			${Q(v)}
 		</cosmoz-tabs-next>
 	`;return t`
 		<style>
 			${st}
 		</style>
 
-		${O(e,e=>e({tabnav:a,heading:n,afterHeading:r,totalAvailable:s}),()=>v)}
+		${O(e,e=>e({tabnav:a,heading:n,afterHeading:r,totalAvailable:s,item:c?.item,tabHashParam:l}),()=>y)}
 
 		<cosmoz-resizable-view
-			data-active=${g}
+			data-active=${_}
 			direction="horizontal"
-			persist=${E(m)}
-			initial-size=${h?.initialSize??`50%`}
-			min-size=${h?.minSize??`100`}
+			persist=${E(h)}
+			initial-size=${g?.initialSize??`50%`}
+			min-size=${g?.minSize??`100`}
 		>
-			${l}
+			${u}
 			<cosmoz-slider
 				id="queue"
 				slot="next"
-				.slide=${O(g!==`overview`,()=>dt({...c,renderLoader:u,renderItem:d,details:f}),X)}
+				.slide=${O(_!==`overview`,()=>dt({...c,renderLoader:d,renderItem:f,details:p}),X)}
 			></cosmoz-slider>
 		</cosmoz-resizable-view>
 	`}}));export{$ as a,De as c,ft as i,Z as n,Y as o,Q as r,ct as s,pt as t};
