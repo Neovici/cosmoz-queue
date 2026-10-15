@@ -1,0 +1,1 @@
+import{t as e}from"./chunk-BvrOYcoh.js";import{f as t,m as n,t as r}from"./haunted-BleYZ_lI.js";function i(e,r){let[i,s]=t(()=>a(e)||r);return[i,n(t=>{o(e,t),s(t)},[e,s])]}var a,o,s=e((()=>{r(),a=e=>{try{return e?localStorage.getItem(`pref-${e}`):void 0}catch{return}},o=(e,t)=>{if(e)try{localStorage.setItem(`pref-${e}`,t)}catch{}}}));export{i as n,s as t};
