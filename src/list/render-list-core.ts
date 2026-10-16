@@ -5,7 +5,7 @@ import {
 	type Breakpoint,
 } from '@neovici/cosmoz-utils/directives/breakpoints';
 import { lift, type Renderable } from '@pionjs/pion';
-import { html, nothing } from 'lit-html';
+import { html } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { until } from 'lit-html/directives/until.js';
 import { when } from 'lit-html/directives/when.js';
@@ -103,7 +103,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		@sort-on-changed=${lift(setSortOn)}
 		descending=${descending}
 		@descending-changed=${lift(setDescending)}
-		${breakpoints ? breakpointsDirective(breakpoints, []) : nothing}
+		${when(breakpoints, () => breakpointsDirective(breakpoints, []))}
 		.miniBreakpoint=${miniBreakpoint}
 		@is-mini-changed=${lift(setIsMini)}
 		>${[
