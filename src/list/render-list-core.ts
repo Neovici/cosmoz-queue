@@ -1,7 +1,7 @@
 import { formDialog$ } from '@neovici/cosmoz-form';
 import '@neovici/cosmoz-omnitable';
 import {
-	breakpoints,
+	breakpoints as breakpointsDirective,
 	type Breakpoint,
 } from '@neovici/cosmoz-utils/directives/breakpoints';
 import { lift, type Renderable } from '@pionjs/pion';
@@ -47,7 +47,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	data$,
 	noLocal = true,
 	miniBreakpoint,
-	breakpoints: _breakpoints,
+	breakpoints,
 
 	sortOn,
 	setSortOn,
@@ -103,7 +103,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		@sort-on-changed=${lift(setSortOn)}
 		descending=${descending}
 		@descending-changed=${lift(setDescending)}
-		${_breakpoints ? breakpoints(_breakpoints, []) : nothing}
+		${breakpoints ? breakpointsDirective(breakpoints, []) : nothing}
 		.miniBreakpoint=${miniBreakpoint}
 		@is-mini-changed=${lift(setIsMini)}
 		>${[
