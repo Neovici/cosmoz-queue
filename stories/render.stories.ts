@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit-html';
-import { expect, fn, userEvent } from 'storybook/test';
+import { expect, fn, userEvent, waitFor } from 'storybook/test';
 import { renderNav, renderPagination } from '../src/queue/render';
 
 const meta: Meta = {
@@ -105,5 +105,31 @@ export const RenderPaginationTest: StoryObj = {
 		(args.onPage as ReturnType<typeof fn>).mockClear();
 		await userEvent.click(prevButton);
 		expect(args.onPage).toHaveBeenCalledWith(2);
+	},
+};
+
+export const NavigationMatchesActionColors: StoryObj = {
+	render: () => html`
+		<div id="test-container">
+			<cosmoz-button id="action">Action</cosmoz-button>
+			${renderNav({ prev: fn(), next: fn() })}
+			${renderPagination({ pageNumber: 2, totalPages: 3, onPage: fn() })}
+		</div>
+	`,
+	async play({ canvasElement }) {
+		const appearance = (host: Element) => {
+			const style = getComputedStyle(host.shadowRoot!.querySelector('button')!);
+			return [style.backgroundColor, style.backgroundImage, style.color];
+		};
+		await waitFor(() => {
+			const action = canvasElement.querySelector('#action')!;
+			const controls = canvasElement.querySelectorAll(
+				'.button-nav, .button-page',
+			);
+			expect(controls).toHaveLength(4);
+			for (const control of controls) {
+				expect(appearance(control)).toEqual(appearance(action));
+			}
+		});
 	},
 };
