@@ -47,7 +47,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	data$,
 	noLocal = true,
 	miniBreakpoint,
-	breakpoints: tiers,
+	breakpoints: _breakpoints,
 
 	sortOn,
 	setSortOn,
@@ -103,7 +103,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		@sort-on-changed=${lift(setSortOn)}
 		descending=${descending}
 		@descending-changed=${lift(setDescending)}
-		${tiers ? breakpoints(tiers, []) : nothing}
+		${_breakpoints ? breakpoints(_breakpoints, []) : nothing}
 		.miniBreakpoint=${miniBreakpoint}
 		@is-mini-changed=${lift(setIsMini)}
 		>${[

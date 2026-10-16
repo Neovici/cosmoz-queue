@@ -1,20 +1,15 @@
-import { nothing } from 'lit-html';
 import { describe, expect, it, vi } from 'vitest';
 
-// Capture html`...` templates so we can inspect their contents; hoisted so
-// the lit-html mock factory can reference them.
-const { templates, htmlMock } = vi.hoisted(() => {
-	const templates: { strings: string[]; values: unknown[] }[] = [];
-	const htmlMock = (
-		strings: string[],
-		...values: unknown[]
-	): { strings: string[]; values: unknown[] } => {
-		const template = { strings, values };
-		templates.push(template);
-		return template;
-	};
-	return { templates, htmlMock };
-});
+// Capture html`...` templates so we can inspect their contents
+const templates: { strings: string[]; values: unknown[] }[] = [];
+const htmlMock = (
+	strings: string[],
+	...values: unknown[]
+): { strings: string[]; values: unknown[] } => {
+	const template = { strings, values };
+	templates.push(template);
+	return template;
+};
 
 vi.mock('lit-html', () => ({
 	html: htmlMock,
@@ -52,6 +47,7 @@ vi.mock('@neovici/cosmoz-utils/directives/breakpoints', () => ({
 }));
 
 const { renderListCore } = await import('../src/list/render-list-core');
+const { nothing } = await import('lit-html');
 
 const minimalProps: Parameters<typeof renderListCore>[0] = {
 	settingsId: 'test-list',
