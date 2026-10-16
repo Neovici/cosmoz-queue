@@ -1,25 +1,9 @@
+import '@neovici/cosmoz-button';
 import '@neovici/cosmoz-spinner';
-import { css } from '@pionjs/pion';
 import { t } from 'i18next';
 import { html, nothing } from 'lit-html';
 import { until } from 'lit-html/directives/until.js';
 import { when } from 'lit-html/directives/when.js';
-
-export const style = css`
-	.more {
-		font-family: inherit;
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 40px;
-		background: inherit;
-		color: var(--cz-text-color);
-		border: none;
-		cursor: pointer;
-	}
-	.more:hover {
-		color: var(--secondary-text-color);
-	}
-`;
 
 export const renderLoadMore = ({
 	loading,
@@ -32,7 +16,9 @@ export const renderLoadMore = ({
 	hasItems?: boolean;
 	onMore?: () => void;
 }) =>
-	html`<button
+	html`<cosmoz-button
+		variant="primary"
+		size="lg"
 		class="more"
 		slot="extraContent"
 		?hidden="${!onMore}"
@@ -49,4 +35,7 @@ export const renderLoadMore = ({
 			),
 		)}
 		<span>${t('Load more')}</span>
-	</button>`;
+	</cosmoz-button>`;
+
+/** @deprecated Button presentation is provided by cosmoz-button. */
+export const style = '';

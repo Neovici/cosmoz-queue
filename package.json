@@ -62,7 +62,7 @@
     "./list/more/render": "./dist/list/more/render-more.js"
   },
   "dependencies": {
-    "@neovici/cosmoz-button": "^2.1.0",
+    "@neovici/cosmoz-button": "^2.3.0",
     "@neovici/cosmoz-form": "^4.0.0",
     "@neovici/cosmoz-icons": "^1.6.0",
     "@neovici/cosmoz-omnitable": "^19.0.0",

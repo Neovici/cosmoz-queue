@@ -1,6 +1,5 @@
 import { css } from '@pionjs/pion';
 import { bottomBarInfoStyles, statusStyle } from '../styles/shared-styles';
-import { style as loadMoreStyle } from './more/render-more';
 export const style = css`
 	:host {
 		display: flex;
@@ -14,5 +13,4 @@ export const style = css`
 	}
 	${bottomBarInfoStyles}
 	${statusStyle}
-	${loadMoreStyle}
 `;
