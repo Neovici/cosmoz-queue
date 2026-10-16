@@ -1,7 +1,11 @@
 import { formDialog$ } from '@neovici/cosmoz-form';
 import '@neovici/cosmoz-omnitable';
+import {
+	breakpoints,
+	type Breakpoint,
+} from '@neovici/cosmoz-utils/directives/breakpoints';
 import { lift, type Renderable } from '@pionjs/pion';
-import { html } from 'lit-html';
+import { html, nothing } from 'lit-html';
 import { guard } from 'lit-html/directives/guard.js';
 import { until } from 'lit-html/directives/until.js';
 import { when } from 'lit-html/directives/when.js';
@@ -18,6 +22,7 @@ export interface RenderListCoreProps<TItem extends object> {
 	enabledColumns?: string[];
 	noLocal?: boolean;
 	miniBreakpoint?: number;
+	breakpoints?: () => Breakpoint[];
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
 	content?: (opts: { selectedItems: TItem[] }) => Renderable;
@@ -42,6 +47,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	data$,
 	noLocal = true,
 	miniBreakpoint,
+	breakpoints: tiers,
 
 	sortOn,
 	setSortOn,
@@ -97,6 +103,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		@sort-on-changed=${lift(setSortOn)}
 		descending=${descending}
 		@descending-changed=${lift(setDescending)}
+		${tiers ? breakpoints(tiers, []) : nothing}
 		.miniBreakpoint=${miniBreakpoint}
 		@is-mini-changed=${lift(setIsMini)}
 		>${[
