@@ -155,27 +155,26 @@ export const RenderQueueSplitTest: StoryObj = {
 	},
 };
 
-export const NavigationMatchesActionColors: StoryObj = {
+export const NavigationStaysFlat: StoryObj = {
 	render: () => html`
 		<div id="test-container">
-			<cosmoz-button id="action">Action</cosmoz-button>
 			${renderNav({ prev: fn(), next: fn() })}
 			${renderPagination({ pageNumber: 2, totalPages: 3, onPage: fn() })}
 		</div>
 	`,
 	async play({ canvasElement }) {
-		const appearance = (host: Element) => {
-			const style = getComputedStyle(host.shadowRoot!.querySelector('button')!);
-			return [style.backgroundColor, style.backgroundImage, style.color];
-		};
 		await waitFor(() => {
-			const action = canvasElement.querySelector('#action')!;
 			const controls = canvasElement.querySelectorAll(
 				'.button-nav, .button-page',
 			);
 			expect(controls).toHaveLength(4);
 			for (const control of controls) {
-				expect(appearance(control)).toEqual(appearance(action));
+				const style = getComputedStyle(
+					control.shadowRoot!.querySelector('button')!,
+				);
+				expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+				expect(style.backgroundImage).toBe('none');
+				expect(style.boxShadow).toBe('none');
 			}
 		});
 	},
