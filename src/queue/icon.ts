@@ -3,8 +3,8 @@ import { html } from 'lit-html';
 export const arrow = html`
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="6"
-		height="10"
+		width="16"
+		height="16"
 		fill="none"
 		viewBox="0 0 6 10"
 	>

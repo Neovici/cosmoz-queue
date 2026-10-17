@@ -1,7 +1,9 @@
 import type { Dialogable } from '@neovici/cosmoz-form';
 import { render } from 'lit-html';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { actionCount, defaultButton, type Action } from '../src/actions/index';
+
+vi.mock('@neovici/cosmoz-button', () => ({}));
 
 const renderToContainer = (template: unknown) => {
 	const container = document.createElement('div');
@@ -59,27 +61,27 @@ describe('defaultButton', () => {
 	it('renders data-priority when priority is set', () => {
 		const opts = makeOpts({ priority: 42 });
 		const container = renderToContainer(defaultButton(opts));
-		const button = container.querySelector('button');
+		const button = container.querySelector('cosmoz-button');
 		expect(button?.getAttribute('data-priority')).toBe('42');
 	});
 
 	it('omits data-priority when priority is undefined', () => {
 		const opts = makeOpts();
 		const container = renderToContainer(defaultButton(opts));
-		const button = container.querySelector('button');
+		const button = container.querySelector('cosmoz-button');
 		expect(button?.hasAttribute('data-priority')).toBe(false);
 	});
 
 	it('renders nothing when no items are applicable', () => {
 		const opts = makeOpts({ applicable: () => false });
 		const container = renderToContainer(defaultButton(opts));
-		expect(container.querySelector('button')).toBeNull();
+		expect(container.querySelector('cosmoz-button')).toBeNull();
 	});
 
 	it('renders title attribute from title()', () => {
 		const opts = makeOpts();
 		const container = renderToContainer(defaultButton(opts));
-		const button = container.querySelector('button');
+		const button = container.querySelector('cosmoz-button');
 		expect(button?.getAttribute('title')).toBe('Test');
 	});
 });

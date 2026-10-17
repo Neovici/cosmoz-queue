@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit-html';
-import { expect, fn, userEvent } from 'storybook/test';
+import { expect, fn, userEvent, waitFor } from 'storybook/test';
 import {
 	type RenderQueue,
 	renderNav,
@@ -53,6 +53,14 @@ export const RenderNavWithCallbacks: StoryObj = {
 		const nextButton = container?.querySelector(
 			'cosmoz-button.button-nav.next',
 		) as HTMLButtonElement;
+
+		// Keep chevrons legible even when the button preserves SVG dimensions.
+		for (const button of [prevButton, nextButton]) {
+			const bounds = button.querySelector('svg')!.getBoundingClientRect();
+			expect(bounds.width).toBe(16);
+			expect(bounds.height).toBe(16);
+			expect(button.getBoundingClientRect().width).toBeGreaterThanOrEqual(24);
+		}
 
 		// Buttons should not be disabled when callbacks are provided
 		expect(prevButton).not.toHaveAttribute('disabled');
@@ -152,5 +160,30 @@ export const RenderQueueSplitTest: StoryObj = {
 			'50%',
 			'50%',
 		]);
+	},
+};
+
+export const NavigationStaysFlat: StoryObj = {
+	render: () => html`
+		<div id="test-container">
+			${renderNav({ prev: fn(), next: fn() })}
+			${renderPagination({ pageNumber: 2, totalPages: 3, onPage: fn() })}
+		</div>
+	`,
+	async play({ canvasElement }) {
+		await waitFor(() => {
+			const controls = canvasElement.querySelectorAll(
+				'.button-nav, .button-page',
+			);
+			expect(controls).toHaveLength(4);
+			for (const control of controls) {
+				const style = getComputedStyle(
+					control.shadowRoot!.querySelector('button')!,
+				);
+				expect(style.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+				expect(style.backgroundImage).toBe('none');
+				expect(style.boxShadow).toBe('none');
+			}
+		});
 	},
 };

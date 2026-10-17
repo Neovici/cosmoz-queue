@@ -5,6 +5,8 @@ vi.mock('@neovici/cosmoz-utils/directives/breakpoints', () => ({
 	breakpoints: vi.fn(),
 }));
 
+vi.mock('@neovici/cosmoz-button', () => ({}));
+
 vi.mock('@neovici/cosmoz-form', () => ({
 	formDialog$: () => null,
 }));
