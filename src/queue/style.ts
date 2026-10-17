@@ -10,12 +10,12 @@ export const base = css`
 		line-height: var(--cz-text-sm-line-height);
 	}
 
-	.tabn {
+	.tabn:not([variant='segmented']) {
 		box-shadow: none;
 		position: relative;
 		padding-block: calc(var(--cz-spacing) * 2);
 	}
-	.tabn-tab {
+	.tabn-tab:not([variant='segmented']) {
 		flex: 0 1 0.000001px;
 		flex: 0 1 min-content;
 		padding: var(--cz-queue-tab-padding, 11px 16px);
@@ -26,11 +26,11 @@ export const base = css`
 		margin-left: auto;
 	}
 
-	.tabn-tab[active] {
+	.tabn-tab[active]:not([variant='segmented']) {
 		color: var(--cz-color-text-primary);
 		box-shadow: none;
 	}
-	.tabn-tab:hover {
+	.tabn-tab:hover:not([variant='segmented']) {
 		color: var(--cz-color-text-secondary-hover);
 	}
 	.tabn-heading {
