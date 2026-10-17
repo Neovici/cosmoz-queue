@@ -4,10 +4,12 @@ import { useCallback, useMemo } from '@pionjs/pion';
 import { json } from '../util/fetch/fetch';
 import { useMobile } from './use-mobile';
 
+import { computeSplitAttrs, SplitConfig } from './split';
 import useDataNav, { Opts as UseDataNav } from './use-data-nav';
 import useKeyNav from './use-key-nav';
 import { useListState } from './use-list';
 import useTabs, { Options as UseTabsOptions } from './use-tabs';
+import useTabsPref from './use-tabs-pref';
 import useUpdates from './use-updates';
 
 import type { ItemClickOpts } from './item-click';
@@ -73,13 +75,13 @@ const useQNav = <I>({
 	/* eslint-enable no-console, no-template-curly-in-string */
 
 	const details = useMemo(
-			() => api && memoize((item: I) => json(api(id(item), item))),
-			[id, api],
-		),
-		pass = useDataNav(items, {
-			...thru,
-			id,
-		});
+		() => api && memoize((item: I) => json(api(id(item), item))),
+		[id, api],
+	);
+	const pass = useDataNav(items, {
+		...thru,
+		id,
+	});
 	return { ...pass, id, details };
 };
 
@@ -90,6 +92,7 @@ interface Opts<I>
 	tabHashParam?: string;
 	idHashParam?: string;
 	onActivate?: (name: string) => void;
+	persistKey?: string;
 	/**
 	 * @deprecated Use the `details` property instead. The `api` property will be removed in v2.0.0.
 	 *
@@ -111,6 +114,8 @@ interface Opts<I>
 	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
+	/** @deprecated Use `initial-size` / `min-size` attributes on `<cosmoz-resizable-view>` instead (mapped automatically to the returned `splitAttrs`). */
+	split?: SplitConfig;
 }
 
 const useQueue = <I>({
@@ -120,78 +125,84 @@ const useQueue = <I>({
 	idHashParam,
 	fallback,
 	onActivate,
+	split,
+	persistKey,
 	...thru
 }: Opts<I>) => {
-	const { items: _items, selected } = thru,
-		mobile = useMobile(),
-		items = useMemo(() => normalizeHeaders(_items), [_items]),
-		queueItems = useMemo(() => getItems(items, selected), [items, selected]),
-		{ tabnav, activeTab } = useTabs({
-			items: queueItems,
-			hashParam: tabHashParam,
-			fallback,
-			onActivate,
-			mobile,
-		}),
-		nav = useQNav({
-			id,
-			api,
-			items: queueItems,
-			hashParam: idHashParam,
-			maintainSelection: ['queue', 'split'].includes(activeTab),
-		}),
-		{ item, setItem } = nav,
-		ensue = useCallback(
-			(itemId: string) => {
-				if (id(item) !== itemId) {
-					return;
-				}
-				const idx = items.indexOf(item);
-				setItem(items[Math.min(idx + 1, items.length - 1)]);
-			},
-			[item, id, items],
-		);
+	const { items: _items, selected } = thru;
+	const mobile = useMobile();
+	const items = useMemo(() => normalizeHeaders(_items), [_items]);
+	const queueItems = useMemo(
+		() => getItems(items, selected),
+		[items, selected],
+	);
+	const { tabnav, activeTab } = useTabs({
+		items: queueItems,
+		hashParam: tabHashParam,
+		...useTabsPref({ persistKey, fallback, except: 'queue', onActivate }),
+		mobile,
+	});
+	const nav = useQNav({
+		id,
+		api,
+		items: queueItems,
+		hashParam: idHashParam,
+		maintainSelection: ['queue', 'split'].includes(activeTab),
+	});
+	const splitAttrs = useMemo(() => computeSplitAttrs(split), [split]);
+	const { item, setItem } = nav;
+	const ensue = useCallback(
+		(itemId: string) => {
+			if (id(item) !== itemId) {
+				return;
+			}
+			const idx = items.indexOf(item);
+			setItem(items[Math.min(idx + 1, items.length - 1)]);
+		},
+		[item, id, items],
+	);
 	useKeyNav({ activeTab, ...nav });
 	useUpdates({ ensue, ...nav });
+
+	const index = useMemo(() => items.indexOf(item), [item, items]);
+	const rowPartFn = useRowPartFn(item, id);
+	const onItemClick = useCallback(
+		(e: Event) => {
+			type Detail = Omit<ItemClickOpts, 'activate'> & {
+				activate?: ActiveTab | ActiveTab[];
+			};
+			const {
+				item: clickedItem,
+				index,
+				activate: mustActivate,
+			} = (e as CustomEvent<Detail>).detail;
+			const mini = e
+				.composedPath()
+				.find((el) => el instanceof Element && el.matches?.('[mini]'));
+			const activate = mustActivate ?? (mini ? ['split', 'queue'] : undefined);
+			setItem((clickedItem as I) ?? items[index!]);
+			if (activate) {
+				const next = array(activate).find((name) =>
+					tabnav.tabs.find((tab) => tab.name === name && !tab.disabled),
+				);
+				if (next) tabnav.activate(next);
+			}
+			e.preventDefault();
+		},
+		[activeTab, items],
+	);
 
 	return {
 		...thru,
 		tabnav,
 		activeTab,
 		mobile,
+		splitAttrs,
 		hideActions: selected?.length > 0 && activeTab === 'split',
-
-		index: useMemo(() => items.indexOf(item), [item, items]),
-		rowPartFn: useRowPartFn(item, id),
-		onItemClick: useCallback(
-			(e: Event) => {
-				type Detail = Omit<ItemClickOpts, 'activate'> & {
-					activate?: ActiveTab | ActiveTab[];
-				};
-				const {
-					item: clickedItem,
-					index,
-					activate: mustActivate,
-				} = (e as CustomEvent<Detail>).detail;
-				const mini = e
-					.composedPath()
-					.find((el) => el instanceof Element && el.matches?.('[mini]'));
-				const activate =
-					mustActivate ?? (mini ? ['split', 'queue'] : undefined);
-				setItem((clickedItem as I) ?? items[index!]);
-				if (activate) {
-					const next = array(activate).find((name) =>
-						tabnav.tabs.find((tab) => tab.name === name && !tab.disabled),
-					);
-					if (next) tabnav.activate(next);
-				}
-				e.preventDefault();
-			},
-			[activeTab, items],
-		),
-
+		index,
+		rowPartFn,
+		onItemClick,
 		ensue,
-
 		nav,
 	};
 };

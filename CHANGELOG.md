@@ -1,3 +1,65 @@
+## 3.8.0
+
+### Minor Changes
+
+- c9881e6: Add an optional `breakpoints` prop to `renderListCore`: when set, a cosmoz-utils breakpoints directive is mounted on the omnitable and applies each tier's props and attrs as its container width crosses tier boundaries. The render is unchanged when the prop is omitted.
+
+## 3.7.0
+
+### Minor Changes
+
+- 25174a6: Fill and raise buttons with the `action` tokens
+
+  Buttons now read `--cz-color-bg-action-solid`, `--cz-color-bg-action-solid-hover`
+  and `--cz-color-text-on-action`, so they stay gray while the brand hue marks
+  selection. Their depth comes from `--cz-shadow-action` and `--cz-action-sheen`,
+  matching primary `cosmoz-button`s. Requires `@neovici/cosmoz-tokens` 4.9.0.
+
+- 776157c: Expose the selected list item and layout hash parameter to custom header renderers,
+  so views can render breadcrumbs directly from queue state.
+
+## 3.6.0
+
+### Minor Changes
+
+- d8ba4cb: Queues with a `settingsId` open on the tab the user last picked whenever the URL hash names no tab. The pick is stored next to the queue's resize persistence key (`<settingsId>-split-tab`), so queues without a `settingsId` behave exactly as before. The hash always wins when present, a remembered tab that is currently unavailable (mobile, or an empty queue) falls through to the `fallback` tab, and a remembered tab never opens the details (queue) view. `useQueue` accepts a new optional `persistKey`, and the new `useTabsPref` hook composes the remembering onto `useTabs`.
+
+## 3.5.0
+
+### Minor Changes
+
+- 86a8b33: feat(queue): forward second pane min size (`split.minSize: number[]`) to `cosmoz-resizable-view`
+
+  `queue()` forwarded only the first entry of `split.minSize` to the
+  `min-size` attribute of `<cosmoz-resizable-view>`, so the detail pane
+  could be dragged to ~0 width and obscured. All entries are now joined
+  into the attribute, mapping to per-pane minimums:
+  - `minSize` unset -> attribute omitted, `min-size` falls back to `100`
+  - `300` -> `min-size="300"` (previous pane only)
+  - `[300]` -> `min-size="300"` (unchanged from before)
+  - `[300, 400]` -> `min-size="300 400"` (minimums for both panes)
+
+  Per-pane minimums are honored by `@neovici/cosmoz-resizable` >= 2.2.0
+  (`^2.0.0` already spans it; older 2.x releases ignore the attribute
+  entirely).
+
+  The hook pattern is supported as well: `useQueue` now accepts the
+  deprecated `split` option and returns the computed `splitAttrs` object
+  (sharing the mapping with `queue()`), to pass directly to
+  `renderQueue` when the legacy `useQueue(...)` + `renderQueue(...)`
+  pattern is used.
+
+- f515336: Render the item navigation and pagination arrows as icon-only buttons
+
+  The prev/next item buttons and the pagination arrows set `cosmoz-button`'s
+  `icon-only` attribute, so with cosmoz-button 2.x they are square (32×32, and
+  28×28 for `sm` pagination) and line up with the bottom bar's overflow button.
+  cosmoz-button 1.x ignores the attribute.
+
+### Patch Changes
+
+- 2b4f185: Use Untitled UI icons (`list`, `columns-02`, `square`) for the list/split/queue view-mode tabs, and expose `--cz-queue-tab-padding` so hosts can tighten the tab row.
+
 ## 3.4.1
 
 ### Patch Changes

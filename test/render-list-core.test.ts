@@ -1,33 +1,11 @@
+import { breakpoints } from '@neovici/cosmoz-utils/directives/breakpoints';
 import { describe, expect, it, vi } from 'vitest';
 
-// Capture html`...` templates so we can inspect their contents
-const templates: { strings: string[]; values: unknown[] }[] = [];
-const htmlMock = (
-	strings: string[],
-	...values: unknown[]
-): { strings: string[]; values: unknown[] } => {
-	const template = { strings, values };
-	templates.push(template);
-	return template;
-};
+vi.mock('@neovici/cosmoz-utils/directives/breakpoints', () => ({
+	breakpoints: vi.fn(),
+}));
 
 vi.mock('@neovici/cosmoz-button', () => ({}));
-
-vi.mock('lit-html', () => ({
-	html: htmlMock,
-}));
-
-vi.mock('lit-html/directives/guard.js', () => ({
-	guard: () => () => false,
-}));
-
-vi.mock('lit-html/directives/until.js', () => ({
-	until: (v: unknown) => v,
-}));
-
-vi.mock('lit-html/directives/when.js', () => ({
-	when: (_cond: unknown, truthy: unknown) => truthy,
-}));
 
 vi.mock('@neovici/cosmoz-form', () => ({
 	formDialog$: () => null,
@@ -97,17 +75,29 @@ const hasSlotTemplate = (children: unknown[]): boolean =>
 
 describe('renderListCore', () => {
 	it('renders an unnamed <slot> even when content is omitted', () => {
-		templates.length = 0;
 		const result = renderListCore(minimalProps) as unknown[];
 		expect(hasSlotTemplate(getOmnitableChildren(result))).toBe(true);
 	});
 
 	it('renders an unnamed <slot> when content is provided', () => {
-		templates.length = 0;
 		const result = renderListCore({
 			...minimalProps,
 			content: () => null,
 		}) as unknown[];
 		expect(hasSlotTemplate(getOmnitableChildren(result))).toBe(true);
+	});
+
+	it('does not mount the breakpoints directive when omitted', () => {
+		renderListCore(minimalProps);
+		expect(breakpoints).not.toHaveBeenCalled();
+	});
+
+	it('mounts the breakpoints directive with the given tiers', () => {
+		const tiers = () => [
+			{ name: 'mini', maxWidth: 480, props: { renderItem: null } },
+			{ props: { renderItem: null } },
+		];
+		renderListCore({ ...minimalProps, breakpoints: tiers });
+		expect(breakpoints).toHaveBeenCalledWith(tiers, []);
 	});
 });
