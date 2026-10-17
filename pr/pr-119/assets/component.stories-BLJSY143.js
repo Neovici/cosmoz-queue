@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";import{n as r,t as i}from"./haunted-BZneXz6J.js";import{T as a,a as o,o as s,s as c,t as l}from"./render-BBMk3Gs_.js";import{i as u,l as d,n as f,r as p,t as m,u as h}from"./use-tabs-DqVkBL-g.js";var g,_,v,y,b,x,S;e((()=>{a(),i(),n(),l(),c(),d(),p(),m(),g={title:`Components/Queue`,component:`cosmoz-queue`},_=[{id:`1`,name:`Task Alpha`,description:`Complete the project setup`,status:`active`},{id:`2`,name:`Task Beta`,description:`Review code changes`,status:`pending`},{id:`3`,name:`Task Gamma`,description:`Write documentation`,status:`active`},{id:`4`,name:`Task Delta`,description:`Run tests`,status:`completed`},{id:`5`,name:`Task Epsilon`,description:`Deploy to staging`,status:`pending`}],v=()=>{let{items:e,setItems:n,totalAvailable:r,setTotalAvailable:i}=u();e.length===0&&(n(_),i(_.length));let{activeTab:a,tabnav:c}=f({items:e.length>0?e:_,fallback:`overview`}),l=h(e.length>0?e:_,{id:e=>e.id,hashParam:void 0}),d=e=>{l.setItem(e),a===`overview`&&c.activate(`queue`)};return t`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";import{n as r,t as i}from"./haunted-D59kKGnU.js";import{a,c as o,o as s,s as c,t as l}from"./render-_swOOgKq.js";import{i as u,l as d,n as f,r as p,t as m,u as h}from"./use-tabs-C7zIyoRa.js";var g,_,v,y,b,x,S;e((()=>{o(),i(),n(),l(),c(),d(),p(),m(),g={title:`Components/Queue`,component:`cosmoz-queue`},_=[{id:`1`,name:`Task Alpha`,description:`Complete the project setup`,status:`active`},{id:`2`,name:`Task Beta`,description:`Review code changes`,status:`pending`},{id:`3`,name:`Task Gamma`,description:`Write documentation`,status:`active`},{id:`4`,name:`Task Delta`,description:`Run tests`,status:`completed`},{id:`5`,name:`Task Epsilon`,description:`Deploy to staging`,status:`pending`}],v=()=>{let{items:e,setItems:n,totalAvailable:r,setTotalAvailable:i}=u();e.length===0&&(n(_),i(_.length));let{activeTab:o,tabnav:c}=f({items:e.length>0?e:_,fallback:`overview`}),l=h(e.length>0?e:_,{id:e=>e.id,hashParam:void 0}),d=e=>{l.setItem(e),o===`overview`&&c.activate(`queue`)};return t`
         <style>
             ${s}
         </style>
@@ -16,11 +16,11 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3
                             ${e.title}
                         </button>
                     `)}
-                ${o({index:l.index,items:e.length>0?e:_,totalAvailable:r??_.length,nav:l})}
+                ${a({index:l.index,items:e.length>0?e:_,totalAvailable:r??_.length,nav:l})}
             </div>
 
             <!-- Content area -->
-            <cosmoz-resizable-view data-active=${a} persist="demo-queue">
+            <cosmoz-resizable-view data-active=${o} persist="demo-queue">
                 <!-- List view -->
                 <div id="list" slot="previous" style="padding: 16px;">
                     <h3 style="margin-top: 0;">Items</h3>
