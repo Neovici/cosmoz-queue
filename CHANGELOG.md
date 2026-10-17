@@ -1,3 +1,9 @@
+## 3.9.1
+
+### Patch Changes
+
+- 9be19d2: Let segmented tabs own their padding and selected styles so queue mode icons stay centered and unclipped.
+
 ## 3.9.0
 
 ### Minor Changes
