@@ -1,22 +1,22 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";import{n as r,t as i}from"./haunted-Cp5YPAnM.js";import{a,c as o,o as s,s as c,t as l}from"./render-ByWA50mt.js";import{i as u,l as d,n as f,r as p,t as m,u as h}from"./use-tabs-iYtMOGMR.js";var g,_,v,y,b,x,S;e((()=>{o(),i(),n(),l(),c(),d(),p(),m(),g={title:`Components/Queue`,component:`cosmoz-queue`},_=[{id:`1`,name:`Task Alpha`,description:`Complete the project setup`,status:`active`},{id:`2`,name:`Task Beta`,description:`Review code changes`,status:`pending`},{id:`3`,name:`Task Gamma`,description:`Write documentation`,status:`active`},{id:`4`,name:`Task Delta`,description:`Run tests`,status:`completed`},{id:`5`,name:`Task Epsilon`,description:`Deploy to staging`,status:`pending`}],v=()=>{let{items:e,setItems:n,totalAvailable:r,setTotalAvailable:i}=u();e.length===0&&(n(_),i(_.length));let{activeTab:o,tabnav:c}=f({items:e.length>0?e:_,fallback:`overview`}),l=h(e.length>0?e:_,{id:e=>e.id,hashParam:void 0}),d=e=>{l.setItem(e),o===`overview`&&c.activate(`queue`)};return t`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";import{n as r,t as i}from"./haunted-BRIWwrGq.js";import{a,o,t as s}from"./render-8LCH8wEi.js";import{n as c,t as l}from"./style-opM47op0.js";import{i as u,l as d,n as f,r as p,t as m,u as h}from"./use-tabs-DtreSNrg.js";var g,_,v,y,b,x,S;e((()=>{o(),i(),n(),s(),c(),d(),p(),m(),g={title:`Components/Queue`,component:`cosmoz-queue`},_=[{id:`1`,name:`Task Alpha`,description:`Complete the project setup`,status:`active`},{id:`2`,name:`Task Beta`,description:`Review code changes`,status:`pending`},{id:`3`,name:`Task Gamma`,description:`Write documentation`,status:`active`},{id:`4`,name:`Task Delta`,description:`Run tests`,status:`completed`},{id:`5`,name:`Task Epsilon`,description:`Deploy to staging`,status:`pending`}],v=()=>{let{items:e,setItems:n,totalAvailable:r,setTotalAvailable:i}=u();e.length===0&&(n(_),i(_.length));let{activeTab:o,tabnav:s}=f({items:e.length>0?e:_,fallback:`overview`}),c=h(e.length>0?e:_,{id:e=>e.id,hashParam:void 0}),d=e=>{c.setItem(e),o===`overview`&&s.activate(`queue`)};return t`
         <style>
-            ${s}
+            ${l}
         </style>
         <div style="height: 100%; display: flex; flex-direction: column;">
             <!-- Header with tabs -->
             <div class="tabn">
                 <div class="tabn-heading">Demo Queue</div>
-                ${c.tabs.map(e=>t`
+                ${s.tabs.map(e=>t`
                         <button
                             class="tabn-tab"
-                            ?active=${c.active?.name===e.name}
+                            ?active=${s.active?.name===e.name}
                             ?disabled=${e.disabled}
-                            @click=${()=>!e.disabled&&c.activate(e.name)}
+                            @click=${()=>!e.disabled&&s.activate(e.name)}
                         >
                             ${e.title}
                         </button>
                     `)}
-                ${a({index:l.index,items:e.length>0?e:_,totalAvailable:r??_.length,nav:l})}
+                ${a({index:c.index,items:e.length>0?e:_,totalAvailable:r??_.length,nav:c})}
             </div>
 
             <!-- Content area -->
@@ -29,7 +29,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3
                                 style="
                                     padding: 12px;
                                     margin-bottom: 8px;
-                                    background: ${l.item?.id===e.id?`#e3f2fd`:`#f5f5f5`};
+                                    background: ${c.item?.id===e.id?`#e3f2fd`:`#f5f5f5`};
                                     border-radius: 4px;
                                     cursor: pointer;
                                     border-left: 3px solid ${e.status===`active`?`#4caf50`:e.status===`completed`?`#2196f3`:`#ff9800`};
@@ -58,23 +58,23 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3
 
                 <!-- Detail view -->
                 <div id="queue" slot="next" style="padding: 16px;">
-                    ${l.item?t`
+                    ${c.item?t`
                                 <div
                                     style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;"
                                 >
-                                    <h2 style="margin: 0;">${l.item.name}</h2>
+                                    <h2 style="margin: 0;">${c.item.name}</h2>
                                     <div>
                                         <button
                                             style="padding: 8px 16px; margin-right: 8px; cursor: pointer;"
-                                            ?disabled=${!l.prev}
-                                            @click=${l.prev}
+                                            ?disabled=${!c.prev}
+                                            @click=${c.prev}
                                         >
                                             ← Previous
                                         </button>
                                         <button
                                             style="padding: 8px 16px; cursor: pointer;"
-                                            ?disabled=${!l.next}
-                                            @click=${l.next}
+                                            ?disabled=${!c.next}
+                                            @click=${c.next}
                                         >
                                             Next →
                                         </button>
@@ -83,9 +83,9 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3
                                 <div
                                     style="background: #f5f5f5; padding: 16px; border-radius: 8px;"
                                 >
-                                    <p><strong>ID:</strong> ${l.item.id}</p>
-                                    <p><strong>Description:</strong> ${l.item.description}</p>
-                                    <p><strong>Status:</strong> ${l.item.status}</p>
+                                    <p><strong>ID:</strong> ${c.item.id}</p>
+                                    <p><strong>Description:</strong> ${c.item.description}</p>
+                                    <p><strong>Status:</strong> ${c.item.status}</p>
                                 </div>
                             `:t`
                                 <div style="text-align: center; padding: 40px; color: #666;">
@@ -95,7 +95,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3
                 </div>
             </cosmoz-resizable-view>
         </div>
-    `},y=r(v,{observedAttributes:[],useShadowDOM:!0,styleSheets:[s]}),customElements.get(`cosmoz-queue-demo`)||customElements.define(`cosmoz-queue-demo`,y),b=()=>t`
+    `},y=r(v,{observedAttributes:[],useShadowDOM:!0,styleSheets:[l]}),customElements.get(`cosmoz-queue-demo`)||customElements.define(`cosmoz-queue-demo`,y),b=()=>t`
     <div
         style="height: 600px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;"
     >
