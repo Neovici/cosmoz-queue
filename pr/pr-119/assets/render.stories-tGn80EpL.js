@@ -1,6 +1,6 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{i,n as a,r as o,t as s}from"./render-_swOOgKq.js";import{n as c,t as l}from"./split-BMtCYGc6.js";var u,d,f,p,m,h,g,_,v,y,b,x;e((()=>{n(),s(),c(),{expect:u,fn:d,userEvent:f,waitFor:p}=__STORYBOOK_MODULE_TEST__,m={title:`Tests/Render`},h={render:()=>t`<div id="test-container">${a({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`cosmoz-button.button-nav`);u(n).toHaveLength(2);let r=t?.querySelector(`cosmoz-button.button-nav.prev`),i=t?.querySelector(`cosmoz-button.button-nav.next`);u(r).toHaveAttribute(`disabled`),u(i).toHaveAttribute(`disabled`)}},g={args:{prev:d(),next:d()},render:e=>t`<div id="test-container">
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{i,n as a,r as o,t as s}from"./render-ByWA50mt.js";import{n as c,t as l}from"./split-CZNPhIHS.js";var u,d,f,p,m,h,g,_,v,y,b,x;e((()=>{n(),s(),c(),{expect:u,fn:d,userEvent:f,waitFor:p}=__STORYBOOK_MODULE_TEST__,m={title:`Tests/Render`},h={render:()=>t`<div id="test-container">${a({})}</div>`,async play({canvasElement:e}){let t=e.querySelector(`#test-container`),n=t?.querySelectorAll(`cosmoz-button.button-nav`);u(n).toHaveLength(2);let r=t?.querySelector(`cosmoz-button.button-nav.prev`),i=t?.querySelector(`cosmoz-button.button-nav.next`);u(r).toHaveAttribute(`disabled`),u(i).toHaveAttribute(`disabled`)}},g={args:{prev:d(),next:d()},render:e=>t`<div id="test-container">
             ${a(e)}
-        </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`cosmoz-button.button-nav.prev`),i=n?.querySelector(`cosmoz-button.button-nav.next`);u(r).not.toHaveAttribute(`disabled`),u(i).not.toHaveAttribute(`disabled`),await f.click(r),u(e.prev).toHaveBeenCalled(),await f.click(i),u(e.next).toHaveBeenCalled()}},_={render:()=>t`<div id="test-container">
+        </div>`,async play({args:e,canvasElement:t}){let n=t.querySelector(`#test-container`),r=n?.querySelector(`cosmoz-button.button-nav.prev`),i=n?.querySelector(`cosmoz-button.button-nav.next`);for(let e of[r,i]){let t=e.querySelector(`svg`).getBoundingClientRect();u(t.width).toBe(16),u(t.height).toBe(16),u(e.getBoundingClientRect().width).toBeGreaterThanOrEqual(24)}u(r).not.toHaveAttribute(`disabled`),u(i).not.toHaveAttribute(`disabled`),await f.click(r),u(e.prev).toHaveBeenCalled(),await f.click(i),u(e.next).toHaveBeenCalled()}},_={render:()=>t`<div id="test-container">
             ${o()===r?`nothing`:o()}
         </div>`,async play({canvasElement:e}){u(e.querySelector(`#test-container`)?.textContent?.trim()).toBe(`nothing`)}},v={args:{onPage:d()},render:e=>t`<div id="test-container">
             ${o({totalPages:10,pageNumber:3,onPage:e.onPage})}
@@ -42,6 +42,14 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-h
     const container = canvasElement.querySelector('#test-container');
     const prevButton = container?.querySelector('cosmoz-button.button-nav.prev') as HTMLButtonElement;
     const nextButton = container?.querySelector('cosmoz-button.button-nav.next') as HTMLButtonElement;
+
+    // Keep chevrons legible even when the button preserves SVG dimensions.
+    for (const button of [prevButton, nextButton]) {
+      const bounds = button.querySelector('svg')!.getBoundingClientRect();
+      expect(bounds.width).toBe(16);
+      expect(bounds.height).toBe(16);
+      expect(button.getBoundingClientRect().width).toBeGreaterThanOrEqual(24);
+    }
 
     // Buttons should not be disabled when callbacks are provided
     expect(prevButton).not.toHaveAttribute('disabled');
