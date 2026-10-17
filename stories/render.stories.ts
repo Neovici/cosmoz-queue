@@ -54,6 +54,14 @@ export const RenderNavWithCallbacks: StoryObj = {
 			'cosmoz-button.button-nav.next',
 		) as HTMLButtonElement;
 
+		// Keep chevrons legible even when the button preserves SVG dimensions.
+		for (const button of [prevButton, nextButton]) {
+			const bounds = button.querySelector('svg')!.getBoundingClientRect();
+			expect(bounds.width).toBe(16);
+			expect(bounds.height).toBe(16);
+			expect(button.getBoundingClientRect().width).toBeGreaterThanOrEqual(24);
+		}
+
 		// Buttons should not be disabled when callbacks are provided
 		expect(prevButton).not.toHaveAttribute('disabled');
 		expect(nextButton).not.toHaveAttribute('disabled');
