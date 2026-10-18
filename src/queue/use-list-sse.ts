@@ -1,8 +1,7 @@
-import { useMemo, useEffect } from '@pionjs/pion';
 import { useHost } from '@neovici/cosmoz-utils/hooks/use-host';
 import { useMeta } from '@neovici/cosmoz-utils/hooks/use-meta';
 import { Rec } from '@neovici/cosmoz-utils/object';
-import { debounce$ } from '@neovici/cosmoz-utils/promise';
+import { useEffect } from '@pionjs/pion';
 import { get } from '../util/path';
 
 export interface ListEventHandlersMap {
@@ -101,6 +100,7 @@ interface Base<I extends Item, P extends Rec> {
 interface Check<I extends Item, P extends Rec> extends Base<I, P> {
 	host: HTMLElement;
 	ids: Set<string>;
+	signal: AbortSignal;
 }
 
 const check$$ = async <I extends Item, P extends Rec>(opts: Check<I, P>) => {
@@ -121,12 +121,15 @@ const check$$ = async <I extends Item, P extends Rec>(opts: Check<I, P>) => {
 	// an empty objectIds filter is dropped from the query, turning this into an unfiltered search
 	if (objectIds.length === 0) return;
 	const res = await list$({ ...params, objectIds });
-	const updates = Array.isArray(res) ? res : res.items ?? [];
+	if (opts.signal.aborted) return;
+	const updates = Array.isArray(res) ? res : (res.items ?? []);
 	return process$({ ...opts, idProperty, objectIds, updates });
 };
 
-interface Opts<I extends Item, P extends Rec>
-	extends Omit<Base<I, P>, 'omnitable'> {
+interface Opts<I extends Item, P extends Rec> extends Omit<
+	Base<I, P>,
+	'omnitable'
+> {
 	entity: string;
 	omnitable?: Omnitable<I>;
 }
@@ -136,16 +139,24 @@ export const useListSSE = <I extends Item, P extends Rec>({
 	...thru
 }: Opts<I, P>) => {
 	const host = useHost(),
-		ids = useMemo(() => new Set<string>(), []),
-		meta = useMeta(thru),
-		check$ = useMemo(
-			() =>
-				debounce$(
+		meta = useMeta(thru);
+
+	useEffect(() => {
+		const controller = new AbortController(),
+			ids = new Set<string>();
+		let timer: ReturnType<typeof setTimeout> | undefined;
+		const ev = `cosmoz-${entity}-updated`,
+			evc = `cosmoz-${entity}-check`,
+			onUpdate = (e: Event) => {
+				ids.add((e as CustomEvent<{ id: string }>).detail.id);
+				clearTimeout(timer);
+				timer = setTimeout(
 					() =>
 						check$$({
 							...meta,
 							host,
 							ids,
+							signal: controller.signal,
 							omnitable:
 								meta.omnitable ??
 								host.shadowRoot!.querySelector<Omnitable<I>>(
@@ -153,23 +164,16 @@ export const useListSSE = <I extends Item, P extends Rec>({
 								)!,
 						}),
 					600,
-				),
-			[],
-		);
-
-	useEffect(() => {
-		const ev = `cosmoz-${entity}-updated`,
-			evc = `cosmoz-${entity}-check`,
-			onUpdate = (e: Event) => {
-				ids.add((e as CustomEvent<{ id: string }>).detail.id);
-				check$();
+				);
 			};
 		window.addEventListener(ev, onUpdate);
 		host.addEventListener(evc, onUpdate);
 
 		return () => {
+			clearTimeout(timer);
+			controller.abort();
 			window.removeEventListener(ev, onUpdate);
 			host.removeEventListener(evc, onUpdate);
 		};
-	}, [entity, check$]);
+	}, [entity]);
 };
