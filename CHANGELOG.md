@@ -1,3 +1,9 @@
+## 3.9.3
+
+### Patch Changes
+
+- e51c13d: Cancel pending list SSE refreshes when their effect is cleaned up and ignore in-flight responses after cleanup.
+
 ## 3.9.2
 
 ### Patch Changes
