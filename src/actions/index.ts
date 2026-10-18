@@ -1,5 +1,6 @@
 import '@neovici/cosmoz-button';
 import type { Dialogable, Resolvable } from '@neovici/cosmoz-form';
+import { t } from 'i18next';
 import { html, nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
@@ -18,7 +19,7 @@ export const actionCount = <T>(items: T[], applicableItems: T[] = items) =>
 export type SyncOpenFn = <T extends object>(dialog: Dialogable<T>) => void;
 export type AsyncOpenFn = <T extends object>(
 	dialog: Resolvable<Dialogable<T>>,
-) => void;
+) => void | Promise<void>;
 
 export interface ActionOpts<
 	TItem extends object,
@@ -61,10 +62,30 @@ export const defaultButton = <
 		slot="${ifDefined(slot)}"
 		title="${title}"
 		data-priority="${ifDefined(opts.priority)}"
-		@click=${() =>
-			(open as AsyncOpenFn)(dialog({ ...opts, items: applicableItems, title }))}
+		@click=${async (event: Event) => {
+			const button = event.currentTarget as HTMLElement & { disabled: boolean };
+			if (button.disabled) return;
+			const progress = button.querySelector<HTMLElement>(
+				'[data-action-progress]',
+			);
+			button.disabled = true;
+			button.setAttribute('aria-busy', 'true');
+			if (progress) progress.hidden = false;
+			try {
+				await (open as AsyncOpenFn)(
+					dialog({ ...opts, items: applicableItems, title }),
+				);
+			} finally {
+				button.disabled = false;
+				button.removeAttribute('aria-busy');
+				if (progress) progress.hidden = true;
+			}
+		}}
 	>
 		${title} ${actionCount(items, applicableItems)}
+		<span slot="suffix" data-action-progress hidden role="status"
+			>${t('Working...')}</span
+		>
 	</cosmoz-button>`;
 };
 
