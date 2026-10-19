@@ -17,10 +17,10 @@ export const renderLoadMore = ({
 	onMore?: () => void;
 }) =>
 	html`<cosmoz-button
-		variant="primary"
-		size="lg"
+		variant="link"
 		class="more"
 		slot="extraContent"
+		style="align-self: center; margin: calc(var(--cz-spacing) * 2);"
 		?hidden="${!onMore}"
 		@click="${onMore}"
 	>
