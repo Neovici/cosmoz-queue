@@ -17,7 +17,7 @@ export const renderLoadMore = ({
 	onMore?: () => void;
 }) =>
 	html`<cosmoz-button
-		variant="primary"
+		variant="link"
 		size="lg"
 		class="more"
 		slot="extraContent"
