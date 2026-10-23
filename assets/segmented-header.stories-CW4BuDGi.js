@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";import{n as r,t as i}from"./next-AJhmZKCu.js";import{n as a,r as o}from"./style-opM47op0.js";import{i as s,n as c,r as l,t as u}from"./icons-BvOOspHj.js";var d,f,p,m,h,g;e((()=>{i(),n(),u(),a(),{expect:d,waitFor:f}=__STORYBOOK_MODULE_TEST__,p=[{name:`overview`,title:`List`,content:c},{name:`split`,title:`Split`,content:s},{name:`queue`,title:`Queue`,content:l}],m={title:`Tests/SegmentedHeader`},h={render:()=>t`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n}from"./lit-html-BZ3vufxv.js";import{n as r,t as i}from"./next-DridVfQP.js";import{n as a,r as o}from"./style-COliek0I.js";import{i as s,n as c,r as l,t as u}from"./icons-BC71Hvwq.js";var d,f,p,m,h,g;e((()=>{i(),n(),u(),a(),{expect:d,waitFor:f}=__STORYBOOK_MODULE_TEST__,p=[{name:`overview`,title:`List`,content:c},{name:`split`,title:`Split`,content:s},{name:`queue`,title:`Queue`,content:l}],m={title:`Tests/SegmentedHeader`},h={render:()=>t`
         <style>
             ${o}
         </style>
