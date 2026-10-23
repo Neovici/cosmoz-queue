@@ -1,3 +1,9 @@
+## 3.9.4
+
+### Patch Changes
+
+- b1d822d: Restore the link appearance of the Load more control.
+
 ## 3.9.3
 
 ### Patch Changes
