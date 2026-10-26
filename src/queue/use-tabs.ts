@@ -3,6 +3,7 @@ import { useMemo } from '@pionjs/pion';
 
 import { t } from 'i18next';
 import * as icons from './icons';
+import { labelActive } from './label-active';
 
 export interface Options<I> {
 	items: I[];
@@ -54,8 +55,15 @@ export default <I = unknown>({
 	);
 
 	const _tabnav = useTabs(tabs, { hashParam, onActivate }),
-		tabnav = useMemo(() => _tabnav, Object.values(_tabnav)),
-		activeTab = tabnav.active?.name;
+		activeTab = _tabnav.active?.name,
+		labelled = useMemo(
+			() => labelActive(_tabnav.tabs, activeTab),
+			[_tabnav.tabs, activeTab],
+		),
+		tabnav = useMemo(
+			() => ({ ..._tabnav, tabs: labelled }),
+			[...Object.values(_tabnav), labelled],
+		);
 
 	return {
 		activeTab,
