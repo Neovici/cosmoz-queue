@@ -1,0 +1,98 @@
+import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-BbYtc_gy.js";var r,i,a=e((()=>{t(),r=n`
+	:host {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		position: relative;
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
+	}
+
+	.tabn:not([variant='segmented']) {
+		box-shadow: none;
+		position: relative;
+		padding-block: calc(var(--cz-spacing) * 2);
+	}
+	.tabn-tab:not([variant='segmented']) {
+		flex: 0 1 0.000001px;
+		flex: 0 1 min-content;
+		padding: var(--cz-queue-tab-padding, 11px 16px);
+		background: inherit;
+		color: var(--cz-color-gray-400);
+	}
+	.tabn-tab:first-of-type {
+		margin-left: auto;
+	}
+
+	.tabn-tab[active]:not([variant='segmented']) {
+		color: var(--cz-color-text-primary);
+		box-shadow: none;
+	}
+	.tabn-tab:hover:not([variant='segmented']) {
+		color: var(--cz-color-text-secondary-hover);
+	}
+	.tabn-heading {
+		font-size: var(--cz-text-lg);
+		font-weight: var(--cz-font-weight-semibold);
+		line-height: var(--cz-text-lg-line-height);
+		color: var(--cz-color-text-secondary);
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+	}
+	.tabn-stats {
+		margin: 0 calc(var(--cz-spacing) * 4);
+		color: var(--cz-color-text-secondary);
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+	}
+
+	#list {
+		flex-basis: var(--cz-queue-list-basis, 50%);
+		min-width: var(--cz-queue-list-min-width, 100px);
+	}
+
+	#queue {
+		border-top: 1px solid var(--cz-color-border-primary);
+	}
+
+	[data-active='split'] .view-core::part(header-bg) {
+		border-top-left-radius: 0;
+	}
+
+	[data-active='overview'] #queue,
+	[data-active='queue'] #list {
+		display: none !important;
+	}
+
+	.button-nav.prev,
+	.button-page.prev,
+	.page-prev {
+		transform: scaleX(-1);
+		margin-right: calc(var(--cz-spacing) * 2);
+	}
+
+	.tabn-pagination {
+		font-size: 0;
+		display: flex;
+	}
+`,i=n`
+	${r}
+
+	#list::part(itemRow-active) {
+		background: var(--cz-color-bg-tertiary);
+	}
+
+	:host([data-mobile]) .tabn-heading {
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
+		margin-left: calc(var(--cz-spacing) * 3);
+	}
+	:host([data-mobile]) .tabn-tab {
+		padding: 10px;
+	}
+	:host([data-mobile]) [name='split'] {
+		display: none;
+	}
+`}));export{a as n,i as r,r as t};
