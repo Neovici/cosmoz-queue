@@ -20,6 +20,8 @@ interface UseMore<TParams extends object, TItem extends object> {
 	params: TParams;
 	list$: TList$<TParams, TItem>;
 	setTotalAvailable: StateUpdater<number | undefined>;
+	/** Holds fetching while false, e.g. until saved list settings are applied. */
+	enabled?: boolean;
 }
 
 interface Data<TItem extends object, TParams extends object> {
@@ -34,6 +36,7 @@ export const useMore = <TParams extends object, TItem extends object>({
 	list$,
 	pageSize = 50,
 	setTotalAvailable,
+	enabled = true,
 }: UseMore<TParams, TItem>) => {
 	const [{ page, data$, totalAvailable, params }, setData] = useState<
 		Data<TItem, TParams>
@@ -66,6 +69,7 @@ export const useMore = <TParams extends object, TItem extends object>({
 	);
 
 	useEffect(() => {
+		if (!enabled) return;
 		const controller = new AbortController();
 		abortRef.current = controller;
 		const { signal } = controller;
@@ -103,7 +107,7 @@ export const useMore = <TParams extends object, TItem extends object>({
 		return () => {
 			controller.abort();
 		};
-	}, [page, params, list$, pageSize]);
+	}, [page, params, list$, pageSize, enabled]);
 
 	return { data$, loadMore };
 };

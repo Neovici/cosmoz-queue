@@ -58,6 +58,7 @@ export const useListCore = <
 	sortOn: initialSortOn,
 	descending: initialDescending,
 	groupOn: initialGroupOn,
+	settingsId,
 }: UseListCore<TColumns, TParams, TItem>): UseListCoreResult<
 	TColumns,
 	TItem,
@@ -67,8 +68,10 @@ export const useListCore = <
 		sortOn: initialSortOn,
 		descending: initialDescending,
 		groupOn: initialGroupOn,
+		settingsId,
 	});
-	const { filters, descending, sortOn, setTotalAvailable } = state;
+	const { filters, descending, sortOn, setTotalAvailable, settingsReady } =
+		state;
 
 	const paramsMeta = useMeta({} as TParams);
 	const columns = useMemo(() => _columns[0]({ paramsMeta }), _columns[1]);
@@ -97,6 +100,7 @@ export const useListCore = <
 		setTotalAvailable,
 		params,
 		pageSize,
+		enabled: settingsReady,
 	});
 
 	return {

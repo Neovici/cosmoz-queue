@@ -38,6 +38,8 @@ const minimalProps: Parameters<typeof renderListCore>[0] = {
 	setFilters: () => undefined,
 	setIsMini: () => undefined,
 	isMini: false,
+	settingsReady: true,
+	setSettingsReady: () => undefined,
 	setTotalAvailable: () => undefined,
 	sortOn: undefined,
 	setSortOn: () => undefined,

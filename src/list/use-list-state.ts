@@ -6,6 +6,8 @@ export interface ListCoreDefaults<TColumns extends object> {
 	sortOn?: ColumnNames<TColumns>;
 	groupOn?: ColumnNames<TColumns>;
 	descending?: boolean;
+	/** The list's omnitable settingsId: fetching waits until its saved settings are applied. */
+	settingsId?: string;
 }
 
 export const useListCoreState = <TItem extends object, TColumns extends object>(
@@ -30,6 +32,10 @@ export const useListCoreState = <TItem extends object, TColumns extends object>(
 	// TODO: use pagination
 	const [, setTotalAvailable] = useProperty<number>('totalAvailable');
 	const [isMini, setIsMini] = useProperty<boolean>('isMini', false);
+	const [settingsReady, setSettingsReady] = useProperty<boolean>(
+		'settingsReady',
+		() => !defaults?.settingsId,
+	);
 
 	return {
 		filters,
@@ -48,6 +54,8 @@ export const useListCoreState = <TItem extends object, TColumns extends object>(
 		setTotalAvailable,
 		isMini,
 		setIsMini,
+		settingsReady,
+		setSettingsReady,
 	};
 };
 
