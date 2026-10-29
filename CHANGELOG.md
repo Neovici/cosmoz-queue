@@ -1,3 +1,9 @@
+## 3.10.0
+
+### Minor Changes
+
+- 203a928: List cores given a `settingsId` hold their first fetch until the omnitable reports `settingsReady`, so they fetch once with the saved sort instead of first with the default one.
+
 ## 3.9.4
 
 ### Patch Changes
