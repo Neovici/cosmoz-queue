@@ -61,6 +61,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	hasItems,
 	setFilters,
 	setIsMini,
+	setSettingsReady,
 
 	columns,
 
@@ -106,6 +107,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		${when(breakpoints, () => breakpointsDirective(breakpoints, []))}
 		.miniBreakpoint=${miniBreakpoint}
 		@is-mini-changed=${lift(setIsMini)}
+		@settings-ready-changed=${lift(setSettingsReady)}
 		>${[
 			renderColumns(columns),
 			when(
