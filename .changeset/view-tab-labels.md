@@ -2,4 +2,4 @@
 '@neovici/cosmoz-queue': minor
 ---
 
-Name the active layout tab next to its icon and use a document icon for the queue layout, so the list/split/queue switcher explains itself.
+Use a document icon for the queue layout, and add an opt-in `labelActive` helper that names the active layout tab next to its icon: `renderTabs({ ...tabnav, tabs: labelActive(tabnav.tabs, tabnav.active?.name) })`.
