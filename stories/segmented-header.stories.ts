@@ -1,15 +1,40 @@
-import { renderTabs } from '@neovici/cosmoz-tabs/next';
+import { renderTabs, useTabs } from '@neovici/cosmoz-tabs/next';
+import { component } from '@pionjs/pion';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit-html';
-import { expect, waitFor } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import * as icons from '../src/queue/icons';
+import { labelActive } from '../src/queue/label-active';
 import { queueStyle } from '../src/queue/style';
 
 const tabs = [
 	{ name: 'overview', title: 'List', content: icons.list },
 	{ name: 'split', title: 'Split', content: icons.split },
-	{ name: 'queue', title: 'Queue', content: icons.queue },
+	{ name: 'queue', title: 'Focus', content: icons.queue },
 ];
+
+const LabelledHeader = () => {
+	const tabnav = useTabs(tabs, {});
+	return html`
+		<style>
+			${queueStyle}
+		</style>
+		<cosmoz-tabs-next class="tabn" variant="segmented" size="sm" compact-width>
+			${renderTabs({
+				...tabnav,
+				tabs: labelActive(tabnav.tabs, tabnav.active?.name),
+				className: 'tabn-tab',
+			})}
+		</cosmoz-tabs-next>
+	`;
+};
+
+if (!customElements.get('labelled-header-test')) {
+	customElements.define(
+		'labelled-header-test',
+		component(LabelledHeader, { useShadowDOM: false }),
+	);
+}
 
 export default { title: 'Tests/SegmentedHeader' } satisfies Meta;
 
@@ -45,5 +70,26 @@ export const CenteredIcons: StoryObj = {
 		expect(getComputedStyle(selected).backgroundColor).not.toBe(
 			getComputedStyle(group).backgroundColor,
 		);
+	},
+};
+
+/** Opt-in: `labelActive` names the active layout tab; the others stay icon-only. */
+export const LabelledActive: StoryObj = {
+	render: () => html`<labelled-header-test></labelled-header-test>`,
+	async play({ canvasElement }) {
+		const tab = (name: string) =>
+			canvasElement.querySelector<HTMLElement>(
+				`cosmoz-tab-next[name=${name}]`,
+			)!;
+		const labels = () =>
+			[...canvasElement.querySelectorAll('cosmoz-tab-next')].map((t) =>
+				t.textContent?.trim(),
+			);
+
+		await waitFor(() => expect(labels()).toEqual(['List', '', '']));
+
+		await userEvent.click(tab('queue'));
+		await waitFor(() => expect(labels()).toEqual(['', '', 'Focus']));
+		expect(tab('overview').getAttribute('title')).toBe('List');
 	},
 };
