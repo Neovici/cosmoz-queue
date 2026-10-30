@@ -10,7 +10,7 @@ import { queueStyle } from '../src/queue/style';
 const tabs = [
 	{ name: 'overview', title: 'List', content: icons.list },
 	{ name: 'split', title: 'Split', content: icons.split },
-	{ name: 'queue', title: 'Queue', content: icons.queue },
+	{ name: 'queue', title: 'Focus', content: icons.queue },
 ];
 
 const LabelledHeader = () => {
@@ -89,7 +89,7 @@ export const LabelledActive: StoryObj = {
 		await waitFor(() => expect(labels()).toEqual(['List', '', '']));
 
 		await userEvent.click(tab('queue'));
-		await waitFor(() => expect(labels()).toEqual(['', '', 'Queue']));
+		await waitFor(() => expect(labels()).toEqual(['', '', 'Focus']));
 		expect(tab('overview').getAttribute('title')).toBe('List');
 	},
 };

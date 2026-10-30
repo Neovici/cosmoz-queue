@@ -5,7 +5,7 @@ import { labelActive } from '../src/queue/label-active';
 const tabs = [
 	{ name: 'overview', title: 'List', content: 'list-icon' },
 	{ name: 'split', title: 'Split', content: 'split-icon' },
-	{ name: 'queue', title: 'Queue', content: 'queue-icon' },
+	{ name: 'queue', title: 'Focus', content: 'queue-icon' },
 ];
 
 const text = (content: unknown) => {
