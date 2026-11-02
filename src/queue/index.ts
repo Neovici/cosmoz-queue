@@ -41,6 +41,7 @@ export type { Item, Props } from './use-fetch-actions';
 export { useListSSE } from './use-list-sse';
 
 // Navigation & layout hooks
+export { labelActive } from './label-active';
 export { default as useDataNav } from './use-data-nav';
 export { useMobile } from './use-mobile';
 export { default as useTabs } from './use-tabs';

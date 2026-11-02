@@ -43,7 +43,7 @@ export default <I = unknown>({
 					{
 						name: 'queue',
 						disabled: !(items.length > 0),
-						title: t('Queue'),
+						title: t('Focus'),
 						content: icons.queue,
 					},
 				] as const
