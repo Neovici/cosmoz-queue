@@ -280,6 +280,7 @@ export const renderQueue = <I, D>({
 			persist=${ifDefined(persistKey)}
 			initial-size=${splitAttrs?.initialSize ?? '50%'}
 			min-size=${splitAttrs?.minSize ?? '100'}
+			handle-label=${t('Drag to resize')}
 		>
 			${list}
 			<cosmoz-slider
