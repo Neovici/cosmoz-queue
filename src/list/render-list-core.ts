@@ -23,6 +23,8 @@ export interface RenderListCoreProps<TItem extends object> {
 	noLocal?: boolean;
 	miniBreakpoint?: number;
 	breakpoints?: () => Breakpoint[];
+	/** Rebuilds the breakpoints when one of these changes. */
+	breakpointsDeps?: unknown[];
 	// TODO: replace any
 	actions?: Action<TItem, any>[];
 	content?: (opts: { selectedItems: TItem[] }) => Renderable;
@@ -48,6 +50,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	noLocal = true,
 	miniBreakpoint,
 	breakpoints,
+	breakpointsDeps = [],
 
 	sortOn,
 	setSortOn,
@@ -104,7 +107,9 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		@sort-on-changed=${lift(setSortOn)}
 		descending=${descending}
 		@descending-changed=${lift(setDescending)}
-		${when(breakpoints, () => breakpointsDirective(breakpoints, []))}
+		${when(breakpoints, () =>
+			breakpointsDirective(breakpoints, breakpointsDeps),
+		)}
 		.miniBreakpoint=${miniBreakpoint}
 		@is-mini-changed=${lift(setIsMini)}
 		@settings-ready-changed=${lift(setSettingsReady)}
