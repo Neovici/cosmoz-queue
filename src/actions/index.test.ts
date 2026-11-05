@@ -51,4 +51,23 @@ describe('default action button', () => {
 		expect(button.hasAttribute('aria-busy')).toBe(false);
 		expect(progress.hidden).toBe(true);
 	});
+
+	it('renders as a menu item when given a role and variant', () => {
+		const container = document.createElement('div');
+		document.body.append(container);
+		render(
+			defaultButton({
+				items: [{ id: 'invoice' }],
+				title: () => 'Approve',
+				dialog: () => ({ heading: 'Approve', initial: {}, fields: [] }),
+				open: vi.fn(),
+				role: 'menuitem',
+				variant: 'tertiary',
+			}),
+			container,
+		);
+		const button = container.querySelector('cosmoz-button')!;
+		expect(button.getAttribute('role')).toBe('menuitem');
+		expect(button.getAttribute('variant')).toBe('tertiary');
+	});
 });

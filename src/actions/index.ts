@@ -28,6 +28,9 @@ export interface ActionOpts<
 	items: TItem[];
 	open: TOpen;
 	slot?: string;
+	/** For example `menuitem`, to list the actions in a menu. */
+	role?: string;
+	variant?: import('@neovici/cosmoz-button').ButtonVariant;
 }
 
 export interface DialogOpts<TItem extends object> {
@@ -54,12 +57,14 @@ export const defaultButton = <
 >(
 	opts: Action<TItem, TDialog> & ActionOpts<TItem, TOpen>,
 ) => {
-	const { open, dialog, items, applicable, slot } = opts;
+	const { open, dialog, items, applicable, slot, role, variant } = opts;
 	const title = opts.title();
 	const applicableItems = applicable ? items.filter(applicable) : items;
 	if (!applicableItems.length) return nothing;
 	return html`<cosmoz-button
 		slot="${ifDefined(slot)}"
+		role=${ifDefined(role)}
+		variant=${ifDefined(variant)}
 		title="${title}"
 		data-priority="${ifDefined(opts.priority)}"
 		@click=${async (event: Event) => {
