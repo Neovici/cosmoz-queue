@@ -105,11 +105,7 @@ describe('renderListCore', () => {
 
 	it('rebuilds the breakpoints on the given deps', () => {
 		const tiers = () => [{ props: { enabledColumns: ['a'] } }];
-		renderListCore({
-			...minimalProps,
-			breakpoints: tiers,
-			breakpointsDeps: [['a']],
-		});
+		renderListCore({ ...minimalProps, breakpoints: [tiers, [['a']]] });
 		expect(breakpoints).toHaveBeenCalledWith(tiers, [['a']]);
 	});
 });
