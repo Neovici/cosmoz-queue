@@ -59,6 +59,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 	const queueProps = useQueue({
 		id,
 		api,
+		details,
 		idHashParam,
 		tabHashParam,
 		fallback,

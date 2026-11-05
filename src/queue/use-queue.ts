@@ -2,6 +2,7 @@ import { array } from '@neovici/cosmoz-utils/array';
 import { useCallback, useMemo } from '@pionjs/pion';
 import { json } from '../util/fetch/fetch';
 import { cacheDetails } from './cache-details';
+import { useLayoutTransition } from './use-layout-transition';
 import { useMobile } from './use-mobile';
 import { usePrefetchNeighbours } from './use-prefetch-neighbours';
 
@@ -124,6 +125,8 @@ interface Opts<I>
 	 */
 	api?: (id: string, item: I) => string;
 	id?: (i: I) => string;
+	/** Loads an item's details. Opening the detail from the list waits briefly for it. */
+	details?: (item: I) => PromiseLike<unknown>;
 	/** @deprecated Use `initial-size` / `min-size` attributes on `<cosmoz-resizable-view>` instead (mapped automatically to the returned `splitAttrs`). */
 	split?: SplitConfig;
 }
@@ -131,6 +134,7 @@ interface Opts<I>
 const useQueue = <I>({
 	id = _id as (i: I) => string,
 	api,
+	details,
 	tabHashParam,
 	idHashParam,
 	fallback,
@@ -146,12 +150,18 @@ const useQueue = <I>({
 		() => getItems(items, selected),
 		[items, selected],
 	);
-	const { tabnav, activeTab } = useTabs({
-		items: queueItems,
-		hashParam: tabHashParam,
-		...useTabsPref({ persistKey, fallback, except: 'queue', onActivate }),
-		mobile,
-	});
+	const pref = useTabsPref({
+			persistKey,
+			fallback,
+			except: 'queue',
+			onActivate,
+		}),
+		{ tabnav: tabs, activeTab } = useTabs({
+			items: queueItems,
+			hashParam: tabHashParam,
+			...pref,
+			mobile,
+		});
 	const nav = useQNav({
 		id,
 		api,
@@ -161,7 +171,13 @@ const useQueue = <I>({
 		prefetch: activeTab !== 'overview',
 	});
 	const splitAttrs = useMemo(() => computeSplitAttrs(split), [split]);
-	const { item, setItem } = nav;
+	const { item, setItem } = nav,
+		detailsOf = (i?: I) =>
+			i == null ? undefined : (details ?? nav.details)?.(i),
+		tabnav = useLayoutTransition(tabs, {
+			onActivate: pref.onActivate,
+			ready: () => detailsOf(item),
+		});
 	const ensue = useCallback(
 		(itemId: string) => {
 			if (id(item) !== itemId) {
@@ -191,16 +207,17 @@ const useQueue = <I>({
 				.composedPath()
 				.find((el) => el instanceof Element && el.matches?.('[mini]'));
 			const activate = mustActivate ?? (mini ? ['split', 'queue'] : undefined);
-			setItem((clickedItem as I) ?? items[index!]);
+			const target = (clickedItem as I) ?? items[index!];
+			setItem(target);
 			if (activate) {
 				const next = array(activate).find((name) =>
 					tabnav.tabs.find((tab) => tab.name === name && !tab.disabled),
 				);
-				if (next) tabnav.activate(next);
+				if (next) tabnav.activate(next, () => detailsOf(target));
 			}
 			e.preventDefault();
 		},
-		[activeTab, items],
+		[activeTab, items, tabnav, details, nav.details],
 	);
 
 	return {
