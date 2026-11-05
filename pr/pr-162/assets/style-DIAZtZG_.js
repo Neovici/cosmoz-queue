@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-BF4r2k38.js";var r,i,a,o=e((()=>{t(),r=n`
+import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-DavG2nVe.js";var r,i,a,o=e((()=>{t(),r=n`
 	:host {
 		display: flex;
 		flex-direction: column;
@@ -79,10 +79,9 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-BF4r2k38.
 	}
 `,i=n`
 	/* A named pane that hides aborts the transition, so a pane is named only
-	   while it stays on screen: the list between List and Split, the detail as
+	   while it stays on screen: the list opening Split, the detail as
 	   it opens from List. Split and Focus reflow the detail, so the whole pane
 	   crossfades as one: naming it would snap its old snapshot into place. */
-	[data-vt='split-overview'] > #list,
 	[data-vt='overview-split'] > #list {
 		view-transition-name: q-list;
 	}
@@ -116,9 +115,8 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-BF4r2k38.
 		animation: q-in-right var(--cz-duration-normal, 250ms)
 			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 	}
-	/* List and Focus share nothing on screen, so they crossfade in place. */
-	[data-vt='overview-queue']::view-transition-new(q-detail):only-child,
-	[data-vt='queue-overview']::view-transition-new(root) {
+	/* List and Focus share nothing on screen, so Focus appears in place. */
+	[data-vt='overview-queue']::view-transition-new(q-detail):only-child {
 		animation: q-appear var(--cz-duration-normal, 250ms)
 			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) var(--cz-stagger, 60ms)
 			both;
@@ -141,8 +139,7 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-BF4r2k38.
 			animation: q-in-left var(--cz-duration-normal, 250ms)
 				var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 		}
-		[data-vt-fallback='overview-queue'] > #queue,
-		[data-vt-fallback='queue-overview'] > #list {
+		[data-vt-fallback='overview-queue'] > #queue {
 			animation: q-appear var(--cz-duration-normal, 250ms)
 				var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 		}
