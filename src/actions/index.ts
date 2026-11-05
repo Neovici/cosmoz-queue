@@ -28,7 +28,7 @@ export interface ActionOpts<
 	items: TItem[];
 	open: TOpen;
 	slot?: string;
-	/** For example `menuitem`, to list the actions in a menu. */
+	/** The button's ARIA role, for example `menuitem` to list the actions in a menu. */
 	role?: string;
 	variant?: import('@neovici/cosmoz-button').ButtonVariant;
 }
@@ -63,7 +63,7 @@ export const defaultButton = <
 	if (!applicableItems.length) return nothing;
 	return html`<cosmoz-button
 		slot="${ifDefined(slot)}"
-		role=${ifDefined(role)}
+		control-role=${ifDefined(role)}
 		variant=${ifDefined(variant)}
 		title="${title}"
 		data-priority="${ifDefined(opts.priority)}"

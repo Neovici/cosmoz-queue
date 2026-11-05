@@ -67,7 +67,7 @@ describe('default action button', () => {
 			container,
 		);
 		const button = container.querySelector('cosmoz-button')!;
-		expect(button.getAttribute('role')).toBe('menuitem');
+		expect(button.getAttribute('control-role')).toBe('menuitem');
 		expect(button.getAttribute('variant')).toBe('tertiary');
 	});
 });
