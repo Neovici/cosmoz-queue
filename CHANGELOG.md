@@ -1,3 +1,9 @@
+## 4.0.0
+
+### Major Changes
+
+- eb1ad07: `renderListCore` takes `breakpoints` as a `[tiers, deps]` tuple and rebuilds the tiers when one of the deps changes. Pass `[tiers, []]` where you passed `tiers` before.
+
 ## 3.11.0
 
 ### Minor Changes
