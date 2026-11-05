@@ -99,7 +99,7 @@ describe('renderListCore', () => {
 			{ name: 'mini', maxWidth: 480, props: { renderItem: null } },
 			{ props: { renderItem: null } },
 		];
-		renderListCore({ ...minimalProps, breakpoints: tiers });
+		renderListCore({ ...minimalProps, breakpoints: [tiers, []] });
 		expect(breakpoints).toHaveBeenCalledWith(tiers, []);
 	});
 });
