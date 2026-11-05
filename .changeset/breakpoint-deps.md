@@ -1,5 +1,5 @@
 ---
-'@neovici/cosmoz-queue': minor
+'@neovici/cosmoz-queue': major
 ---
 
-`renderListCore` also takes `breakpoints` as a `[tiers, deps]` tuple. The tiers are rebuilt when one of the deps changes, so a tier can carry values that change while the list is mounted, such as `enabledColumns`.
+`renderListCore` takes `breakpoints` as a `[tiers, deps]` tuple and rebuilds the tiers when one of the deps changes. Pass `[tiers, []]` where you passed `tiers` before.

@@ -99,13 +99,7 @@ describe('renderListCore', () => {
 			{ name: 'mini', maxWidth: 480, props: { renderItem: null } },
 			{ props: { renderItem: null } },
 		];
-		renderListCore({ ...minimalProps, breakpoints: tiers });
+		renderListCore({ ...minimalProps, breakpoints: [tiers, []] });
 		expect(breakpoints).toHaveBeenCalledWith(tiers, []);
-	});
-
-	it('rebuilds the breakpoints on the given deps', () => {
-		const tiers = () => [{ props: { enabledColumns: ['a'] } }];
-		renderListCore({ ...minimalProps, breakpoints: [tiers, [['a']]] });
-		expect(breakpoints).toHaveBeenCalledWith(tiers, [['a']]);
 	});
 });
