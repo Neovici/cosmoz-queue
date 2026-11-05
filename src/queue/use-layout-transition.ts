@@ -14,7 +14,9 @@ type Ready = () => PromiseLike<unknown> | undefined;
  * in the queue style. Without element-scoped view transitions it marks the
  * scope with `data-vt-fallback` for a CSS entrance instead. Leaving the list,
  * the new state waits briefly for `ready`, so the detail doesn't arrive as a
- * loader.
+ * loader. Returning to the list switches at once: the table fits its columns
+ * to the new width a frame later, so a transition would hold the old view and
+ * then show a half-built table.
  */
 export const switchLayout = ({
 	scope,
@@ -29,7 +31,7 @@ export const switchLayout = ({
 	update: () => void;
 	ready?: Ready;
 }) => {
-	if (!scope || !from || from === to) return update();
+	if (!scope || !from || from === to || to === 'overview') return update();
 	const key = `${from}-${to}`;
 	if (!supportsScopedTransition(scope)) {
 		scope.setAttribute('data-vt-fallback', key);

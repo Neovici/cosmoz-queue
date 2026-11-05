@@ -77,6 +77,18 @@ describe('switchLayout', () => {
 		expect(scope.getAttribute('data-vt-fallback')).toBe('overview-split');
 	});
 
+	it('switches back to the list at once', () => {
+		const scope = document.createElement('div'),
+			start = withVT(scope),
+			update = vi.fn();
+		switchLayout({ scope, from: 'split', to: 'overview', update });
+		switchLayout({ scope, from: 'queue', to: 'overview', update });
+		expect(update).toHaveBeenCalledTimes(2);
+		expect(start).not.toHaveBeenCalled();
+		expect(scope.hasAttribute('data-vt')).toBe(false);
+		expect(scope.hasAttribute('data-vt-fallback')).toBe(false);
+	});
+
 	it('does not animate a pick of the active layout', () => {
 		const scope = document.createElement('div'),
 			start = withVT(scope),
