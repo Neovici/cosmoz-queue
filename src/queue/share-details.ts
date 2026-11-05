@@ -1,20 +1,18 @@
 /**
- * Lets callers that ask for the same item while its details are loading share
- * one request. The render and the layout transition both ask for the opened
- * item, so a `details` that doesn't cache would otherwise fetch it twice. Once
- * the request settles, the next call fetches again.
+ * Remembers the details of the last item asked for, so the layout transition
+ * and the render that follows it share one request. A `details` that doesn't
+ * cache would otherwise fetch the opened item twice. Asking for another item,
+ * or a failed request, forgets it.
  */
 export const shareDetails = <I, D>(details: (item: I) => PromiseLike<D>) => {
-	let pending: { item: I; promise: PromiseLike<D> } | undefined;
+	let last: { item: I; promise: PromiseLike<D> } | undefined;
 	return (item: I): PromiseLike<D> => {
-		if (pending?.item === item) return pending.promise;
-		const promise = details(item),
-			current = { item, promise };
-		pending = current;
-		const clear = () => {
-			if (pending === current) pending = undefined;
-		};
-		promise.then(clear, clear);
-		return promise;
+		if (last?.item === item) return last.promise;
+		const current = { item, promise: details(item) };
+		last = current;
+		current.promise.then(undefined, () => {
+			if (last === current) last = undefined;
+		});
+		return current.promise;
 	};
 };

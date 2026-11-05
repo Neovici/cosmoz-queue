@@ -1,4 +1,4 @@
-import { useMemo } from '@pionjs/pion';
+import { useMemo, useRef } from '@pionjs/pion';
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
@@ -56,10 +56,14 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		split,
 	} = props;
 
-	const details = useMemo(
-		() => (viewDetails ? shareDetails(viewDetails) : undefined),
-		[viewDetails],
+	// Views often pass `details` inline, so it's a new function on every render.
+	const latestDetails = useRef(viewDetails);
+	latestDetails.current = viewDetails;
+	const shared = useMemo(
+		() => shareDetails((item: I) => latestDetails.current!(item)),
+		[],
 	);
+	const details = viewDetails ? shared : undefined;
 
 	const persistKey = settingsId ? `${settingsId}-split` : undefined;
 

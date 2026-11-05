@@ -5,19 +5,28 @@ const a = { id: 'a' },
 	b = { id: 'b' };
 
 describe('shareDetails', () => {
-	it('shares one request between callers while it is loading', () => {
+	it('shares one request for the same item', () => {
 		const fetch = vi.fn((item: { id: string }) => Promise.resolve(item.id));
 		const details = shareDetails(fetch);
 		expect(details(a)).toBe(details(a));
 		expect(fetch).toHaveBeenCalledOnce();
 	});
 
-	it('fetches again once the request has settled', async () => {
+	it('keeps sharing it after it has settled', async () => {
 		const fetch = vi.fn((item: { id: string }) => Promise.resolve(item.id));
 		const details = shareDetails(fetch);
 		await details(a);
 		details(a);
-		expect(fetch).toHaveBeenCalledTimes(2);
+		expect(fetch).toHaveBeenCalledOnce();
+	});
+
+	it('fetches an item again after another one was asked for', () => {
+		const fetch = vi.fn((item: { id: string }) => Promise.resolve(item.id));
+		const details = shareDetails(fetch);
+		details(a);
+		details(b);
+		details(a);
+		expect(fetch).toHaveBeenCalledTimes(3);
 	});
 
 	it('fetches again after a failed request', async () => {
