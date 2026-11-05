@@ -33,6 +33,16 @@ export const switchLayout = ({
 	const key = `${from}-${to}`;
 	if (!supportsScopedTransition(scope)) {
 		scope.setAttribute('data-vt-fallback', key);
+		// Cleared after the entrance, so a later route change doesn't replay it.
+		scope.addEventListener(
+			'animationend',
+			() => {
+				if (scope.getAttribute('data-vt-fallback') === key) {
+					scope.removeAttribute('data-vt-fallback');
+				}
+			},
+			{ once: true },
+		);
 		return update();
 	}
 	if (reducedMotion()) return update();
@@ -40,9 +50,13 @@ export const switchLayout = ({
 	const detail$ = from === 'overview' ? ready?.() : undefined;
 	scopedTransition(scope, update, {
 		ready: detail$ && Promise.resolve(detail$),
-	}).finally(() => {
-		if (scope.getAttribute('data-vt') === key) scope.removeAttribute('data-vt');
-	});
+	})
+		.catch(() => undefined)
+		.finally(() => {
+			if (scope.getAttribute('data-vt') === key) {
+				scope.removeAttribute('data-vt');
+			}
+		});
 };
 
 /**
@@ -58,6 +72,7 @@ export const useLayoutTransition = <T extends Tab>(
 	latest.current = { from: tabnav.active?.name, ready };
 
 	return useMemo(() => {
+		const { select } = tabnav as { select?: (name: string) => void };
 		const go = (to: string, update: () => void, ready?: Ready) => {
 			const current = latest.current!;
 			switchLayout({
@@ -72,6 +87,10 @@ export const useLayoutTransition = <T extends Tab>(
 			...tabnav,
 			activate: (name: string, ready?: Ready) =>
 				go(name, () => tabnav.activate(name), ready),
+			// Newer cosmoz-tabs switch in place with `select` (e.g. a list breadcrumb).
+			...(select && {
+				select: (name: string) => go(name, () => select(name)),
+			}),
 			onActivate: (e: Event) => {
 				const { button, metaKey, ctrlKey } = e as MouseEvent,
 					name = (e.currentTarget as Element | null)?.getAttribute('name');
