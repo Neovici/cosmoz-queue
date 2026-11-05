@@ -1,6 +1,8 @@
+import { useMemo } from '@pionjs/pion';
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
 import { renderQueue, RenderQueue } from './render';
+import { shareDetails } from './share-details';
 import { computeSplitAttrs, SplitConfig } from './split';
 import { Pagination } from './types';
 import useAsyncAction, { Ot } from './use-async-action';
@@ -45,7 +47,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		tabHashParam = 'qtab',
 		id,
 		api,
-		details,
+		details: viewDetails,
 		list,
 		view,
 		loader,
@@ -53,6 +55,11 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		fallback,
 		split,
 	} = props;
+
+	const details = useMemo(
+		() => (viewDetails ? shareDetails(viewDetails) : undefined),
+		[viewDetails],
+	);
 
 	const persistKey = settingsId ? `${settingsId}-split` : undefined;
 
