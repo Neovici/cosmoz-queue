@@ -79,9 +79,12 @@ export const AnimatesLayoutSwitches: StoryObj = {
 		};
 		const pick = async (from: string, to: string) => {
 			tab(to).click();
-			expect(el.getAttribute('data-vt')).toBe(`${from}-${to}`);
+			// Back to the list switches at once, with no transition.
+			expect(el.getAttribute('data-vt')).toBe(
+				to === 'overview' ? null : `${from}-${to}`,
+			);
+			await waitFor(() => expect(el.dataset.active).toBe(to));
 			await waitFor(() => expect(el.hasAttribute('data-vt')).toBe(false));
-			expect(el.dataset.active).toBe(to);
 		};
 
 		await pick('overview', 'split');
@@ -91,6 +94,6 @@ export const AnimatesLayoutSwitches: StoryObj = {
 		await pick('overview', 'queue');
 		await pick('queue', 'split');
 		await pick('split', 'overview');
-		expect(await Promise.all(outcomes)).toEqual(Array(6).fill('ran'));
+		expect(await Promise.all(outcomes)).toEqual(Array(4).fill('ran'));
 	},
 };
