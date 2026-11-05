@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-v0Ee1Lpk.js";var r,i,a,o=e((()=>{t(),r=n`
+import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-bn_77vkS.js";var r,i,a,o=e((()=>{t(),r=n`
 	:host {
 		display: flex;
 		flex-direction: column;
