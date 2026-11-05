@@ -9,6 +9,7 @@ vi.mock('@neovici/cosmoz-slider', () => ({
 }));
 vi.mock('@neovici/cosmoz-tabs/next/index.js', () => ({ renderTabs: () => [] }));
 vi.mock('../src/queue/style', () => ({ queueStyle: '' }));
+vi.mock('i18next', () => ({ t: (key: string) => key }));
 
 import { renderQueue, type RenderQueue } from '../src/queue/render';
 
@@ -55,5 +56,13 @@ describe('custom queue header', () => {
 				expect.objectContaining({ item }),
 			);
 		}
+	});
+
+	it('labels the split handle so hovering it explains the drag', () => {
+		const host = document.createElement('div');
+		render(renderQueue(view('split')), host);
+		expect(
+			host.querySelector('cosmoz-resizable-view')?.getAttribute('handle-label'),
+		).toBe('Drag to resize');
 	});
 });
