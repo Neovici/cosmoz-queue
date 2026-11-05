@@ -1,3 +1,9 @@
+## 4.1.0
+
+### Minor Changes
+
+- 7cd747d: Label the list/details split handle with "Drag to resize", so `@neovici/cosmoz-resizable` can show it as a hover tooltip.
+
 ## 4.0.0
 
 ### Major Changes
