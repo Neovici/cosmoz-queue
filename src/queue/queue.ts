@@ -65,6 +65,10 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		() => viewDetails && ((item: I) => handoff.hold(viewDetails, item)),
 		[viewDetails],
 	);
+	const prefetchDetails = useMemo(
+		() => viewDetails && ((item: I) => handoff.prefetch(viewDetails, item)),
+		[viewDetails],
+	);
 
 	const persistKey = settingsId ? `${settingsId}-split` : undefined;
 
@@ -72,6 +76,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		id,
 		api,
 		details: readyDetails,
+		prefetchDetails,
 		idHashParam,
 		tabHashParam,
 		fallback,

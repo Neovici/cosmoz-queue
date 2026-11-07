@@ -77,6 +77,24 @@ describe('switchLayout', () => {
 		expect(scope.getAttribute('data-vt-fallback')).toBe('overview-split');
 	});
 
+	it('clears the CSS entrance when the pane finishes or is cancelled', () => {
+		const scope = document.createElement('div'),
+			pane = scope.appendChild(document.createElement('div')),
+			inner = pane.appendChild(document.createElement('div'));
+		switchLayout({ scope, from: 'overview', to: 'split', update: vi.fn() });
+		inner.dispatchEvent(new Event('animationend', { bubbles: true }));
+		expect(scope.getAttribute('data-vt-fallback')).toBe('overview-split');
+		pane.dispatchEvent(new Event('animationcancel', { bubbles: true }));
+		expect(scope.hasAttribute('data-vt-fallback')).toBe(false);
+	});
+
+	it('clears a pending CSS entrance on the way back to the list', () => {
+		const scope = document.createElement('div');
+		switchLayout({ scope, from: 'overview', to: 'split', update: vi.fn() });
+		switchLayout({ scope, from: 'split', to: 'overview', update: vi.fn() });
+		expect(scope.hasAttribute('data-vt-fallback')).toBe(false);
+	});
+
 	it('switches back to the list at once', () => {
 		const scope = document.createElement('div'),
 			start = withVT(scope),

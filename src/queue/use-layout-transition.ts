@@ -31,20 +31,24 @@ export const switchLayout = ({
 	update: () => void;
 	ready?: Ready;
 }) => {
-	if (!scope || !from || from === to || to === 'overview') return update();
+	if (!scope || !from || from === to || to === 'overview') {
+		scope?.removeAttribute('data-vt-fallback');
+		return update();
+	}
 	const key = `${from}-${to}`;
 	if (!supportsScopedTransition(scope)) {
 		scope.setAttribute('data-vt-fallback', key);
-		// Cleared after the entrance, so a later route change doesn't replay it.
-		scope.addEventListener(
-			'animationend',
-			() => {
-				if (scope.getAttribute('data-vt-fallback') === key) {
-					scope.removeAttribute('data-vt-fallback');
-				}
-			},
-			{ once: true },
-		);
+		// Cleared after the pane's entrance, so a later route change doesn't replay it.
+		const clear = (e: Event) => {
+			if ((e.target as Element).parentElement !== scope) return;
+			scope.removeEventListener('animationend', clear);
+			scope.removeEventListener('animationcancel', clear);
+			if (scope.getAttribute('data-vt-fallback') === key) {
+				scope.removeAttribute('data-vt-fallback');
+			}
+		};
+		scope.addEventListener('animationend', clear);
+		scope.addEventListener('animationcancel', clear);
 		return update();
 	}
 	if (reducedMotion()) return update();

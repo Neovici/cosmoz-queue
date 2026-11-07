@@ -46,6 +46,7 @@ const useQNav = <I>({
 	api,
 	items,
 	prefetch,
+	prefetchDetails,
 	...thru
 }: {
 	/**
@@ -64,6 +65,8 @@ const useQNav = <I>({
 	items: I[];
 	/** Prefetch the neighbours of the selected item. */
 	prefetch: boolean;
+	/** Loads a neighbour's details when the queue has no `api`. */
+	prefetchDetails?: (item: I) => PromiseLike<unknown>;
 } & UseDataNav<I>) => {
 	// Deprecation warning
 	/* eslint-disable no-console, no-template-curly-in-string */
@@ -90,7 +93,7 @@ const useQNav = <I>({
 	usePrefetchNeighbours({
 		items,
 		item: pass.item,
-		details,
+		details: details ?? prefetchDetails,
 		enabled: prefetch,
 	});
 	return { ...pass, id, details };
@@ -127,6 +130,8 @@ interface Opts<I>
 	id?: (i: I) => string;
 	/** Loads an item's details. Opening the detail from the list waits briefly for it. */
 	details?: (item: I) => PromiseLike<unknown>;
+	/** Loads a neighbour's details while idle, for queues without `api`. */
+	prefetchDetails?: (item: I) => PromiseLike<unknown>;
 	/** @deprecated Use `initial-size` / `min-size` attributes on `<cosmoz-resizable-view>` instead (mapped automatically to the returned `splitAttrs`). */
 	split?: SplitConfig;
 }
@@ -135,6 +140,7 @@ const useQueue = <I>({
 	id = _id as (i: I) => string,
 	api,
 	details,
+	prefetchDetails,
 	tabHashParam,
 	idHashParam,
 	fallback,
@@ -169,6 +175,7 @@ const useQueue = <I>({
 		hashParam: idHashParam,
 		maintainSelection: ['queue', 'split'].includes(activeTab),
 		prefetch: activeTab !== 'overview',
+		prefetchDetails,
 	});
 	const splitAttrs = useMemo(() => computeSplitAttrs(split), [split]);
 	const { item, setItem } = nav,

@@ -53,4 +53,35 @@ describe('handoffDetails', () => {
 		handoff.wrap(fetch)(a);
 		expect(fetch).toHaveBeenCalledTimes(2);
 	});
+
+	it('hands a prefetched request to the first render of that item only', () => {
+		const fetch = fetcher(),
+			handoff = handoffDetails<{ id: string }, string>(),
+			details = handoff.wrap(fetch);
+		const prefetched = handoff.prefetch(fetch, a);
+		expect(handoff.prefetch(fetch, a)).toBe(prefetched);
+		expect(details(a)).toBe(prefetched);
+		details(a);
+		expect(fetch).toHaveBeenCalledTimes(2);
+	});
+
+	it('lets the layout transition wait on a prefetched request', () => {
+		const fetch = fetcher(),
+			handoff = handoffDetails<{ id: string }, string>();
+		const prefetched = handoff.prefetch(fetch, a);
+		expect(handoff.hold(fetch, a)).toBe(prefetched);
+		expect(fetch).toHaveBeenCalledOnce();
+	});
+
+	it('drops a failed prefetch', async () => {
+		const fail = vi.fn(() => Promise.reject(new Error('offline'))),
+			handoff = handoffDetails<{ id: string }, string>();
+		handoff.prefetch(fail, a).then(undefined, () => undefined);
+		await Promise.resolve();
+		await Promise.resolve();
+		handoff
+			.wrap(fail)(a)
+			.then(undefined, () => undefined);
+		expect(fail).toHaveBeenCalledTimes(2);
+	});
 });

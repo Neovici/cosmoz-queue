@@ -98,7 +98,7 @@ const layoutTransitions = css`
 		view-transition-name: q-detail;
 	}
 	[data-vt]::view-transition-group(*) {
-		animation-duration: var(--cz-duration-normal, 250ms);
+		animation-duration: var(--cz-duration-fast, 150ms);
 		animation-timing-function: var(
 			--cz-ease-out,
 			cubic-bezier(0.16, 1, 0.3, 1)
@@ -120,39 +120,37 @@ const layoutTransitions = css`
 			var(--cz-ease-in, cubic-bezier(0.4, 0, 1, 1)) both;
 	}
 	[data-vt]::view-transition-new(q-detail):only-child {
-		animation: q-in-right var(--cz-duration-normal, 250ms)
+		animation: q-in-right var(--cz-duration-fast, 150ms)
 			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 	}
 	/* List and Focus share nothing on screen, so Focus appears in place. */
 	[data-vt='overview-queue']::view-transition-new(q-detail):only-child {
-		animation: q-appear var(--cz-duration-normal, 250ms)
-			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) var(--cz-stagger, 60ms)
-			both;
+		animation: q-appear var(--cz-duration-fast, 150ms)
+			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 	}
 	:is([data-vt='split-queue'], [data-vt='queue-split'])::view-transition-new(
 		root
 	) {
-		animation: q-fade-in var(--cz-duration-normal, 250ms)
-			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) var(--cz-stagger, 60ms)
-			both;
+		animation: q-fade-in var(--cz-duration-fast, 150ms)
+			var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 	}
 
 	/* Without element-scoped view transitions, the incoming pane enters. */
 	@media (prefers-reduced-motion: no-preference) {
 		[data-vt-fallback='overview-split'] > #queue {
-			animation: q-in-right var(--cz-duration-normal, 250ms)
+			animation: q-in-right var(--cz-duration-fast, 150ms)
 				var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 		}
 		[data-vt-fallback='queue-split'] > #list {
-			animation: q-in-left var(--cz-duration-normal, 250ms)
+			animation: q-in-left var(--cz-duration-fast, 150ms)
 				var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 		}
 		[data-vt-fallback='overview-queue'] > #queue {
-			animation: q-appear var(--cz-duration-normal, 250ms)
+			animation: q-appear var(--cz-duration-fast, 150ms)
 				var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 		}
 		[data-vt-fallback='split-queue'] > #queue {
-			animation: q-fade-in var(--cz-duration-normal, 250ms)
+			animation: q-fade-in var(--cz-duration-fast, 150ms)
 				var(--cz-ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
 		}
 	}
