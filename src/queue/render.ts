@@ -155,6 +155,12 @@ const track = <D>(promise: PromiseLike<D>) => {
 	return settled.get(promise) as { value: D } | undefined;
 };
 
+const shown = new WeakSet<PromiseLike<unknown>>();
+const afterPaint = () =>
+	new Promise<void>((resolve) =>
+		requestAnimationFrame(() => setTimeout(resolve)),
+	);
+
 export const renderView = <I, D>({
 	animationEnd$,
 	details,
@@ -171,17 +177,27 @@ export const renderView = <I, D>({
 	}
 	const detail$ = details(item),
 		done = track(detail$);
-	if (done) {
+	if (done && shown.has(detail$)) {
 		return guard([detail$, next], () =>
 			renderItem({ item: done.value, nav, next, prev }),
 		);
 	}
-	return guard([detail$, animationEnd$, next], () =>
-		lazyUntil(
-			detail$.then((item) => renderItem({ item, nav, next, prev })),
-			renderLoader({ item, nav }),
-		),
-	);
+	// An item shown for the first time waits for a paint, so the click that
+	// opened it is answered before the detail is built. The loader appears only
+	// if the detail is still loading after that paint.
+	return guard([detail$, animationEnd$, next], () => {
+		const painted = afterPaint();
+		return lazyUntil(
+			Promise.all([detail$, painted]).then(([item]) => {
+				shown.add(detail$);
+				return renderItem({ item, nav, next, prev });
+			}),
+			painted.then(() =>
+				settled.get(detail$) ? nothing : renderLoader({ item, nav }),
+			),
+			nothing,
+		);
+	});
 };
 
 interface RenderSlide<I, D> extends Omit<RenderView<I, D>, 'animationEnd$'> {

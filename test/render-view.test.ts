@@ -20,6 +20,10 @@ interface Item {
 const item = { id: '1' },
 	never = new Promise(() => undefined),
 	flush = () => new Promise((resolve) => setTimeout(resolve)),
+	paint = () =>
+		new Promise((resolve) =>
+			requestAnimationFrame(() => setTimeout(() => setTimeout(resolve))),
+		),
 	view = (details: (i: Item) => PromiseLike<Item>) => {
 		const host = document.createElement('div');
 		const renderLoader = vi.fn(() => html`<p>loading</p>`);
@@ -37,18 +41,27 @@ const item = { id: '1' },
 	};
 
 describe('renderView', () => {
-	it('renders the details without waiting for the slide to end', async () => {
-		const detail$ = Promise.resolve(item);
-		const { host } = view(() => detail$);
-		expect(host.textContent).toContain('loading');
+	it('answers the click with a paint before building the details', async () => {
+		const detail$ = Promise.resolve({ id: '2' });
+		const { host, renderLoader } = view(() => detail$);
 		await flush();
-		expect(host.textContent).toContain('item 1');
+		expect(host.textContent).not.toContain('item');
+		await paint();
+		expect(host.textContent).toContain('item 2');
+		expect(renderLoader).not.toHaveBeenCalled();
 	});
 
-	it('renders settled details at once, without the loader', async () => {
+	it('shows the loader after that paint while the details load', async () => {
+		const { host } = view(() => never as Promise<Item>);
+		expect(host.textContent).not.toContain('loading');
+		await paint();
+		expect(host.textContent).toContain('loading');
+	});
+
+	it('renders details shown before at once', async () => {
 		const detail$ = Promise.resolve(item);
 		view(() => detail$);
-		await flush();
+		await paint();
 		const { host, renderLoader } = view(() => detail$);
 		expect(renderLoader).not.toHaveBeenCalled();
 		expect(host.textContent).toContain('item 1');
