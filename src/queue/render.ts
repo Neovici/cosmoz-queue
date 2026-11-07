@@ -252,6 +252,8 @@ export interface RenderQueue<I, D> extends Pick<
 	pagination?: Pagination;
 	persistKey?: string;
 	splitAttrs?: { initialSize?: string; minSize?: string };
+	/** Loads details ahead of opening, for the request to be handed to the render. Defaults to `details`. */
+	prefetchDetails?: (item: I) => PromiseLike<unknown>;
 	tabnav: RenderTabs<Tab>;
 	nav: Omit<RenderSlide<I, D>, 'renderItem' | 'renderLoader' | 'details'> &
 		Pick<RenderView<I, D>, 'details'> & { index: number };
@@ -271,6 +273,7 @@ export const renderQueue = <I, D>({
 	renderLoader,
 	renderItem,
 	details = nav?.details,
+	prefetchDetails = details,
 	pagination: _pagination,
 	persistKey,
 	splitAttrs,
@@ -280,8 +283,8 @@ export const renderQueue = <I, D>({
 		? { ..._pagination, totalAvailable }
 		: undefined;
 	const prefetch =
-		activeTab === 'overview' && nav?.item && details
-			? () => details(nav.item).then(undefined, () => undefined)
+		activeTab === 'overview' && nav?.item && prefetchDetails
+			? () => prefetchDetails(nav.item).then(undefined, () => undefined)
 			: undefined;
 	const tabn = html`
 		<cosmoz-tabs-next class="tabn" @pointerenter=${prefetch}>

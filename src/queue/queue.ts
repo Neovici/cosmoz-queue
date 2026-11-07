@@ -1,5 +1,7 @@
+import { useMemo } from '@pionjs/pion';
 import type { TemplateResult } from 'lit-html';
 import { updateWith } from '../util/polymer-property-changed-event.js';
+import { handoffDetails } from './handoff-details';
 import { renderQueue, RenderQueue } from './render';
 import { computeSplitAttrs, SplitConfig } from './split';
 import { Pagination } from './types';
@@ -45,7 +47,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		tabHashParam = 'qtab',
 		id,
 		api,
-		details,
+		details: viewDetails,
 		list,
 		view,
 		loader,
@@ -54,11 +56,27 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 		split,
 	} = props;
 
+	const handoff = useMemo(() => handoffDetails<I, D>(), []);
+	const details = useMemo(
+		() => viewDetails && handoff.wrap(viewDetails),
+		[viewDetails],
+	);
+	const readyDetails = useMemo(
+		() => viewDetails && ((item: I) => handoff.hold(viewDetails, item)),
+		[viewDetails],
+	);
+	const prefetchDetails = useMemo(
+		() => viewDetails && ((item: I) => handoff.prefetch(viewDetails, item)),
+		[viewDetails],
+	);
+
 	const persistKey = settingsId ? `${settingsId}-split` : undefined;
 
 	const queueProps = useQueue({
 		id,
 		api,
+		details: readyDetails,
+		prefetchDetails,
 		idHashParam,
 		tabHashParam,
 		fallback,
@@ -90,6 +108,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 
 	return renderQueue({
 		details,
+		prefetchDetails,
 		heading,
 		afterHeading,
 		header,
