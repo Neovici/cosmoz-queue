@@ -140,6 +140,27 @@ interface RenderView<I, D> {
 	}) => TemplateResult;
 	renderLoader: (opts: { item: I; nav: TemplateResult }) => TemplateResult;
 }
+const settled = new WeakMap<
+	PromiseLike<unknown>,
+	{ value: unknown } | undefined
+>();
+const track = <D>(promise: PromiseLike<D>) => {
+	if (!settled.has(promise)) {
+		settled.set(promise, undefined);
+		promise.then(
+			(value) => settled.set(promise, { value }),
+			() => undefined,
+		);
+	}
+	return settled.get(promise) as { value: D } | undefined;
+};
+
+const shown = new WeakSet<PromiseLike<unknown>>();
+const afterPaint = () =>
+	new Promise<void>((resolve) =>
+		requestAnimationFrame(() => setTimeout(resolve)),
+	);
+
 export const renderView = <I, D>({
 	animationEnd$,
 	details,
@@ -154,15 +175,29 @@ export const renderView = <I, D>({
 	if (!details) {
 		return renderItem({ item, nav, next, prev, animationEnd$ });
 	}
-	const detail$ = details(item);
-	return guard([detail$, animationEnd$, next], () =>
-		lazyUntil(
-			Promise.all([detail$, animationEnd$]).then(([item]) =>
-				renderItem({ item, nav, next, prev }),
+	const detail$ = details(item),
+		done = track(detail$);
+	if (done && shown.has(detail$)) {
+		return guard([detail$, next], () =>
+			renderItem({ item: done.value, nav, next, prev }),
+		);
+	}
+	// An item shown for the first time waits for a paint, so the click that
+	// opened it is answered before the detail is built. The loader appears only
+	// if the detail is still loading after that paint.
+	return guard([detail$, animationEnd$, next], () => {
+		const painted = afterPaint();
+		return lazyUntil(
+			Promise.all([detail$, painted]).then(([item]) => {
+				shown.add(detail$);
+				return renderItem({ item, nav, next, prev });
+			}),
+			painted.then(() =>
+				settled.get(detail$) ? nothing : renderLoader({ item, nav }),
 			),
-			renderLoader({ item, nav }),
-		),
-	);
+			nothing,
+		);
+	});
 };
 
 interface RenderSlide<I, D> extends Omit<RenderView<I, D>, 'animationEnd$'> {
@@ -184,7 +219,10 @@ export const renderSlide = <I, D>({
 						item,
 						...thru,
 					}),
-				animation: forward ? slideInRight : slideInLeft,
+				animation: (inEl: HTMLElement, outEl: HTMLElement) =>
+					outEl.childElementCount === 0
+						? undefined
+						: (forward ? slideInRight : slideInLeft)(inEl, outEl),
 			}
 		: emptySlide();
 
@@ -194,7 +232,8 @@ export interface RenderQueue<I, D> extends Pick<
 > {
 	/** Render the header from its parts. Defaults to the tab row. */
 	header?: (parts: {
-		tabnav: RenderTabs<Tab>;
+		/** `prefetch` loads the selected item's details; bind it to the layout tabs. */
+		tabnav: RenderTabs<Tab> & { prefetch?: () => void };
 		heading?: string;
 		afterHeading?: unknown;
 		totalAvailable?: number;
@@ -240,8 +279,12 @@ export const renderQueue = <I, D>({
 	const pagination = _pagination
 		? { ..._pagination, totalAvailable }
 		: undefined;
+	const prefetch =
+		activeTab === 'overview' && nav?.item && details
+			? () => details(nav.item).then(undefined, () => undefined)
+			: undefined;
 	const tabn = html`
-		<cosmoz-tabs-next class="tabn">
+		<cosmoz-tabs-next class="tabn" @pointerenter=${prefetch}>
 			<div class="tabn-heading" slot="tabs">${heading}${afterHeading}</div>
 			${renderTabs({ ...tabnav, className: 'tabn-tab' })}
 			${renderStats({
@@ -264,7 +307,7 @@ export const renderQueue = <I, D>({
 			header,
 			(header) =>
 				header({
-					tabnav,
+					tabnav: { ...tabnav, prefetch },
 					heading,
 					afterHeading,
 					totalAvailable,
