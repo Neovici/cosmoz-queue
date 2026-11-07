@@ -53,7 +53,7 @@ const minimalProps: Parameters<typeof renderListCore>[0] = {
 	compareItemsFn: undefined,
 	loadMore: undefined,
 	dialog: undefined,
-	open: () => undefined,
+	open: () => Promise.resolve(undefined),
 };
 
 const getOmnitableChildren = (result: unknown[]): unknown[] => {
