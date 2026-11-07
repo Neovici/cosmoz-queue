@@ -84,4 +84,22 @@ describe('handoffDetails', () => {
 			.then(undefined, () => undefined);
 		expect(fail).toHaveBeenCalledTimes(2);
 	});
+
+	it('does not hand a prefetch to a new details function', () => {
+		const fetch = fetcher(),
+			refreshed = fetcher(),
+			handoff = handoffDetails<{ id: string }, string>();
+		handoff.prefetch(fetch, a);
+		handoff.wrap(refreshed)(a);
+		expect(refreshed).toHaveBeenCalledOnce();
+	});
+
+	it('does not hand a held request to a new details function', () => {
+		const fetch = fetcher(),
+			refreshed = fetcher(),
+			handoff = handoffDetails<{ id: string }, string>();
+		handoff.hold(fetch, a);
+		handoff.wrap(refreshed)(a);
+		expect(refreshed).toHaveBeenCalledOnce();
+	});
 });

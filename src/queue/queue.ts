@@ -108,6 +108,7 @@ export const queue = <I, D = I>(props: Props<I, D>) => {
 
 	return renderQueue({
 		details,
+		prefetchDetails,
 		heading,
 		afterHeading,
 		header,
