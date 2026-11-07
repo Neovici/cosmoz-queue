@@ -17,14 +17,34 @@ describe('handoffDetails', () => {
 		expect(fetch).toHaveBeenCalledOnce();
 	});
 
-	it('hands it over only once, so later renders fetch as before', () => {
+	it('reuses the request for re-renders of the same item', () => {
 		const fetch = fetcher(),
 			handoff = handoffDetails<{ id: string }, string>(),
 			details = handoff.wrap(fetch);
-		handoff.hold(fetch, a);
-		details(a);
-		details(a);
+		const first = details(a);
+		handoff.prefetch(fetch, b);
+		expect(details(a)).toBe(first);
 		expect(fetch).toHaveBeenCalledTimes(2);
+	});
+
+	it('fetches again when the item changes and comes back', () => {
+		const fetch = fetcher(),
+			handoff = handoffDetails<{ id: string }, string>(),
+			details = handoff.wrap(fetch);
+		details(a);
+		details(b);
+		details(a);
+		expect(fetch).toHaveBeenCalledTimes(3);
+	});
+
+	it('retries a failed request on the next render', async () => {
+		const fail = vi.fn(() => Promise.reject(new Error('offline'))),
+			details = handoffDetails<{ id: string }, string>().wrap(fail);
+		details(a).then(undefined, () => undefined);
+		await Promise.resolve();
+		await Promise.resolve();
+		details(a).then(undefined, () => undefined);
+		expect(fail).toHaveBeenCalledTimes(2);
 	});
 
 	it('refetches through a new details function, as a refresh does', () => {
@@ -54,14 +74,14 @@ describe('handoffDetails', () => {
 		expect(fetch).toHaveBeenCalledTimes(2);
 	});
 
-	it('hands a prefetched request to the first render of that item only', () => {
+	it('hands a prefetched request over only once', () => {
 		const fetch = fetcher(),
 			handoff = handoffDetails<{ id: string }, string>(),
 			details = handoff.wrap(fetch);
 		const prefetched = handoff.prefetch(fetch, a);
 		expect(handoff.prefetch(fetch, a)).toBe(prefetched);
 		expect(details(a)).toBe(prefetched);
-		details(a);
+		handoff.wrap(fetch)(a);
 		expect(fetch).toHaveBeenCalledTimes(2);
 	});
 

@@ -50,15 +50,26 @@ export const handoffDetails = <I, D>() => {
 			promise.then(undefined, drop);
 			return promise;
 		},
-		wrap:
-			(details: Details<I, D>) =>
-			(item: I): PromiseLike<D> => {
+		// Re-renders of the open item reuse its request, so a `details` that
+		// caches one item at a time isn't evicted by the neighbours' prefetch.
+		wrap: (details: Details<I, D>) => {
+			let last: { item: I; promise: PromiseLike<D> } | undefined;
+			return (item: I): PromiseLike<D> => {
+				if (last?.item === item) return last.promise;
+				let promise;
 				if (held?.item === item && held.details === details) {
-					const { promise } = held;
+					promise = held.promise;
 					held = undefined;
-					return promise;
 				}
-				return take(details, item) ?? details(item);
-			},
+				promise ??= take(details, item) ?? details(item);
+				const current = { item, promise };
+				last = current;
+				// A failed request is retried by the next render.
+				promise.then(undefined, () => {
+					if (last === current) last = undefined;
+				});
+				return promise;
+			};
+		},
 	};
 };
