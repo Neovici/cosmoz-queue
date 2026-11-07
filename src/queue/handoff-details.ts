@@ -41,8 +41,9 @@ export const handoffDetails = <I, D>() => {
 			if (hit?.details === details) return hit.promise;
 			const promise = details(item),
 				drop = () => {
-					if (prefetched.get(item)?.promise === promise)
+					if (prefetched.get(item)?.promise === promise) {
 						prefetched.delete(item);
+					}
 				};
 			prefetched.set(item, { details, promise });
 			setTimeout(drop, PREFETCH_MS);
