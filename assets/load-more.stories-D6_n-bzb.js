@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{n as i,t as a,y as o}from"./haunted-HecqlZiq.js";import{a as s,n as c,o as l,t as u}from"./i18next-BH6PgUp2.js";import{t as d}from"./dist-DJRNeJkn.js";import{n as f,t as p}from"./until-CksvnFD5.js";var m,h,g,_=e((()=>{a(),n(),m=o`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,o as n,t as r}from"./lit-html-BZ3vufxv.js";import{n as i,t as a,y as o}from"./haunted-DqzFCTXw.js";import{a as s,n as c,o as l,t as u}from"./i18next-MTTVK0aI.js";import{t as d}from"./dist-DOm4ylJk.js";import{n as f,t as p}from"./until-tKV6YJSx.js";var m,h,g,_=e((()=>{a(),n(),m=o`
 	@keyframes rotating {
 		100% {
 			transform: rotate(360deg);
