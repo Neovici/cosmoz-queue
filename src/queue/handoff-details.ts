@@ -55,11 +55,13 @@ export const handoffDetails = <I, D>() => {
 		wrap: (details: Details<I, D>) => {
 			let last: { item: I; promise: PromiseLike<D> } | undefined;
 			return (item: I): PromiseLike<D> => {
-				if (last?.item === item) return last.promise;
 				let promise;
+				// A held request is newer than `last`, e.g. the same item reopened.
 				if (held?.item === item && held.details === details) {
 					promise = held.promise;
 					held = undefined;
+				} else if (last?.item === item) {
+					return last.promise;
 				}
 				promise ??= take(details, item) ?? details(item);
 				const current = { item, promise };

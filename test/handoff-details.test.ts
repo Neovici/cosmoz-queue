@@ -122,4 +122,14 @@ describe('handoffDetails', () => {
 		handoff.wrap(refreshed)(a);
 		expect(refreshed).toHaveBeenCalledOnce();
 	});
+
+	it('renders the newer held request when the same item is reopened', () => {
+		const fetch = fetcher(),
+			handoff = handoffDetails<{ id: string }, string>(),
+			details = handoff.wrap(fetch);
+		handoff.hold(fetch, a);
+		details(a);
+		const reopened = handoff.hold(fetch, a);
+		expect(details(a)).toBe(reopened);
+	});
 });
