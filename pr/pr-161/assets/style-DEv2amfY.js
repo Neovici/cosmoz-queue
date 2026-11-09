@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-CkNZ3hEO.js";var r,i,a=e((()=>{t(),r=n`
+import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-DexVqoRN.js";var r,i,a=e((()=>{t(),r=n`
 	:host {
 		display: flex;
 		flex-direction: column;
@@ -76,6 +76,12 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-CkNZ3hEO.
 	.tabn-pagination {
 		font-size: 0;
 		display: flex;
+	}
+	@media (pointer: coarse) {
+		.button-nav::part(button) {
+			min-width: 44px;
+			min-height: 44px;
+		}
 	}
 `,i=n`
 	${r}
