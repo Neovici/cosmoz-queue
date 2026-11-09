@@ -17,29 +17,34 @@ const ms = (v: string) => parseFloat(v) * (v.endsWith('ms') ? 1 : 1000);
  * its columns. The live list instead opens from the width it had beside the
  * detail, or fades in from Focus.
  */
-const revealList = (scope: Element, from: string, update: () => void) => {
-	const pane = () => scope.querySelector<HTMLElement>(':scope > #list'),
-		width = from === 'split' ? pane()?.getBoundingClientRect().width : 0;
+const revealList = (scope: Element, update: () => void) => {
+	const list = scope.querySelector<HTMLElement>(':scope > #list'),
+		width = list?.getBoundingClientRect().width ?? 0;
 	update();
-	if (reducedMotion()) return;
-	// After the render the update schedules, in the frame that first paints it.
-	requestAnimationFrame(() => {
-		const list = pane();
-		if (!list?.animate) return;
+	if (!list?.animate || reducedMotion()) return;
+	// Starts in the frame the list first lays out wider, after the long render,
+	// so none of the reveal is spent before it paints.
+	const observer = new ResizeObserver(() => {
+		if (list.getBoundingClientRect().width <= width) return;
+		observer.disconnect();
 		const style = getComputedStyle(list),
 			token = (name: string, fallback: string) =>
 				style.getPropertyValue(name).trim() || fallback,
-			clip = width ? list.getBoundingClientRect().width - width : 0;
+			duration = width
+				? token('--cz-duration-normal', '250ms')
+				: token('--cz-duration-fast', '150ms');
 		list.animate(
-			clip > 0
-				? { clipPath: [`inset(0 ${clip}px 0 0)`, 'inset(0)'] }
+			width
+				? { clipPath: [`inset(0 calc(100% - ${width}px) 0 0)`, 'inset(0)'] }
 				: { opacity: [0, 1] },
 			{
-				duration: ms(token('--cz-duration-fast', '150ms')),
+				duration: ms(duration),
 				easing: token('--cz-ease-out', 'cubic-bezier(0.16, 1, 0.3, 1)'),
 			},
 		);
 	});
+	observer.observe(list);
+	setTimeout(() => observer.disconnect(), 1000);
 };
 
 /**
@@ -68,7 +73,7 @@ export const switchLayout = ({
 	}
 	if (to === 'overview') {
 		scope.removeAttribute('data-vt-fallback');
-		return revealList(scope, from, update);
+		return revealList(scope, update);
 	}
 	const key = `${from}-${to}`;
 	if (!supportsScopedTransition(scope)) {
