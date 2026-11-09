@@ -79,6 +79,12 @@ export const base = css`
 		font-size: 0;
 		display: flex;
 	}
+	@media (pointer: coarse) {
+		.button-nav::part(button) {
+			min-width: 44px;
+			min-height: 44px;
+		}
+	}
 `;
 
 /**

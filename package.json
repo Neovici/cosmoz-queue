@@ -1,6 +1,6 @@
 {
   "name": "@neovici/cosmoz-queue",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "A reusable queue component for master-detail views with list, split, and queue modes",
   "keywords": [
     "web-components",
@@ -29,7 +29,7 @@
     "lint": "tsc && eslint --cache .",
     "build": "tsc -p tsconfig.build.json",
     "start": "wds",
-    "test": "vitest --run",
+    "test": "vitest --run && npm run test:mobile",
     "test:unit": "vitest --project=unit --run",
     "test:storybook": "vitest --project=storybook --run",
     "test:watch": "vitest",
@@ -40,7 +40,8 @@
     "storybook:deploy": "storybook-to-ghpages",
     "storybook:preview": "npm run storybook:build && http-server -d ./storybook-static/",
     "prepare": "husky",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "test:mobile": "vitest --run --config vitest.mobile.config.ts"
   },
   "publishConfig": {
     "access": "public"
