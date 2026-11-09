@@ -9,14 +9,45 @@ import {
 
 type Ready = () => PromiseLike<unknown> | undefined;
 
+const ms = (v: string) => parseFloat(v) * (v.endsWith('ms') ? 1 : 1000);
+
+/**
+ * Returns to the list without a view transition: its snapshots would hold the
+ * old view (and the detail behind the translucent panes) while the table fits
+ * its columns. The live list instead opens from the width it had beside the
+ * detail, or fades in from Focus.
+ */
+const revealList = (scope: Element, from: string, update: () => void) => {
+	const pane = () => scope.querySelector<HTMLElement>(':scope > #list'),
+		width = from === 'split' ? pane()?.getBoundingClientRect().width : 0;
+	update();
+	if (reducedMotion()) return;
+	// After the render the update schedules, in the frame that first paints it.
+	requestAnimationFrame(() => {
+		const list = pane();
+		if (!list?.animate) return;
+		const style = getComputedStyle(list),
+			token = (name: string, fallback: string) =>
+				style.getPropertyValue(name).trim() || fallback,
+			clip = width ? list.getBoundingClientRect().width - width : 0;
+		list.animate(
+			clip > 0
+				? { clipPath: [`inset(0 ${clip}px 0 0)`, 'inset(0)'] }
+				: { opacity: [0, 1] },
+			{
+				duration: ms(token('--cz-duration-fast', '150ms')),
+				easing: token('--cz-ease-out', 'cubic-bezier(0.16, 1, 0.3, 1)'),
+			},
+		);
+	});
+};
+
 /**
  * Switches the layout from `from` to `to`, animated by the `[data-vt]` rules
  * in the queue style. Without element-scoped view transitions it marks the
  * scope with `data-vt-fallback` for a CSS entrance instead. Leaving the list,
  * the new state waits briefly for `ready`, so the detail doesn't arrive as a
- * loader. Returning to the list switches at once: the table fits its columns
- * to the new width a frame later, so a transition would hold the old view and
- * then show a half-built table.
+ * loader. Returning to the list animates the live list (`revealList`).
  */
 export const switchLayout = ({
 	scope,
@@ -31,9 +62,13 @@ export const switchLayout = ({
 	update: () => void;
 	ready?: Ready;
 }) => {
-	if (!scope || !from || from === to || to === 'overview') {
+	if (!scope || !from || from === to) {
 		scope?.removeAttribute('data-vt-fallback');
 		return update();
+	}
+	if (to === 'overview') {
+		scope.removeAttribute('data-vt-fallback');
+		return revealList(scope, from, update);
 	}
 	const key = `${from}-${to}`;
 	if (!supportsScopedTransition(scope)) {

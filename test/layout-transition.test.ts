@@ -95,16 +95,58 @@ describe('switchLayout', () => {
 		expect(scope.hasAttribute('data-vt-fallback')).toBe(false);
 	});
 
-	it('switches back to the list at once', () => {
+	const withList = () => {
 		const scope = document.createElement('div'),
-			start = withVT(scope),
+			list = scope.appendChild(document.createElement('div')),
+			animate = vi.fn();
+		list.id = 'list';
+		Object.assign(list, { animate });
+		return { scope, list, animate, start: withVT(scope) };
+	};
+	const widths = (list: Element, ...values: number[]) =>
+		vi
+			.spyOn(list, 'getBoundingClientRect')
+			.mockImplementation(() => ({ width: values.shift() }) as DOMRect);
+
+	it('returns to the list without a view transition', () => {
+		const { scope, start } = withList(),
 			update = vi.fn();
 		switchLayout({ scope, from: 'split', to: 'overview', update });
-		switchLayout({ scope, from: 'queue', to: 'overview', update });
-		expect(update).toHaveBeenCalledTimes(2);
+		expect(update).toHaveBeenCalledOnce();
 		expect(start).not.toHaveBeenCalled();
 		expect(scope.hasAttribute('data-vt')).toBe(false);
-		expect(scope.hasAttribute('data-vt-fallback')).toBe(false);
+	});
+
+	it('opens the live list from its width beside the detail', async () => {
+		const { scope, list, animate } = withList();
+		widths(list, 600, 1000);
+		switchLayout({ scope, from: 'split', to: 'overview', update: vi.fn() });
+		expect(animate).not.toHaveBeenCalled();
+		await vi.advanceTimersToNextFrame();
+		expect(animate).toHaveBeenCalledWith(
+			{ clipPath: ['inset(0 400px 0 0)', 'inset(0)'] },
+			expect.objectContaining({ duration: 150 }),
+		);
+	});
+
+	it('fades the list in from focus', async () => {
+		const { scope, animate } = withList();
+		switchLayout({ scope, from: 'queue', to: 'overview', update: vi.fn() });
+		await vi.advanceTimersToNextFrame();
+		expect(animate).toHaveBeenCalledWith(
+			{ opacity: [0, 1] },
+			expect.anything(),
+		);
+	});
+
+	it('does not animate the list under reduced motion', async () => {
+		reduceMotion(true);
+		const { scope, animate } = withList(),
+			update = vi.fn();
+		switchLayout({ scope, from: 'split', to: 'overview', update });
+		await vi.advanceTimersToNextFrame();
+		expect(update).toHaveBeenCalledOnce();
+		expect(animate).not.toHaveBeenCalled();
 	});
 
 	it('does not animate a pick of the active layout', () => {
