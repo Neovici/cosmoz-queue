@@ -1,8 +1,9 @@
 import { array } from '@neovici/cosmoz-utils/array';
-import { memoize } from '@neovici/cosmoz-utils/memoize';
 import { useCallback, useMemo } from '@pionjs/pion';
 import { json } from '../util/fetch/fetch';
+import { cacheDetails } from './cache-details';
 import { useMobile } from './use-mobile';
+import { usePrefetchNeighbours } from './use-prefetch-neighbours';
 
 import { computeSplitAttrs, SplitConfig } from './split';
 import useDataNav, { Opts as UseDataNav } from './use-data-nav';
@@ -43,6 +44,7 @@ const useQNav = <I>({
 	id,
 	api,
 	items,
+	prefetch,
 	...thru
 }: {
 	/**
@@ -59,6 +61,8 @@ const useQNav = <I>({
 	 */
 	api?: (id: string, item: I) => string;
 	items: I[];
+	/** Prefetch the neighbours of the selected item. */
+	prefetch: boolean;
 } & UseDataNav<I>) => {
 	// Deprecation warning
 	/* eslint-disable no-console, no-template-curly-in-string */
@@ -75,12 +79,18 @@ const useQNav = <I>({
 	/* eslint-enable no-console, no-template-curly-in-string */
 
 	const details = useMemo(
-		() => api && memoize((item: I) => json(api(id(item), item))),
+		() => api && cacheDetails((item: I) => json(api(id(item), item))),
 		[id, api],
 	);
 	const pass = useDataNav(items, {
 		...thru,
 		id,
+	});
+	usePrefetchNeighbours({
+		items,
+		item: pass.item,
+		details,
+		enabled: prefetch,
 	});
 	return { ...pass, id, details };
 };
@@ -148,6 +158,7 @@ const useQueue = <I>({
 		items: queueItems,
 		hashParam: idHashParam,
 		maintainSelection: ['queue', 'split'].includes(activeTab),
+		prefetch: activeTab !== 'overview',
 	});
 	const splitAttrs = useMemo(() => computeSplitAttrs(split), [split]);
 	const { item, setItem } = nav;
