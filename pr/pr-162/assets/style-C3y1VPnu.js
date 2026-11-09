@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-CteNyUfS.js";var r,i,a,o=e((()=>{t(),r=n`
+import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-CgrrB-vj.js";var r,i,a,o=e((()=>{t(),r=n`
 	:host {
 		display: flex;
 		flex-direction: column;
@@ -76,6 +76,12 @@ import{t as e}from"./chunk-BvrOYcoh.js";import{t,y as n}from"./haunted-CteNyUfS.
 	.tabn-pagination {
 		font-size: 0;
 		display: flex;
+	}
+	@media (pointer: coarse) {
+		.button-nav::part(button) {
+			min-width: 44px;
+			min-height: 44px;
+		}
 	}
 `,i=n`
 	/* A named pane that hides aborts the transition, so a pane is named only
