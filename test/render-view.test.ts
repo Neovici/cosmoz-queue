@@ -95,13 +95,17 @@ describe('renderSlide', () => {
 });
 
 describe('tab prefetch', () => {
-	const prefetchIn = (layout: string) => {
+	const prefetchIn = (
+		layout: string,
+		prefetchDetails?: (i: Item) => PromiseLike<Item>,
+	) => {
 		const details = vi.fn(() => Promise.resolve(item));
 		const header = vi.fn(() => html``);
 		render(
 			renderQueue<Item, Item>({
 				header,
 				details,
+				prefetchDetails,
 				tabnav: {
 					tabs: [],
 					active: { name: layout, content: '' },
@@ -125,6 +129,14 @@ describe('tab prefetch', () => {
 		const { details, prefetch } = prefetchIn('overview');
 		prefetch!();
 		expect(details).toHaveBeenCalledWith(item);
+	});
+
+	it('loads through prefetchDetails, so opening reuses the request', () => {
+		const prefetchDetails = vi.fn(() => Promise.resolve(item));
+		const { details, prefetch } = prefetchIn('overview', prefetchDetails);
+		prefetch!();
+		expect(prefetchDetails).toHaveBeenCalledWith(item);
+		expect(details).not.toHaveBeenCalled();
 	});
 
 	it('is not offered once the item is open', () => {
