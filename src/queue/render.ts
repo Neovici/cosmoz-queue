@@ -224,7 +224,7 @@ export interface RenderQueue<I, D> extends Pick<
 }
 
 export interface QueuePosition {
-	/** Zero-based index of the selected item. */
+	/** Zero-based index of the selected item among the loaded items, without any page offset. */
 	index: number;
 	count: number;
 	/** True when stepping through checked items rather than the whole list. */

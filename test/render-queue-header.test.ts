@@ -61,7 +61,9 @@ describe('custom queue header', () => {
 	describe('position', () => {
 		const [a, b, c] = ['1', '2', '3'].map((id) => ({ id, title: id }));
 		const position = (navItems: Item[], item?: Item) => {
-			const header = vi.fn(() => html``);
+			const header = vi.fn<NonNullable<RenderQueue<Item, Item>['header']>>(
+				() => html``,
+			);
 			render(
 				renderQueue({
 					...view('split', item),
@@ -76,8 +78,7 @@ describe('custom queue header', () => {
 				}),
 				document.createElement('div'),
 			);
-			return (header.mock.lastCall as unknown as [{ position?: unknown }])[0]
-				.position;
+			return header.mock.lastCall?.[0].position;
 		};
 
 		it('counts the whole list when nothing is checked', () => {
