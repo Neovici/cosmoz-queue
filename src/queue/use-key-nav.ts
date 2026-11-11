@@ -52,6 +52,16 @@ export default ({
 			if (e.defaultPrevented) {
 				return;
 			}
+			// Arrow keys in an open menu, like an omnitable row menu, move between its items.
+			if (
+				e
+					.composedPath()
+					.some(
+						(el) => el instanceof Element && el.getAttribute('role') === 'menu',
+					)
+			) {
+				return;
+			}
 			const { key } = e,
 				{ next, prev, activeTab } = meta;
 			switch (true) {
