@@ -200,6 +200,11 @@ export interface RenderQueue<I, D> extends Pick<
 		totalAvailable?: number;
 		/** Currently selected list item. */
 		item?: I;
+		/**
+		 * Where the selected item sits among the items the queue steps
+		 * through: the checked items when some are checked, else the list.
+		 */
+		position?: QueuePosition;
 		/** Hash parameter controlling the layout. */
 		tabHashParam?: string;
 	}) => TemplateResult;
@@ -215,8 +220,25 @@ export interface RenderQueue<I, D> extends Pick<
 	splitAttrs?: { initialSize?: string; minSize?: string };
 	tabnav: RenderTabs<Tab>;
 	nav: Omit<RenderSlide<I, D>, 'renderItem' | 'renderLoader' | 'details'> &
-		Pick<RenderView<I, D>, 'details'> & { index: number };
+		Pick<RenderView<I, D>, 'details'> & { index: number; items?: I[] };
 }
+
+export interface QueuePosition {
+	/** Zero-based index of the selected item. */
+	index: number;
+	count: number;
+	/** True when stepping through checked items rather than the whole list. */
+	selection: boolean;
+}
+
+const positionOf = <I>(
+	nav: { index: number; items?: I[] } | undefined,
+	items: I[],
+): QueuePosition | undefined => {
+	const count = nav?.items?.length ?? 0;
+	if (!nav || nav.index < 0 || count === 0) return undefined;
+	return { index: nav.index, count, selection: count !== items.length };
+};
 
 export const renderQueue = <I, D>({
 	header,
@@ -269,6 +291,7 @@ export const renderQueue = <I, D>({
 					afterHeading,
 					totalAvailable,
 					item: nav?.item,
+					position: positionOf(nav, items),
 					tabHashParam,
 				}),
 			() => tabn,
