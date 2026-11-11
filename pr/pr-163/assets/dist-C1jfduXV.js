@@ -1,4 +1,4 @@
-import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,n,o as r,t as i}from"./lit-html-BZ3vufxv.js";import{b as a,f as o,g as s,m as c,n as l,p as u,t as d,u as f,y as p}from"./haunted-DXYze2L-.js";import{a as m,c as h,i as g,l as _,o as v,r as y,s as b,u as x}from"./i18next-bbmeZtQ4.js";var S,C=e((()=>{b(),d(),r(),S=p`
+import{t as e}from"./chunk-BvrOYcoh.js";import{a as t,n,o as r,t as i}from"./lit-html-BZ3vufxv.js";import{b as a,f as o,g as s,m as c,n as l,p as u,t as d,u as f,y as p}from"./haunted-Bp1jxpd6.js";import{a as m,c as h,i as g,l as _,o as v,r as y,s as b,u as x}from"./i18next-DE9LZv0z.js";var S,C=e((()=>{b(),d(),r(),S=p`
 	:host {
 		display: flex;
 		flex-direction: column;
