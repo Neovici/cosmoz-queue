@@ -58,6 +58,50 @@ describe('custom queue header', () => {
 		}
 	});
 
+	describe('position', () => {
+		const [a, b, c] = ['1', '2', '3'].map((id) => ({ id, title: id }));
+		const position = (navItems: Item[], item?: Item) => {
+			const header = vi.fn<NonNullable<RenderQueue<Item, Item>['header']>>(
+				() => html``,
+			);
+			render(
+				renderQueue({
+					...view('split', item),
+					items: [a, b, c],
+					nav: {
+						id: (i) => i.id,
+						item: item!,
+						items: navItems,
+						index: item ? navItems.indexOf(item) : -1,
+					},
+					header,
+				}),
+				document.createElement('div'),
+			);
+			return header.mock.lastCall?.[0].position;
+		};
+
+		it('counts the whole list when nothing is checked', () => {
+			expect(position([a, b, c], b)).toEqual({
+				index: 1,
+				count: 3,
+				selection: false,
+			});
+		});
+
+		it('counts only the checked items when some are checked', () => {
+			expect(position([a, c], c)).toEqual({
+				index: 1,
+				count: 2,
+				selection: true,
+			});
+		});
+
+		it('is left out while no item is selected', () => {
+			expect(position([a, b, c])).toBeUndefined();
+		});
+	});
+
 	it('labels the split handle so hovering it explains the drag', () => {
 		const host = document.createElement('div');
 		render(renderQueue(view('split')), host);
