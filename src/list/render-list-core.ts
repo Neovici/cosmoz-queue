@@ -28,6 +28,8 @@ export interface RenderListCoreProps<TItem extends object> {
 	content?: (opts: { selectedItems: TItem[] }) => Renderable;
 	compareItemsFn?: (a: TItem, b: TItem) => boolean;
 	rowPartFn?: (item: TItem, index: number) => string | undefined;
+	/** Renders a row's action menu content for the rows it acts on. */
+	rowMenu?: (items: TItem[]) => unknown;
 }
 
 export interface RenderListCore<TColumns extends Columns, TItem extends object>
@@ -74,6 +76,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 	loadMore,
 	compareItemsFn,
 	rowPartFn,
+	rowMenu,
 }: RenderListCore<TColumns, TItem>) => [
 	html`<cosmoz-omnitable
 		id="omnitable"
@@ -94,6 +97,7 @@ export const renderListCore = <TColumns extends Columns, TItem extends object>({
 		.settingsId=${settingsId}
 		exportparts=${exposedParts}
 		.rowPartFn=${rowPartFn}
+		.rowMenu=${rowMenu}
 		@visible-data-changed=${lift(setVisibleItems)}
 		@filters-changed=${lift(setFilters)}
 		.selectedItems=${selectedItems}
